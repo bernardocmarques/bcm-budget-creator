@@ -1,0 +1,24 @@
+<li class="relative">
+  <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-indigo" #toggleBtn
+    (click)="this.isNotificationsMenuOpen = !this.isNotificationsMenuOpen" aria-label="Notifications" aria-haspopup="true">
+
+    <i data-eva="bell" class="w-5 h-5 fill-current"></i>
+
+    <!-- Badge -->
+    <span *ngIf="hasNotifications()" aria-hidden="true" class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-pink-500 border-2 border-white rounded-full dark:border-gray-800"></span>
+  </button>
+
+  <!-- Menu -->
+  <ul class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-700"
+      [@appear]="isNotificationsMenuOpen ? 'opened' : 'closed'" #menu>
+
+    <li *ngFor="let item of notificationsMenu" class="flex">
+      <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+         routerLink="{{item.link}}">
+        <span>{{item.name}}</span>
+        <span *ngIf="item.count > 0" class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-pink-500 bg-pink-50 rounded-full dark:text-pink-100 dark:bg-pink-500">{{item.count}}</span>
+      </a>
+    </li>
+
+  </ul>
+</li>

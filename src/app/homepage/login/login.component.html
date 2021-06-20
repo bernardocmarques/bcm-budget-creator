@@ -1,0 +1,115 @@
+<div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+  <div class="relative flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
+
+    <!-- Close -->
+    <div class="absolute top-3 right-3 text-cool-gray-400 hover:text-cool-gray-500 cursor-pointer"
+         (click)="router.navigate(['/'])">
+      <i data-eva="close" class="fill-current"></i>
+    </div>
+
+    <div class="flex flex-col overflow-y-auto md:flex-row">
+
+      <!--Image -->
+      <div class="h-32 md:h-auto md:w-1/2">
+        <img
+          class="object-cover w-full h-full"
+          src="assets/imgs/login.jpg"
+          alt="Bubbles"
+        />
+      </div>
+
+      <!-- Content -->
+      <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+        <div class="w-full">
+          <!-- Logo -->
+          <a class="mb-10 text-center block text-3xl text-indigo-800 dark:text-indigo-300" routerLink="/">
+            Budget Creator
+          </a>
+
+          <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
+            Login
+          </h1>
+
+          <form #f="ngForm" (submit)="onSubmit()">
+            <!-- E-mail -->
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400">E-mail <span class="text-sm text-pink-500 font-medium">*</span></span>
+              <input
+                type="email"
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none focus:shadow-outline-indigo dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                id="emailInput"
+                name="emailInput"
+                [(ngModel)]="email"
+                #emailInput="ngModel"
+                [ngClass]="{'border-pink-500 dark:border-pink-500 focus:border-pink-400 focus:shadow-outline-pink dark:focus:shadow-outline-pink': f.submitted && emailInput.invalid}"
+                placeholder="exemplo@email.com"
+                required autofocus
+              />
+              <div *ngIf="f.submitted && emailInput.invalid" class="mt-1.5 text-pink-500 text-xs font-medium">
+                <span *ngIf="emailInput.errors.required">An e-mail address is required</span>
+              </div>
+            </label>
+
+
+            <!-- Password -->
+            <label class="block mt-4 text-sm">
+              <span class="text-gray-700 dark:text-gray-400">Password <span class="text-sm text-pink-500 font-medium">*</span></span>
+              <input
+                type="password"
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none focus:shadow-outline-indigo dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                id="passwordInput"
+                name="passwordInput"
+                [(ngModel)]="password"
+                #passwordInput="ngModel"
+                [ngClass]="{'border-pink-500 dark:border-pink-500 focus:border-pink-400 focus:shadow-outline-pink dark:focus:shadow-outline-pink': f.submitted && passwordInput.invalid}"
+                placeholder="***************"
+                required
+              />
+              <div *ngIf="f.submitted && passwordInput.invalid" class="mt-1.5 text-pink-500 text-xs font-medium">
+                <span *ngIf="passwordInput.errors.required">Password is required</span>
+              </div>
+            </label>
+
+            <button class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-indigo-500 border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo"
+                    type="submit">
+              Login
+            </button>
+          </form>
+
+          <hr class="my-8" />
+
+          <!-- Facebook -->
+          <button class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white text-gray-700
+          transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent
+          hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                  (click)="loginWithFacebook()">
+            <i data-eva="facebook" class="w-5 h-5 mr-2 fill-current"></i>
+            Facebook
+          </button>
+
+          <!-- Google -->
+          <button class="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-white text-gray-700
+          transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent
+          hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                  (click)="loginWithGoogle()">
+            <i data-eva="google" class="w-4 h-4 mr-2 fill-current"></i>
+            Google
+          </button>
+
+          <p class="mt-4">
+            <a class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline" routerLink="/forgot-password">
+              Forgot password?
+            </a>
+          </p>
+
+          <p class="mt-1">
+            <a class="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline" routerLink="/create-account">
+              Create account
+            </a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

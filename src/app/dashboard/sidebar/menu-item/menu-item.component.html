@@ -1,0 +1,43 @@
+<li *ngIf="!items" class="relative px-6 py-3">
+
+  <span *ngIf="router.isActive('/dashboard/' + route, true)"
+        class="absolute inset-y-0 left-0 w-1 bg-indigo-500 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+
+  <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150
+            hover:text-gray-800 dark:hover:text-gray-200"
+     routerLink="./{{route}}" routerLinkActive="text-gray-800 dark:text-gray-100">
+
+    <i [attr.data-eva]="icon" class="w-5 h-5 fill-current"></i>
+    <span class="ml-4">{{label}}</span>
+
+  </a>
+
+</li>
+
+<li *ngIf="items" class="relative px-6 py-3">
+
+  <span *ngIf="isActive()"
+        class="absolute inset-y-0 left-0 w-1 bg-indigo-500 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+
+  <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150
+                 hover:text-gray-800 dark:hover:text-gray-200" (click)="toggleMenu($event)" aria-haspopup="true">
+
+    <span class="inline-flex items-center">
+      <i [attr.data-eva]="icon" class="w-5 h-5 fill-current"></i>
+      <span class="ml-4">{{label}}</span>
+    </span>
+    <i data-eva="chevron-down" class="w-5 h-5 fill-current"></i>
+
+  </button>
+
+  <ul class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50
+      dark:text-gray-400 dark:bg-gray-900" aria-label="submenu"
+      [@grow]="isMenuOpen ? 'opened' : 'closed'">
+
+    <li *ngFor="let item of items" class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+      <a class="w-full" routerLink="./{{item.route}}">{{item.label}}</a>
+    </li>
+
+  </ul>
+
+</li>
