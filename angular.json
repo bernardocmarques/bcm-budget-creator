@@ -11,7 +11,7 @@
         },
         "@schematics/angular:component": {
           "inlineStyle": true,
-          "skipTests": true,
+          "skipTests": true
         },
         "@schematics/angular:class": {
           "skipTests": true
@@ -52,6 +52,7 @@
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
               "node_modules/eva-icons/eva.min.js"
             ]
           },

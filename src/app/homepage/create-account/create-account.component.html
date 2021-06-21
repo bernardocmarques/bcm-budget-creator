@@ -1,1 +1,161 @@
-<p>create-account works!</p>
+<div class="flex items-center min-h-screen p-6 bg-gray-50 dark:bg-gray-900">
+  <div class="relative flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl dark:bg-gray-800">
+
+    <!-- Close -->
+    <div class="absolute top-3 right-3 text-cool-gray-400 hover:text-cool-gray-500 cursor-pointer"
+         (click)="router.navigate(['/'])">
+      <i data-eva="close" class="fill-current"></i>
+    </div>
+
+    <div class="flex flex-col overflow-y-auto md:flex-row">
+
+      <!-- Image -->
+      <div class="h-32 md:h-auto md:w-1/2">
+        <img
+          class="object-cover w-full h-full"
+          src="assets/imgs/create-account.jpeg"
+          alt="create account"
+        />
+      </div>
+
+      <!-- Content -->
+      <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+        <div class="w-full">
+          <!-- Logo -->
+          <a class="mb-10 flex items-center justify-center text-2xl font-bold text-indigo-900 dark:text-indigo-200" routerLink="/">
+            <img class="hidden dark:block w-6 mr-2" src="assets/logo-light.svg" alt="logo">
+            <img class="dark:hidden w-6 mr-2" src="assets/logo.svg" alt="logo">
+            Budget Creator
+          </a>
+
+          <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
+            Create account
+          </h1>
+
+          <form #f="ngForm" (submit)="onSubmit()">
+            <!-- E-mail -->
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400">E-mail <span class="text-sm text-pink-500 font-medium">*</span></span>
+              <input
+                type="email"
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none focus:shadow-outline-indigo dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                id="emailInput"
+                name="emailInput"
+                [(ngModel)]="email"
+                #emailInput="ngModel"
+                [ngClass]="{'border-pink-500 dark:border-pink-500 focus:border-pink-400 focus:shadow-outline-pink dark:focus:shadow-outline-pink': f.submitted && emailInput.invalid}"
+                placeholder="exemple@email.com"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                required autofocus
+              />
+              <div *ngIf="f.submitted && emailInput.invalid" class="mt-1.5 text-pink-500 text-xs font-medium">
+                <span *ngIf="emailInput.errors.required">An e-mail address is required</span>
+                <span *ngIf="emailInput.errors.pattern">E-mail address is not valid</span>
+              </div>
+            </label>
+
+            <!-- Password -->
+            <label class="block mt-4 text-sm">
+              <span class="text-gray-700 dark:text-gray-400">Password <span class="text-sm text-pink-500 font-medium">*</span></span>
+              <input
+                type="password"
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none focus:shadow-outline-indigo dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                id="passwordInput"
+                name="passwordInput"
+                [(ngModel)]="password"
+                #passwordInput="ngModel"
+                [ngClass]="{'border-pink-500 dark:border-pink-500 focus:border-pink-400 focus:shadow-outline-pink dark:focus:shadow-outline-pink': f.submitted && passwordInput.invalid}"
+                placeholder="***************"
+                minlength="8"
+                required
+              />
+              <div *ngIf="f.submitted && passwordInput.invalid" class="mt-1.5 text-pink-500 text-xs font-medium">
+                <span *ngIf="passwordInput.errors.required">An e-mail address is required</span>
+                <span *ngIf="passwordInput.errors.minLength">Password must be at least 8 characters long</span>
+              </div>
+            </label>
+
+            <label class="block mt-4 text-sm">
+              <span class="text-gray-700 dark:text-gray-400">Confirm password <span class="text-sm text-pink-500 font-medium">*</span></span>
+              <input
+                type="password"
+                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none focus:shadow-outline-indigo dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                id="confirmPasswordInput"
+                name="confirmPasswordInput"
+                [(ngModel)]="confirmPassword"
+                #confirmPasswordInput="ngModel"
+                [ngClass]="{'border-pink-500 dark:border-pink-500 focus:border-pink-400 focus:shadow-outline-pink dark:focus:shadow-outline-pink': f.submitted && confirmPasswordInput.invalid}"
+                placeholder="***************"
+                minlength="8"
+                required
+              />
+              <div *ngIf="f.submitted && confirmPasswordInput.invalid" class="mt-1.5 text-pink-500 text-xs font-medium">
+                <span *ngIf="confirmPasswordInput.errors.required">Password confirmation is required</span>
+                <span *ngIf="confirmPasswordInput.errors.minLength">Password must be at least 8 characters long</span>
+                <span *ngIf="confirmPasswordInput.errors.doNotMatch">Passwords do not match</span>
+              </div>
+            </label>
+
+            <!-- Termos & Condições -->
+            <div class="mt-6 text-sm">
+              <label class="flex items-center dark:text-gray-400">
+                <input
+                  type="checkbox"
+                  class="text-indigo-500 form-checkbox focus:border-indigo-400 focus:outline-none focus:shadow-outline-indigo dark:focus:shadow-outline-gray"
+                  id="termsCheck"
+                  name="termsCheck"
+                  [(ngModel)]="terms"
+                  #termsCheck="ngModel"
+                  [ngClass]="{'border-pink-500 dark:border-pink-500 focus:border-pink-400 focus:shadow-outline-pink dark:focus:shadow-outline-pink': f.submitted && termsCheck.invalid}"
+                  required
+                />
+                <span class="ml-2">
+                      I accept the
+                      <a href="#"><span class="underline">Terms & Conditions</span><span class="no-underline text-sm text-pink-500 font-medium"> *</span></a>
+                    </span>
+              </label>
+              <div *ngIf="f.submitted && termsCheck.invalid" class="mt-1.5 text-pink-500 text-xs font-medium">
+                <span *ngIf="termsCheck.errors.required">You must accept Terms & Conditions</span>
+              </div>
+            </div>
+
+            <button class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-indigo-500 border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo"
+                    type="submit">
+              Create account
+            </button>
+
+          </form>
+
+          <hr class="my-8" />
+
+          <!-- Facebook -->
+          <button class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white text-gray-700
+            transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent
+            hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                  (click)="createAccountWithFacebook()">
+            <i data-eva="facebook" class="w-5 h-5 mr-2 fill-current"></i>
+            Facebook
+          </button>
+
+          <!-- Google -->
+          <button class="flex items-center justify-center w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-white text-gray-700
+            transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 active:bg-transparent
+            hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray"
+                  (click)="createAccountWithGoogle()">
+
+            <i data-eva="google" class="w-4 h-4 mr-2 fill-current"></i>
+            Google
+          </button>
+
+          <p class="mt-4">
+            <a class="text-sm font-medium text-indigo-500 dark:text-indigo-400 hover:underline"
+               routerLink="/login">
+              Already have an account? Login
+            </a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

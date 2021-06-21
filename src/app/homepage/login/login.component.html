@@ -9,12 +9,12 @@
 
     <div class="flex flex-col overflow-y-auto md:flex-row">
 
-      <!--Image -->
+      <!-- Image -->
       <div class="h-32 md:h-auto md:w-1/2">
         <img
           class="object-cover w-full h-full"
           src="assets/imgs/login.jpg"
-          alt="Bubbles"
+          alt="login"
         />
       </div>
 
@@ -22,7 +22,9 @@
       <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
         <div class="w-full">
           <!-- Logo -->
-          <a class="mb-10 text-center block text-3xl text-indigo-800 dark:text-indigo-300" routerLink="/">
+          <a class="mb-10 flex items-center justify-center text-2xl font-bold text-indigo-900 dark:text-indigo-200" routerLink="/">
+            <img class="hidden dark:block w-6 mr-2" src="assets/logo-light.svg" alt="logo">
+            <img class="dark:hidden w-6 mr-2" src="assets/logo.svg" alt="logo">
             Budget Creator
           </a>
 
@@ -42,7 +44,7 @@
                 [(ngModel)]="email"
                 #emailInput="ngModel"
                 [ngClass]="{'border-pink-500 dark:border-pink-500 focus:border-pink-400 focus:shadow-outline-pink dark:focus:shadow-outline-pink': f.submitted && emailInput.invalid}"
-                placeholder="exemplo@email.com"
+                placeholder="exemple@email.com"
                 required autofocus
               />
               <div *ngIf="f.submitted && emailInput.invalid" class="mt-1.5 text-pink-500 text-xs font-medium">
