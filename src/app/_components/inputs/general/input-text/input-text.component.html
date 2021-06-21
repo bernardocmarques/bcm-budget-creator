@@ -1,0 +1,32 @@
+<div class="text-sm" [ngClass]="classList">
+  <!-- Label -->
+  <label *ngIf="label" class="text-gray-700 dark:text-gray-400 mb-1">{{label}}</label>
+
+  <!-- Input -->
+  <input
+    type="text"
+    id="{{id}}"
+    name="{{id}}"
+    class="block w-full dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none
+          focus:shadow-outline-indigo dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+    placeholder="{{placeholder}}"
+    [(ngModel)]="value"
+    (ngModelChange)="valueChange.emit(value)"
+    [pattern]="pattern"
+    [required]="required"
+    [minlength]="minLength"
+    [maxlength]="maxLength"
+    [disabled]="disabled"
+    #inputText="ngModel"
+    [ngClass]="{ 'border-red-600 focus:border-red-400 focus:shadow-outline-red': form && form.submitted && inputText.invalid}"
+  />
+
+  <!-- Error Messages -->
+  <div *ngIf="form && form.submitted && inputText.invalid" class="text-xs text-red-600 dark:text-red-400">
+    <span *ngIf="inputText.errors.pattern">{{patternErrorMessage}}</span>
+    <span *ngIf="inputText.errors.required">{{requiredErrorMessage}}</span>
+    <span *ngIf="inputText.errors.minlength">{{minLengthErrorMessage}}</span>
+    <span *ngIf="inputText.errors.maxlength">{{maxLengthErrorMessage}}</span>
+  </div>
+
+</div>

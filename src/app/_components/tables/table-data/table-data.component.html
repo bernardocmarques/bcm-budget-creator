@@ -1,0 +1,80 @@
+<td *ngIf="type === tableDataType.TEXT" class="px-4 py-3 text-sm">
+  {{text}}
+</td>
+
+<td *ngIf="type === tableDataType.MONEY" class="px-4 py-3 text-sm">
+  {{formatMoney(money)}} €
+</td>
+
+<td *ngIf="type === tableDataType.AVATAR_ONLY" class="px-4 py-3">
+
+  <!-- Avatar with inset shadow -->
+  <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+    <img
+      class="object-cover w-full h-full rounded-full"
+      src="{{avatarSrc}}"
+      alt="avatar"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+  </div>
+
+</td>
+
+<td *ngIf="type === tableDataType.AVATAR_1LINE" class="px-4 py-3">
+  <div class="flex items-center text-sm">
+
+    <!-- Avatar with inset shadow -->
+    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+      <img
+        class="object-cover w-full h-full rounded-full"
+        src="{{avatarSrc}}"
+        alt="avatar"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+    </div>
+
+    <!-- Name -->
+    <p class="font-semibold">{{avatarName}}</p>
+
+  </div>
+</td>
+
+<td *ngIf="type === tableDataType.AVATAR_2LINES" class="px-4 py-3">
+  <div class="flex items-center text-sm">
+
+    <!-- Avatar with inset shadow -->
+    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+      <img
+        class="object-cover w-full h-full rounded-full"
+        src="{{avatarSrc}}"
+        alt="avatar"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+    </div>
+
+    <div>
+      <!-- Name -->
+      <p class="font-semibold">{{avatarName}}</p>
+
+      <!-- Text -->
+      <p class="text-xs text-gray-600 dark:text-gray-400">
+        {{avatarText}}
+      </p>
+    </div>
+
+  </div>
+</td>
+
+<td *ngIf="type === tableDataType.PILL" class="px-4 py-3 text-xs">
+  <span class="px-2 py-1 font-semibold leading-tight text-{{pillColor}}-700 bg-{{pillColor}}-100 rounded-full
+              dark:bg-{{pillColor}}-700 dark:text-{{pillColor}}-100">
+    {{pillText}}
+  </span>
+</td>
+
+<td *ngIf="type === tableDataType.DATE" class="px-4 py-3 text-sm">
+  {{date.toLocaleDateString()}}
+</td>

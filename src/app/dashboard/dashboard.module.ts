@@ -18,6 +18,7 @@ import {ThemeTogglerComponent} from "./navbar/theme-toggler/theme-toggler.compon
 import {NotificationsComponent} from "./navbar/notifications/notifications.component";
 import {ProfileComponent} from "./navbar/profile/profile.component";
 import {FormsModule} from "@angular/forms";
+import {SharedModule} from "../_components/shared.module";
 
 
 @NgModule({
@@ -38,10 +39,11 @@ import {FormsModule} from "@angular/forms";
     NotificationsComponent,
     ProfileComponent
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        FormsModule,
+        SharedModule
+    ]
 })
 export class DashboardModule { }

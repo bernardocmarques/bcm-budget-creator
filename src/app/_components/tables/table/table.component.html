@@ -1,0 +1,52 @@
+<div class="w-full overflow-hidden rounded-lg shadow-xs {{style}}">
+
+  <!-- Table -->
+  <div class="w-full overflow-x-auto">
+    <table class="w-full">
+
+      <!-- Table: header -->
+      <thead>
+        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+          <th *ngFor="let header of headers; let i = index" class="px-4 py-3">
+            <div class="flex items-center">
+              {{header.label}}
+              <app-btn-sort
+                [sort]="i === columnSortIndex ? sort : null"
+                (btnClicked)="sortColumn($event, i)"></app-btn-sort>
+            </div>
+
+            <app-input-text
+              [placeholder]="'Filter...'"
+              [id] = "'filter-' + header.label"
+              [(value)] = "header.value"
+              [classList]="'mt-2'"
+            ></app-input-text>
+
+          </th>
+        </tr>
+      </thead>
+
+      <!-- Table: body -->
+      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+        <tr *ngFor="let tr of divideIntoPages()" class="whitespace-nowrap text-gray-700 dark:text-gray-400">
+          <td table-data *ngFor="let td of tr"
+            [type]="td.type"
+            [data]="td.content">
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <!-- Navigation -->
+  <ng-container *ngIf="hasNavigation">
+    <app-pagination
+      [dataLength]="data.length"
+      [totalPages]="totalPages"
+      [step]="step"
+      (currentPageChanged)="currentPage = $event">
+    </app-pagination>
+  </ng-container>
+
+</div>

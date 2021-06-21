@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ThemeDarkService} from "../../../_services/theme-dark.service";
 
 @Component({
   selector: 'app-theme-toggler',
@@ -6,11 +7,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ThemeTogglerComponent implements OnInit {
 
-  darkTheme = this.getThemeFromLocalStorage();
+  darkTheme = this.darkThemeService.getThemeFromLocalStorage();
 
-  constructor() {
+  constructor(private darkThemeService: ThemeDarkService) {
     if (this.darkTheme)
-      document.querySelector('html').classList.toggle('theme-dark');
+      document.querySelector('html').classList.add('theme-dark');
   }
 
   ngOnInit(): void {
@@ -19,20 +20,7 @@ export class ThemeTogglerComponent implements OnInit {
   toggleTheme(): void {
     this.darkTheme = !this.darkTheme;
     document.querySelector('html').classList.toggle('theme-dark');
-    this.setThemeToLocalStorage(this.darkTheme);
-  }
-
-  getThemeFromLocalStorage(): boolean {
-    // if user already changed the theme, use it
-    if (window.localStorage.getItem('dark'))
-      return JSON.parse(window.localStorage.getItem('dark'));
-
-    // else return their preferences
-    return (!!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  }
-
-  setThemeToLocalStorage(value): void {
-    window.localStorage.setItem('dark', value);
+    this.darkThemeService.setThemeToLocalStorage(this.darkTheme);
   }
 
 }

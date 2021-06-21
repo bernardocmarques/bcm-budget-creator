@@ -1,9 +1,9 @@
 <!-- Backdrop [mobile] -->
-<div *ngIf="mobileView" class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
+<div *ngIf="mobileView && isSidebarOpen" class="fixed inset-0 z-10 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center"
      [@fade]="isSidebarOpen ? 'final' : 'initial'"></div>
 
 <!-- Sidebar -->
-<aside id="sidebar" class="h-full z-20 w-64 overflow-y-auto bg-white dark:bg-gray-800 flex-shrink-0"
+<aside *ngIf="isSidebarOpen" id="sidebar" class="h-full z-20 w-64 overflow-y-auto bg-white dark:bg-gray-800 flex-shrink-0"
        [ngClass]="{'relative': !mobileView, 'fixed inset-y-0 mt-16': mobileView,
                     'md:block': isSidebarOpen, 'md:hidden': !isSidebarOpen}"
        [@slideFromLeft]="isSidebarOpen ? 'opened' : 'closed'">
@@ -20,7 +20,7 @@
     <!-- Menu -->
     <ul class="mt-6">
       <app-menu-item
-        [label]="'Homepage'"
+        [label]="'Dashboard'"
         [icon]="'home-outline'"
         [route]="'main'">
       </app-menu-item>
@@ -43,8 +43,7 @@
         [items]="[
           {label: 'Create budget', route: 'budget/add'},
           {label: 'Manage budgets', route: 'budget/manage'}
-        ]"
-        [routes]="['budget/add', 'budget/manage']">
+        ]">
       </app-menu-item>
 
       <app-menu-item

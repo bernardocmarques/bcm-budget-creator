@@ -6,6 +6,7 @@ import * as eva from 'eva-icons';
 
 import {AlertService} from "../../_util/alert.service";
 import {FirebaseAuthService} from "../../_services/firebase-auth.service";
+import {ThemeDarkService} from "../../_services/theme-dark.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import {FirebaseAuthService} from "../../_services/firebase-auth.service";
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
-  darkTheme = this.getThemeFromLocalStorage();
+  darkTheme = this.darkThemeService.getThemeFromLocalStorage();
 
   email: string;
   password: string;
@@ -25,11 +26,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
   constructor(
     private alertService: AlertService,
     public firebaseAuthService: FirebaseAuthService,
-    public router: Router
+    public router: Router,
+    private darkThemeService: ThemeDarkService
   ) {
     if (this.darkTheme)
       document.querySelector('html').classList.add('theme-dark');
-    this.setThemeToLocalStorage(this.darkTheme);
+    this.darkThemeService.setThemeToLocalStorage(this.darkTheme);
   }
 
   ngOnInit(): void {
@@ -52,19 +54,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   async loginWithFacebook(): Promise<void> {
     // TODO
-  }
-
-  getThemeFromLocalStorage(): boolean {
-    // if user already changed the theme, use it
-    if (window.localStorage.getItem('dark'))
-        return JSON.parse(window.localStorage.getItem('dark'));
-
-    // else return their preferences
-    return (!!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  }
-
-  setThemeToLocalStorage(value): void {
-    window.localStorage.setItem('dark', value);
   }
 
 }

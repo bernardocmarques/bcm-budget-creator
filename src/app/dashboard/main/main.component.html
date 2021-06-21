@@ -1,1 +1,65 @@
-<p>main works!</p>
+<main>
+  <div class="container px-6 mx-auto">
+
+    <!-- Title -->
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      Dashboard
+    </h2>
+
+    <!-- CTA -->
+    <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-indigo-100 bg-indigo-500
+              rounded-lg shadow-md focus:outline-none focus:shadow-outline-indigo"
+      href="https://github.com/bernardocmarques/bcm-budget-creator" target="_blank">
+      <div class="flex items-center">
+        <i [attr.data-eva]="'star'" class="w-5 h-5 fill-current mr-2"></i>
+        <span>Star this project on GitHub</span>
+      </div>
+      <span class="flex items-center">View more <i [attr.data-eva]="'arrow-forward'" class="w-5 h-5 fill-current ml-1"></i></span>
+    </a>
+
+    <!-- Cards -->
+    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+
+      <app-card
+        [iconSVG]="completedSVG"
+        [color]="'orange'"
+        [title]="'Projects completed'"
+        [subtitle]="'23'">
+      </app-card>
+
+      <app-card
+        [iconSVG]="moneySVG"
+        [color]="'green'"
+        [title]="'Earnings'"
+        [subtitle]="'46,760.89' + ' €'">
+      </app-card>
+
+      <app-card
+        [iconSVG]="peopleSVG"
+        [color]="'teal'"
+        [title]="'Total clients'"
+        [subtitle]="'5'">
+      </app-card>
+
+      <app-card
+        [icon]="'clock'"
+        [color]="'pink'"
+        [title]="'Pending payments'"
+        [subtitle]="'3'">
+      </app-card>
+
+    </div>
+
+    <!-- Recent Activity Table -->
+    <app-table
+      [style]="'mb-8'"
+      [headers]="headers"
+      [data]="data"
+      [step]="10"
+      [hasNavigation]="true"
+      [defaultSort]="-1"
+      [defaultColumnSortIndex]="4">
+    </app-table>
+
+  </div>
+</main>

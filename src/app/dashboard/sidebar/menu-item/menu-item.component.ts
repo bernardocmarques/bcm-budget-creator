@@ -29,13 +29,16 @@ export class MenuItemComponent implements OnInit, AfterViewInit {
   @Input() icon: string;
   @Input() route: string;
   @Input() items: {label: string, route: string}[];
-  @Input() routes: string[];
+
+  routes?: string[] = [];
 
   isMenuOpen = false;
 
   constructor(public router: Router) { }
 
   ngOnInit(): void {
+    if (this.items)
+      this.items.forEach(item => this.routes.push(item.route));
   }
 
   ngAfterViewInit(): void {

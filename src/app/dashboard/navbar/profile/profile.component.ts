@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
-import {User} from '../../../_domain/User';
+import {User} from '../../../_domain/user';
 import {FirebaseAuthService} from "../../../_services/firebase-auth.service";
 
 @Component({

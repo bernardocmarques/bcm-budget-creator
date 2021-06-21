@@ -1,0 +1,55 @@
+<div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+
+  <!-- Left text -->
+  <span class="flex items-center col-span-3">
+      Showing {{currentPage * step + 1}}-{{min(currentPage * step + step, dataLength)}} of {{formatNumber(dataLength)}}
+    </span>
+  <span class="col-span-2"></span>
+
+  <!-- Pagination -->
+  <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end justify-center">
+      <nav aria-label="Table navigation">
+        <ul class="inline-flex items-center">
+
+          <!-- Previous btn -->
+          <li>
+            <button class="pr-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-indigo"
+                    aria-label="Previous" (click)="changePage(-1)">
+              <i [attr.data-eva]="'chevron-left'" class="w-5 h-5 fill-current"></i>
+            </button>
+          </li>
+
+          <!-- Pages -->
+          <li *ngFor="let rep of [].constructor(getNumberOfPagesLeft()); let i = index">
+            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-indigo"
+                    [ngClass]="{'text-white transition-colors duration-150 bg-indigo-600 border border-r-0 border-indigo-600': currentPage === getPageNumber(i, -1)}"
+                    (click)="changePageTo(getPageNumber(i, -1))">
+              {{getPageNumber(i, -1) + 1}}
+            </button>
+          </li>
+
+          <li *ngIf="hasDivider()"><span class="px-3 py-1">...</span></li>
+
+          <ng-container *ngIf="hasDivider()">
+            <li *ngFor="let rep of [].constructor(getNumberOfPagesRight()); let i = index">
+              <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-indigo"
+                      [ngClass]="{'text-white transition-colors duration-150 bg-indigo-600 border border-r-0 border-indigo-600': currentPage === getPageNumber(i, 1)}"
+                      (click)="changePageTo(getPageNumber(i, 1))">
+                {{getPageNumber(i, 1) + 1}}
+              </button>
+            </li>
+          </ng-container>
+
+          <!-- Next btn -->
+          <li>
+            <button class="pl-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-indigo"
+                    aria-label="Next" (click)="changePage(1)">
+              <i [attr.data-eva]="'chevron-right'" class="w-5 h-5 fill-current"></i>
+            </button>
+          </li>
+
+        </ul>
+      </nav>
+    </span>
+
+</div>

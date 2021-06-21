@@ -1,6 +1,7 @@
 <div class="flex h-screen bg-gray-50 dark:bg-gray-900" [ngClass]="{ 'overflow-hidden': mobileView && isSidebarOpen || !mobileView }">
   <app-sidebar [isSidebarOpen]="isSidebarOpen"></app-sidebar>
-  <div class="flex flex-col flex-1 w-full">
+  <div class="flex flex-col flex-1 w-full h-full overflow-y-auto scrollbar"
+       [ngClass]="{'scrollbar-dark': darkThemeService.getThemeFromLocalStorage()}">
     <app-navbar (toggleSidebar)="toggleSidebar($event)"></app-navbar>
     <router-outlet></router-outlet>
   </div>

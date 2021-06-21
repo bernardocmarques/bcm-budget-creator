@@ -1,9 +1,11 @@
-export class User {
-  constructor(private _id: number,
-              private _email: string,
-              private _name: string,
-              private _avatar: string,
-              private _joiningTimestamp: number) {}
+export class User { // FIXME: isto era meu, verifica se queres/precisas
+  constructor(
+    private _id: number,
+    private _email: string,
+    private _name: string,
+    private _avatar: string,
+    private _joiningTimestamp: number
+  ) {}
 
   get id(): number { return this._id; }
   set id(value: number) { this._id = value; }

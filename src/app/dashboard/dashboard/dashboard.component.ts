@@ -1,4 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
+import {ThemeDarkService} from "../../_services/theme-dark.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,7 @@ export class DashboardComponent implements OnInit {
   isSidebarOpen;
   mobileView;
 
-  constructor() {
+  constructor(public darkThemeService: ThemeDarkService) {
     this.onWindowResize();
   }
 
@@ -21,7 +22,6 @@ export class DashboardComponent implements OnInit {
   toggleSidebar(e): void {
     if (e === 'close') this.isSidebarOpen = false;
     else this.isSidebarOpen = !this.isSidebarOpen;
-    console.log(this.isSidebarOpen)
   }
 
   @HostListener('window:resize', [])
