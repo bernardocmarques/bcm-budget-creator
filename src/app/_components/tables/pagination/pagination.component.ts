@@ -47,7 +47,8 @@ export class PaginationComponent implements OnInit {
     const maxLeft = this.smallPhoneView ? this.LEFT_SMALL : this.LEFT;
     const maxRight = this.smallPhoneView ? this.RIGHT_SMALL : this.RIGHT;
 
-    if (this.currentPage + 1 >= this.totalPages - maxRight) return 0;
+    if (this.totalPages <= maxLeft) return this.totalPages;
+    else if (this.currentPage + 1 >= this.totalPages - maxRight) return 0;
     else if (this.totalPages > maxLeft + maxRight) return maxLeft;
     return this.totalPages;
   }

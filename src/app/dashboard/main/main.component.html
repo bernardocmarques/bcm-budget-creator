@@ -2,7 +2,8 @@
   <div class="container px-6 mx-auto">
 
     <!-- Title -->
-    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+    <h2 class="my-6 flex items-center text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      <i [attr.data-eva]="'home-outline'" class="w-6 h-6 mr-2 fill-current"></i>
       Dashboard
     </h2>
 
@@ -24,28 +25,28 @@
         [iconSVG]="completedSVG"
         [color]="'orange'"
         [title]="'Projects completed'"
-        [subtitle]="'23'">
+        [subtitle]="formatNumber(23)">
       </app-card>
 
       <app-card
         [iconSVG]="moneySVG"
         [color]="'green'"
-        [title]="'Earnings'"
-        [subtitle]="'46,760.89' + ' €'">
+        [title]="'Total earnings'"
+        [subtitle]="formatNumber(46760.89) + ' €'">
       </app-card>
 
       <app-card
         [iconSVG]="peopleSVG"
         [color]="'teal'"
         [title]="'Total clients'"
-        [subtitle]="'5'">
+        [subtitle]="formatNumber(5)">
       </app-card>
 
       <app-card
         [icon]="'clock'"
         [color]="'pink'"
         [title]="'Pending payments'"
-        [subtitle]="'3'">
+        [subtitle]="formatNumber(3)">
       </app-card>
 
     </div>

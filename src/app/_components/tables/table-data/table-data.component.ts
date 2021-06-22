@@ -8,7 +8,9 @@ export enum TableDataType {
   AVATAR_1LINE,
   AVATAR_2LINES,
   PILL,
-  DATE
+  DATE,
+  BUTTON,
+  ACTIONS
 }
 
 @Component({
@@ -29,12 +31,19 @@ export class TableDataComponent implements OnInit {
 
   avatarSrc?: string;               // Avatar source
   avatarName?: string;              // Avatar name
-
   avatarText?: string;              // Avatar additional text
+
   pillText?: string;                // Pill text
   pillColor?: string;               // Pill color
 
   date?: Date;                      // Date
+
+  buttonText?: string;              // Button text
+  buttonIcon?: string;              // Button icon (Eva icons)
+  buttonLink?: string;              // Button link
+  buttonColor?: string;             // Button color
+
+  actions?: string[];               // Actions
 
   constructor() { }
 
@@ -70,6 +79,18 @@ export class TableDataComponent implements OnInit {
         this.avatarSrc = this.data.src;
         this.avatarName = this.data.name;
         this.avatarText = this.data.text;
+        break;
+
+      case TableDataType.BUTTON:
+        this.buttonText = this.data.text;
+        this.buttonIcon = this.data.icon;
+        this.buttonLink = this.data.url;
+        this.buttonColor = this.data.color;
+        break;
+
+      case TableDataType.ACTIONS:
+        this.actions = this.data;
+        break;
     }
   }
 

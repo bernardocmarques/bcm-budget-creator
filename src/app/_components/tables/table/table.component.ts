@@ -1,6 +1,5 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TableDataType} from "../table-data/table-data.component";
-import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-table',

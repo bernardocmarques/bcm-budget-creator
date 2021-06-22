@@ -10,17 +10,23 @@
           <th *ngFor="let header of headers; let i = index" class="px-4 py-3">
             <div class="flex items-center">
               {{header.label}}
-              <app-btn-sort
-                [sort]="i === columnSortIndex ? sort : null"
-                (btnClicked)="sortColumn($event, i)"></app-btn-sort>
+              <ng-container *ngIf="header.value !== 'no-sort-filter'">
+                <app-btn-sort
+                  [sort]="i === columnSortIndex ? sort : null"
+                  (btnClicked)="sortColumn($event, i)">
+                </app-btn-sort>
+              </ng-container>
             </div>
 
-            <app-input-text
-              [placeholder]="'Filter...'"
-              [id] = "'filter-' + header.label"
-              [(value)] = "header.value"
-              [classList]="'mt-2'"
-            ></app-input-text>
+            <!-- Filter -->
+            <ng-container *ngIf="header.value !== 'no-sort-filter'">
+              <app-input-text
+                [placeholder]="'Filter...'"
+                [id] = "'filter-' + header.label"
+                [(value)] = "header.value"
+                [classList]="'mt-2'"
+              ></app-input-text>
+            </ng-container>
 
           </th>
         </tr>
@@ -28,7 +34,7 @@
 
       <!-- Table: body -->
       <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        <tr *ngFor="let tr of divideIntoPages()" class="whitespace-nowrap text-gray-700 dark:text-gray-400">
+        <tr *ngFor="let tr of divideIntoPages()" class="whitespace-nowrap text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
           <td table-data *ngFor="let td of tr"
             [type]="td.type"
             [data]="td.content">

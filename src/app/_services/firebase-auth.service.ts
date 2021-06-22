@@ -7,6 +7,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 
 import {AlertService} from '../_util/alert.service';
 import {FirebaseService} from "./firebase.service";
+import {AngularFirestore} from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class FirebaseAuthService {
 
   constructor(
     private firebaseService: FirebaseService,
+    private firestore: AngularFirestore,
     private firebaseAuth: AngularFireAuth,
     private db: AngularFireDatabase,
     private router: Router,
@@ -36,6 +38,9 @@ export class FirebaseAuthService {
       if (that.isUserLoggedIn) {
         if (this.router.url === '/' || this.router.url === '/login' || this.router.url === '/create-account')
           zone.run(() => this.router.navigate(['/dashboard']));
+
+        that.firebaseService.uid = that.currentUser.uid;
+        that.firebaseService.userDocument = that.firestore.collection("users").doc(that.currentUser.uid);
 
       } else zone.run(() => this.router.navigate(['/']));
     });

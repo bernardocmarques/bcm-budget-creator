@@ -1,14 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+
+import * as eva from 'eva-icons';
 import {TableDataType} from "../../_components/tables/table-data/table-data.component";
-import {NgForm} from "@angular/forms";
+import {numberWithCommas} from "../../_util/number";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styles: [
-  ]
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, AfterViewInit {
 
   moneySVG: string = "<svg class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z\" clip-rule=\"evenodd\" /></svg>";
   completedSVG: string = "<svg class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z\" clip-rule=\"evenodd\" /></svg>";
@@ -34,6 +34,10 @@ export class MainComponent implements OnInit {
       {label: 'status', value: this.statusSelect},
       {label: 'date', value: this.dateInput}
     ];
+  }
+
+  ngAfterViewInit(): void {
+    eva.replace();
   }
 
   getRecentActivity(): {type: TableDataType, content: any}[][] {
@@ -467,6 +471,10 @@ export class MainComponent implements OnInit {
         {type: TableDataType.DATE, content: new Date()}
       ],
     ];
+  }
+
+  formatNumber(value: number): string {
+    return numberWithCommas(value);
   }
 
 }

@@ -11,14 +11,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ClientsComponent } from './clients/clients.component';
-import { ManageBudgetsComponent } from './budgets/manage-budgets/manage-budgets.component';
-import { CreateBudgetComponent } from './budgets/create-budget/create-budget.component';
 import {SearchComponent} from "./navbar/search/search.component";
 import {ThemeTogglerComponent} from "./navbar/theme-toggler/theme-toggler.component";
 import {NotificationsComponent} from "./navbar/notifications/notifications.component";
 import {ProfileComponent} from "./navbar/profile/profile.component";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../_components/shared.module";
+import { BudgetsComponent } from './budgets/budgets.component';
 
 
 @NgModule({
@@ -32,12 +31,11 @@ import {SharedModule} from "../_components/shared.module";
     ProjectsComponent,
     StatisticsComponent,
     ClientsComponent,
-    ManageBudgetsComponent,
-    CreateBudgetComponent,
     SearchComponent,
     ThemeTogglerComponent,
     NotificationsComponent,
-    ProfileComponent
+    ProfileComponent,
+    BudgetsComponent
   ],
     imports: [
         CommonModule,

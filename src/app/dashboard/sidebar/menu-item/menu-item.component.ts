@@ -28,7 +28,7 @@ export class MenuItemComponent implements OnInit, AfterViewInit {
   @Input() label: string;
   @Input() icon: string;
   @Input() route: string;
-  @Input() items: {label: string, route: string}[];
+  @Input() items?: {label: string, route: string}[];
 
   routes?: string[] = [];
 

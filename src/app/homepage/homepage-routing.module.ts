@@ -28,9 +28,7 @@ const routes: Routes = [
     component: PageNotFoundComponent
   },
   {
-    path: '',
-    component: HomepageComponent,
-    data: {animation: 'HomePage'}
+    path: '', redirectTo: 'login', pathMatch: 'full'
   },
   {
     path: '**', redirectTo: '404', pathMatch: 'full',

@@ -4,39 +4,41 @@ import * as eva from 'eva-icons';
 import {TableDataType} from "../../_components/tables/table-data/table-data.component";
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
+  selector: 'app-budgets',
+  templateUrl: './budgets.component.html',
   styles: [
   ]
 })
-export class ProjectsComponent implements OnInit, AfterViewInit {
+export class BudgetsComponent implements OnInit, AfterViewInit {
 
   headers: {label: string, value: any}[];
   data: {type: TableDataType, content: any}[][];
 
   idInput: number;
-  nameInput: string;
   clientInput: string;
-  rateInput: number;
+  projectInput: string;
+  statusInput: string;
 
   constructor() { }
 
   ngOnInit(): void {
     this.headers = [
       {label: 'client', value: this.clientInput},
-      {label: 'project name', value: this.nameInput},
-      {label: 'project id', value: this.idInput},
-      {label: 'hourly rate', value: this.rateInput},
+      {label: 'project', value: this.projectInput},
+      {label: 'budget id', value: this.idInput},
+      {label: 'status', value: this.statusInput},
+      {label: 'change status', value: 'no-sort-filter'},
+      {label: 'view PDF', value: 'no-sort-filter'},
       {label: 'actions', value: 'no-sort-filter'}
     ];
-    this.data = this.getProjectsData();
+    this.data = this.getBudgetsData();
   }
 
   ngAfterViewInit(): void {
     eva.replace();
   }
 
-  getProjectsData(): {type: TableDataType, content: any}[][] {
+  getBudgetsData(): {type: TableDataType, content: any}[][] {
     // FIXME: get actual data
     return [
       [
@@ -47,11 +49,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
             text: 'My Company'
           }
         },
-        {type: TableDataType.TEXT, content: 'My project name'},
+        {type: TableDataType.TEXT, content: 'My project'},
         {type: TableDataType.TEXT, content: '123456'},
-        {type: TableDataType.MONEY, content: '15'},
-        {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
-      ],
+        {type: TableDataType.PILL, content: {text: 'In Progress', color: 'blue'}},
+        {type: TableDataType.BUTTON, content: {text: 'Mark for payment', icon: 'credit-card-outline', url: '', color: 'cool-gray'}},
+        {type: TableDataType.BUTTON, content: {text: 'PDF', icon: 'file-text-outline', url: '', color: 'cool-gray'}},
+        {type: TableDataType.ACTIONS, content: ['view', 'edit', 'delete']}
+      ]
     ];
   }
 

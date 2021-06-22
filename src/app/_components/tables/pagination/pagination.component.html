@@ -9,7 +9,7 @@
   <!-- Pagination -->
   <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end justify-center">
       <nav aria-label="Table navigation">
-        <ul class="inline-flex items-center">
+        <ul *ngIf="totalPages > 1" class="inline-flex items-center">
 
           <!-- Previous btn -->
           <li>

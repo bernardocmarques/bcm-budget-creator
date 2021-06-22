@@ -6,8 +6,7 @@ import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {ProjectsComponent} from "./projects/projects.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
 import {ClientsComponent} from "./clients/clients.component";
-import {CreateBudgetComponent} from "./budgets/create-budget/create-budget.component";
-import {ManageBudgetsComponent} from "./budgets/manage-budgets/manage-budgets.component";
+import {BudgetsComponent} from "./budgets/budgets.component";
 
 const routes: Routes = [
   {
@@ -18,8 +17,7 @@ const routes: Routes = [
       { path: 'main', component: MainComponent },
       { path: 'clients', component: ClientsComponent },
       { path: 'projects', component: ProjectsComponent },
-      { path: 'budgets/add', component: CreateBudgetComponent },
-      { path: 'budgets/manage', component: ManageBudgetsComponent },
+      { path: 'budgets', component: BudgetsComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: '404', component: PageNotFoundComponent },
       { path: '**', redirectTo: '404', pathMatch: 'full' }
