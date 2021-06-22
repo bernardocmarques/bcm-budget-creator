@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm, NgModel} from "@angular/forms";
+import {ThemeService} from "../../../../_services/theme.service";
 
 @Component({
   selector: 'app-input-toggle',
@@ -23,7 +24,7 @@ export class InputToggleComponent implements OnInit {
 
   @ViewChild('inputToggle', { static: false }) inputToggle: NgModel;
 
-  constructor() { }
+  constructor(public themeService: ThemeService) { }
 
   ngOnInit(): void {
   }

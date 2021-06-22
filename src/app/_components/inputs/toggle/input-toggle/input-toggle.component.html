@@ -1,7 +1,7 @@
 <label for="{{id}}" class="flex items-center cursor-pointer" [ngClass]="classList">
 
   <!-- Label left -->
-  <div class="mr-3 text-sm text-gray-600 font-medium">
+  <div class="mr-3 text-sm text-gray-600 dark:text-gray-400 font-medium">
     {{labelLeft}}
   </div>
 
@@ -16,14 +16,15 @@
       (ngModelChange)="valueChange.emit(value)"
       #inputToggle="ngModel">
     <!-- line -->
-    <div class="block bg-gray-200 w-11 h-6 rounded-full"></div>
+    <div class="block bg-gray-200 dark:bg-gray-600 w-11 h-6 rounded-full"></div>
     <!-- dot -->
     <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"
-      [ngClass]="{'transform translate-x-120 bg-indigo-500': value}"></div>
+      [ngClass]="{'transform translate-x-120': value, 'bg-indigo-500': value && !themeService.isDark(),
+      'bg-indigo-400': value && themeService.isDark()}"></div>
   </div>
 
   <!-- Label right -->
-  <div class="ml-3 text-sm text-gray-600 font-medium">
+  <div class="ml-3 text-sm text-gray-600 dark:text-gray-400 font-medium">
     {{labelRight}}
   </div>
 
