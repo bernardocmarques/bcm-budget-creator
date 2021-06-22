@@ -4,9 +4,9 @@ import {Router} from "@angular/router";
 
 import * as eva from 'eva-icons';
 
-import {AlertService} from "../../_util/alert.service";
+import {AlertService} from "../../_services/alert.service";
 import {FirebaseAuthService} from "../../_services/firebase-auth.service";
-import {ThemeDarkService} from "../../_services/theme-dark.service";
+import {ThemeService} from "../../_services/theme.service";
 
 @Component({
   selector: 'app-login',
@@ -15,8 +15,6 @@ import {ThemeDarkService} from "../../_services/theme-dark.service";
   ]
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-
-  darkTheme = this.darkThemeService.getThemeFromLocalStorage();
 
   email: string;
   password: string;
@@ -27,14 +25,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private alertService: AlertService,
     public firebaseAuthService: FirebaseAuthService,
     public router: Router,
-    private darkThemeService: ThemeDarkService
+    private themeService: ThemeService
   ) {
-    if (this.darkTheme)
+    if (this.themeService.isDark())
       document.querySelector('html').classList.add('theme-dark');
-    this.darkThemeService.setThemeToLocalStorage(this.darkTheme);
+    this.themeService.setTheme(this.themeService.getTheme());
 
     if (this.firebaseAuthService.isUserLoggedIn) {
       this.router.navigate(['/dashboard']).then(r => r);
+
     } else {
       firebaseAuthService.subscribeUserChange(this);
     }

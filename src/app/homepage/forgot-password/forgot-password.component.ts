@@ -3,7 +3,7 @@ import {NgForm} from "@angular/forms";
 
 import * as eva from 'eva-icons';
 import {Router} from "@angular/router";
-import {AlertService} from "../../_util/alert.service";
+import {AlertService} from "../../_services/alert.service";
 import {FirebaseAuthService} from "../../_services/firebase-auth.service";
 
 @Component({

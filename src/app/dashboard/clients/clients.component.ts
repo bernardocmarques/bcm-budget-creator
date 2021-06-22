@@ -21,9 +21,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   constructor(
     private firebaseAuthService: FirebaseAuthService,
     private firebaseService: FirebaseService
-  ) {
-    console.log(this.firebaseAuthService.isUserLoggedIn);
-  }
+  ) { }
 
   ngOnInit(): void {
     this.headers = [
@@ -43,7 +41,6 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     let table: {type: TableDataType, content: any}[][] = []
     this.firebaseService.getAllClients().then(clients => {
       clients.forEach(client => {
-        console.log(client);
         table.push([
           {type: TableDataType.AVATAR_1LINE, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: client.name}},
           {type: TableDataType.TEXT, content: client.id},

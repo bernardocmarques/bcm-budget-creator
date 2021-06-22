@@ -2,7 +2,7 @@
   <button class="rounded-md focus:outline-none focus:shadow-outline-indigo"
           (click)="toggleTheme()" aria-label="Toggle color mode">
 
-    <ng-template [ngIf]="!darkTheme">
+    <ng-template [ngIf]="!themeService.isDark()">
       <svg
         class="w-5 h-5"
         aria-hidden="true"
@@ -15,7 +15,7 @@
       </svg>
     </ng-template>
 
-    <ng-template [ngIf]="darkTheme">
+    <ng-template [ngIf]="themeService.isDark()">
       <svg
         class="w-5 h-5"
         aria-hidden="true"

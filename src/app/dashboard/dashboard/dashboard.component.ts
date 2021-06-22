@@ -1,18 +1,16 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {ThemeDarkService} from "../../_services/theme-dark.service";
+import {ThemeService} from "../../_services/theme.service";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styles: [
-  ]
 })
 export class DashboardComponent implements OnInit {
 
   isSidebarOpen;
   mobileView;
 
-  constructor(public darkThemeService: ThemeDarkService) {
+  constructor(public themeService: ThemeService) {
     this.onWindowResize();
   }
 

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { HomepageRoutingModule } from './homepage-routing.module';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {FormsModule} from "@angular/forms";
@@ -13,7 +12,6 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     CreateAccountComponent,
     ForgotPasswordComponent,
-    HomepageComponent,
     LoginComponent,
     PageNotFoundComponent
   ],

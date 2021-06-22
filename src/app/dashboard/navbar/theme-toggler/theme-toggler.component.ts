@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ThemeDarkService} from "../../../_services/theme-dark.service";
+import {ThemeService} from "../../../_services/theme.service";
 
 @Component({
   selector: 'app-theme-toggler',
@@ -7,10 +7,8 @@ import {ThemeDarkService} from "../../../_services/theme-dark.service";
 })
 export class ThemeTogglerComponent implements OnInit {
 
-  darkTheme = this.darkThemeService.getThemeFromLocalStorage();
-
-  constructor(private darkThemeService: ThemeDarkService) {
-    if (this.darkTheme)
+  constructor(public themeService: ThemeService) {
+    if (themeService.isDark())
       document.querySelector('html').classList.add('theme-dark');
   }
 
@@ -18,9 +16,8 @@ export class ThemeTogglerComponent implements OnInit {
   }
 
   toggleTheme(): void {
-    this.darkTheme = !this.darkTheme;
+    this.themeService.setTheme(!this.themeService.getTheme());
     document.querySelector('html').classList.toggle('theme-dark');
-    this.darkThemeService.setThemeToLocalStorage(this.darkTheme);
   }
 
 }

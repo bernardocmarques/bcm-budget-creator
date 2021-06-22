@@ -4,10 +4,10 @@ import {Router} from '@angular/router';
 import firebase from 'firebase';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
-
-import {AlertService} from '../_util/alert.service';
-import {FirebaseService} from "./firebase.service";
 import {AngularFirestore} from "@angular/fire/firestore";
+
+import {AlertService} from './alert.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,7 @@ export class FirebaseAuthService {
     private firebaseAuth: AngularFireAuth,
     private db: AngularFireDatabase,
     private router: Router,
-    private alertService: AlertService,
-    private zone: NgZone
+    private alertService: AlertService
   ) {
 
     const that = this;
@@ -36,22 +35,6 @@ export class FirebaseAuthService {
       that.currentUser = user;
       that.isUserLoggedIn = !!that.currentUser;
       that.notifyUserChange();
-
-      console.log("logged in: " + that.isUserLoggedIn)
-      if (that.isUserLoggedIn) {
-        console.log(that.currentUser.email)
-        console.log(that.currentUser.uid)
-      }
-
-      // if (that.isUserLoggedIn) {
-      //   // if (this.router.url === '/' || this.router.url === '/login' || this.router.url === '/create-account')
-      //   //   zone.run(() => this.router.navigate(['/dashboard']));
-      //
-      //   // that.firebaseService.uid = that.currentUser.uid;
-      //   // that.firebaseService.userDocument = that.firestore.collection("users").doc(that.currentUser.uid);
-      //
-      // }
-      // else zone.run(() => this.router.navigate(['/']));
     });
   }
 

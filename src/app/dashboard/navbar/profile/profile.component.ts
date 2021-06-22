@@ -3,6 +3,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
 import {User} from '../../../_domain/user';
 import {FirebaseAuthService} from "../../../_services/firebase-auth.service";
+import {ThemeService} from "../../../_services/theme.service";
 
 @Component({
   selector: 'app-profile',
@@ -29,9 +30,12 @@ export class ProfileComponent implements OnInit {
   isProfileMenuOpen = false;
   user: User;
 
-  constructor(private renderer: Renderer2,
-              private firebaseAuthService: FirebaseAuthService,
-              private router: Router) {
+  constructor(
+    private renderer: Renderer2,
+    private firebaseAuthService: FirebaseAuthService,
+    private router: Router,
+    private themeService: ThemeService
+  ) {
 
     this.renderer.listen('window', 'click', (e: Event) => {
       const toggleBtn = this.toggleBtn.nativeElement;
@@ -57,7 +61,8 @@ export class ProfileComponent implements OnInit {
 
   getAvatar(): string {
     if (this.user && this.user.avatar) return this.user.avatar;
-    return 'assets/imgs/avatars/default.svg';
+    else if (this.themeService.isDark()) return 'assets/avatars/default-dark.svg'
+    return 'assets/avatars/default.svg';
   }
 
   async logout(): Promise<void> {

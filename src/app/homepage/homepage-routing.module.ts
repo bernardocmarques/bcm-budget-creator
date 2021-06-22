@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 import {LoginComponent} from "./login/login.component";
 import {CreateAccountComponent} from "./create-account/create-account.component";
-import {HomepageComponent} from "./homepage/homepage.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 
 const routes: Routes = [
