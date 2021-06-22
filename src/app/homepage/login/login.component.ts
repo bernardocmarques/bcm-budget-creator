@@ -32,6 +32,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
     if (this.darkTheme)
       document.querySelector('html').classList.add('theme-dark');
     this.darkThemeService.setThemeToLocalStorage(this.darkTheme);
+
+    if (this.firebaseAuthService.isUserLoggedIn) {
+      this.router.navigate(['/dashboard']).then(r => r);
+    } else {
+      firebaseAuthService.subscribeUserChange(this);
+    }
   }
 
   ngOnInit(): void {
@@ -39,6 +45,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     eva.replace();
+  }
+
+  notifyUserChange(isLoggedIn) {
+    if (isLoggedIn) {
+      this.router.navigate(['/dashboard']).then(r => r);
+    }
   }
 
   async onSubmit(): Promise<void> {

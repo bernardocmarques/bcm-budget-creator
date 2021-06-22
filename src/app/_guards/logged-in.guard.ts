@@ -10,20 +10,37 @@ export class LoggedInGuard implements CanActivate, CanActivateChild {
 
   constructor(private firebaseAuthService: FirebaseAuthService, private router: Router) { }
 
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (!this.firebaseAuthService.isUserLoggedIn) this.router.navigate(['/login']).then(r => r);
-    return this.firebaseAuthService.isUserLoggedIn;
+    return new Promise((resolve, reject) => {
+      const unsubscribe = this.firebaseAuthService.auth.onAuthStateChanged(async user => {
+        (await unsubscribe)();
+        if (user != null) {
+          resolve(true);
+        } else {
+          resolve(this.router.parseUrl("/login"));
+        }
+      }, reject);
+    });
   }
 
   canActivateChild(
-    route: ActivatedRouteSnapshot,
+    childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (!this.firebaseAuthService.isUserLoggedIn) this.router.navigate(['/login']).then(r => r);
-    return this.firebaseAuthService.isUserLoggedIn;
+    return new Promise((resolve, reject) => {
+      const unsubscribe = this.firebaseAuthService.auth.onAuthStateChanged(async user => {
+        (await unsubscribe)();
+        if (user != null) {
+          resolve(true);
+        } else {
+          resolve(this.router.parseUrl("/login"));
+        }
+      }, reject);
+    });
   }
 
 }

@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 
-import {AngularFirestoreDocument} from "@angular/fire/firestore";
+import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestore";
 import {Client} from "../_domain/client";
+import {FirebaseAuthService} from "./firebase-auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,14 @@ export class FirebaseService {
   uid: string;
   userDocument: AngularFirestoreDocument;
 
-  constructor() { }
+  constructor(
+    private firestore: AngularFirestore,
+    private firebaseAuthService: FirebaseAuthService
+  ) {
+    // console.log(this.firebaseAuthService.isUserLoggedIn)
+    // this.uid = this.firebaseAuthService.currentUser.uid;
+    // this.userDocument = this.firestore.collection("users").doc(this.uid);
+  }
 
 
   /*** --------------------------------------------- ***/

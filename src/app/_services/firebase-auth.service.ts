@@ -18,6 +18,8 @@ export class FirebaseAuthService {
   public currentUser: firebase.User = null;
   public isUserLoggedIn: boolean = false;
 
+  private subscribersUserChange = [];
+
   constructor(
     private firebaseService: FirebaseService,
     private firestore: AngularFirestore,
@@ -34,15 +36,33 @@ export class FirebaseAuthService {
     firebaseAuth.onAuthStateChanged(user => {
       that.currentUser = user;
       that.isUserLoggedIn = !!that.currentUser;
+      that.notifyUserChange();
 
+      console.log("logged in: " + that.isUserLoggedIn)
       if (that.isUserLoggedIn) {
-        if (this.router.url === '/' || this.router.url === '/login' || this.router.url === '/create-account')
-          zone.run(() => this.router.navigate(['/dashboard']));
+        console.log(that.currentUser.email)
+        console.log(that.currentUser.uid)
+      }
 
-        that.firebaseService.uid = that.currentUser.uid;
-        that.firebaseService.userDocument = that.firestore.collection("users").doc(that.currentUser.uid);
+      // if (that.isUserLoggedIn) {
+      //   // if (this.router.url === '/' || this.router.url === '/login' || this.router.url === '/create-account')
+      //   //   zone.run(() => this.router.navigate(['/dashboard']));
+      //
+      //   // that.firebaseService.uid = that.currentUser.uid;
+      //   // that.firebaseService.userDocument = that.firestore.collection("users").doc(that.currentUser.uid);
+      //
+      // }
+      // else zone.run(() => this.router.navigate(['/']));
+    });
+  }
 
-      } else zone.run(() => this.router.navigate(['/']));
+  subscribeUserChange(obj): void {
+    this.subscribersUserChange.push(obj);
+  }
+
+  notifyUserChange(): void {
+    this.subscribersUserChange.forEach(sub => {
+      sub.notifyUserChange(this.isUserLoggedIn);
     });
   }
 

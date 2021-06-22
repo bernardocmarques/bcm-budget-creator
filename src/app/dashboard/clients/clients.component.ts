@@ -34,10 +34,11 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   }
 
   getClientsData(): {type: TableDataType, content: any}[][] {
-    // console.log(this.firebaseService.uid)
-    // this.firebaseService.getAllClients().then(clients => {
-    //   console.log(clients)
-    // });
+    console.log("uid: " + this.firebaseService.uid)
+    console.log(this.firebaseService.userDocument.get())
+    this.firebaseService.getAllClients().then(clients => {
+      console.log(clients)
+    });
 
     // FIXME: get actual data
     return [
