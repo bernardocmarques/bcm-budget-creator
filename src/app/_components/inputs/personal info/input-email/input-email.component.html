@@ -4,7 +4,7 @@
 
   <!-- Input -->
   <input
-    type="text"
+    type="email"
     id="{{id}}"
     name="{{id}}"
     class="block w-full dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none
@@ -17,16 +17,16 @@
     [minlength]="minLength"
     [maxlength]="maxLength"
     [disabled]="disabled"
-    #inputText="ngModel"
-    [ngClass]="{ 'border-red-600 focus:border-red-400 focus:shadow-outline-red': form && form.submitted && inputText.invalid}"
+    #inputEmail="ngModel"
+    [ngClass]="{ 'border-red-600 focus:border-red-400 focus:shadow-outline-red': form && form.submitted && inputEmail.invalid}"
   />
 
   <!-- Error Messages -->
-  <div *ngIf="form && form.submitted && inputText.invalid" class="text-xs text-red-600 dark:text-red-400">
-    <span *ngIf="inputText.errors.pattern">{{patternErrorMessage}}</span>
-    <span *ngIf="inputText.errors.required">{{requiredErrorMessage}}</span>
-    <span *ngIf="inputText.errors.minlength">{{minLengthErrorMessage}}</span>
-    <span *ngIf="inputText.errors.maxlength">{{maxLengthErrorMessage}}</span>
+  <div *ngIf="form && form.submitted && inputEmail.invalid" class="text-xs text-red-600 dark:text-red-400">
+    <span *ngIf="inputEmail.errors.pattern">{{patternErrorMessage}}</span>
+    <span *ngIf="inputEmail.errors.required">{{requiredErrorMessage}}</span>
+    <span *ngIf="inputEmail.errors.minlength">{{minLengthErrorMessage}}</span>
+    <span *ngIf="inputEmail.errors.maxlength">{{maxLengthErrorMessage}}</span>
   </div>
 
 </div>

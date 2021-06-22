@@ -1,0 +1,43 @@
+<form #f="ngForm" (submit)="onSubmit()">
+
+  <div class="grid grid-cols-4 items-center mb-6">
+    <h4 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 col-span-2">
+      Theme
+      <span class="mt-1 block text-sm font-light text-gray-400">Dark or Light mode</span>
+    </h4>
+
+    <app-input-toggle
+      [labelLeft]="'Light'"
+      [labelRight]="'Dark'"
+      [classList]="'col-span-2'">
+    </app-input-toggle>
+  </div>
+
+
+  <div class="grid grid-cols-4 items-center mb-6">
+    <h4 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 col-span-2">
+      Language
+      <span class="mt-1 block text-sm font-light text-gray-400">English or Portuguese</span>
+    </h4>
+
+    <app-input-toggle
+      [labelLeft]="'EN'"
+      [labelRight]="'PT'"
+      [classList]="'col-span-2'">
+    </app-input-toggle>
+  </div>
+
+  <div class="grid grid-cols-4 items-center mb-6">
+    <h4 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 col-span-2">
+      Currency
+      <span class="mt-1 block text-sm font-light text-gray-400">Euro or USD</span>
+    </h4>
+
+    <app-input-toggle
+      [labelLeft]="'€'"
+      [labelRight]="'$'"
+      [classList]="'col-span-2'">
+    </app-input-toggle>
+  </div>
+
+</form>

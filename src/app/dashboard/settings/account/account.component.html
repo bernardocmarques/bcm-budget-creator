@@ -1,0 +1,57 @@
+<form #f="ngForm" (submit)="onSubmit()">
+
+  <h4 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
+    Personal Information
+    <span class="mt-1 block text-sm font-light text-gray-400">Some basic account information</span>
+  </h4>
+
+  <div class="grid grid-cols-2 gap-3 mb-6">
+    <app-input-text
+      [label]="'First name'"
+      [placeholder]="'First name'"
+      [id] = "'firstname'"
+      [(value)] = "inputs.firstname"
+    ></app-input-text>
+
+    <app-input-text
+      [label]="'Last name'"
+      [placeholder]="'Last name'"
+      [id] = "'lastname'"
+      [(value)] = "inputs.lastname"
+    ></app-input-text>
+  </div>
+
+  <app-input-text
+    [label]="'E-mail address'"
+    [placeholder]="'E-mail address'"
+    [id] = "'email'"
+    [(value)] = "inputs.email"
+  ></app-input-text>
+
+  <h4 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6 mt-8">
+    Profile image
+    <span class="mt-1 block text-sm font-light text-gray-400">An image you identify with</span>
+  </h4>
+
+  <div class="grid grid-cols-5 gap-5">
+    <div class="flex flex-col items-center col-span-2">
+      <img class="object-cover w-32 h-32 rounded-full border-4 border-gray-100 dark:border-gray-500"
+           src="{{inputs.avatar}}"/>
+
+      <button class="flex items-center px-3 py-2 font-medium text-sm text-white transition-colors duration-150 bg-indigo-500
+                  border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
+                  focus:shadow-outline-indigo mt-4">
+        <i [attr.data-eva]="'cloud-upload'" class="w-6 h-6 mr-2 fill-current"></i>
+        Upload photo
+      </button>
+    </div>
+
+    <div class="flex flex-wrap items-center h-48 overflow-auto col-span-3 scrollbar scrollbar-thin"
+         [ngClass]="{'scrollbar-dark': themeService.isDark()}">
+
+      <img *ngFor="let rep of [].constructor(50); let i = index" class="object-cover w-10 h-10 rounded-full cursor-pointer mr-2.5 mb-2.5"
+           src="assets/avatars/avatar-{{i + 1}}.svg" alt="avatar {{i + 1}}" (click)="inputs.avatar = 'assets/avatars/avatar-' + (i + 1) + '.svg'">
+    </div>
+  </div>
+
+</form>

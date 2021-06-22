@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MainComponent} from "./main/main.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
@@ -7,6 +8,11 @@ import {ProjectsComponent} from "./projects/projects.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
 import {ClientsComponent} from "./clients/clients.component";
 import {BudgetsComponent} from "./budgets/budgets.component";
+import {SettingsComponent} from "./settings/settings.component";
+import {AccountComponent} from "./settings/account/account.component";
+import {CustomizationComponent} from "./settings/customization/customization.component";
+import {SecurityComponent} from "./settings/security/security.component";
+import {NotificationsComponent} from "./settings/notifications/notifications.component";
 
 const routes: Routes = [
   {
@@ -19,6 +25,14 @@ const routes: Routes = [
       { path: 'projects', component: ProjectsComponent },
       { path: 'budgets', component: BudgetsComponent },
       { path: 'statistics', component: StatisticsComponent },
+      { path: 'settings',
+        component: SettingsComponent,
+        children: [
+          { path: 'customization', component: CustomizationComponent },
+          { path: 'account', component: AccountComponent },
+          { path: 'security', component: SecurityComponent },
+          { path: 'notifications', component: NotificationsComponent }
+        ] },
       { path: '404', component: PageNotFoundComponent },
       { path: '**', redirectTo: '404', pathMatch: 'full' }
     ]

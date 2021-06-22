@@ -7,6 +7,7 @@ import { PaginationComponent } from './tables/pagination/pagination.component';
 import { BtnSortComponent } from './buttons/btn-sort/btn-sort.component';
 import {InputTextComponent} from "./inputs/general/input-text/input-text.component";
 import {FormsModule} from "@angular/forms";
+import { InputToggleComponent } from './inputs/toggle/input-toggle/input-toggle.component';
 
 
 @NgModule({
@@ -16,11 +17,14 @@ import {FormsModule} from "@angular/forms";
     TableDataComponent,
     PaginationComponent,
     BtnSortComponent,
-    InputTextComponent
+    InputTextComponent,
+    InputToggleComponent
   ],
   exports: [
     CardComponent,
-    TableComponent
+    TableComponent,
+    InputTextComponent,
+    InputToggleComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,107 @@
+<main>
+  <div class="container px-6 mx-auto">
+
+    <!-- Title -->
+    <h2 class="my-6 flex items-center text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      <i [attr.data-eva]="'settings-outline'" class="w-6 h-6 mr-2 fill-current"></i>
+      Settings
+    </h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-8">
+
+      <!-- Left side -->
+      <div class="lg:col-span-2">
+
+        <!-- CTA -->
+        <div class="p-5 mb-8 tracking-wide text-indigo-100 bg-indigo-500
+              rounded-lg shadow-md focus:outline-none focus:shadow-outline-indigo">
+
+          <div class="mb-2 flex items-center">
+
+            <ng-container *ngIf="chartOptions">
+              <apx-chart
+                [series]="[75]"
+                [chart]="chartOptions.chart"
+                [plotOptions]="chartOptions.plotOptions"
+                [colors]="['#ffffff']"
+                [responsive]="chartOptions.responsive"
+              ></apx-chart>
+            </ng-container>
+
+            <div>
+              <p class="text-base font-semibold mb-2">Profile Completed</p>
+              <p class="text-sm text-indigo-200">Complete your profile to unlock all features</p>
+            </div>
+
+          </div>
+
+          <button class="w-full px-4 py-2 text-sm font-semibold leading-5 text-indigo-500 transition-colors duration-150 bg-gray-50
+                  border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none
+                  focus:shadow-outline-indigo">
+            Complete your profile
+          </button>
+        </div>
+
+        <!-- Menu -->
+        <ul class="p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md
+            shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700">
+
+          <li *ngFor="let item of menuItems; let i = index" class="flex tracking-wide">
+            <button class="inline-flex w-full p-3.5 text-sm font-semibold transition-colors
+                    duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800
+                    dark:hover:text-gray-200 focus:outline-none" (click)="itemActiveIndex = i">
+
+              <div class="rounded-lg bg-gray-100 dark:bg-gray-800 focus:outline-none p-1 mr-3.5"
+                   [ngClass]="{'bg-indigo-500 dark:bg-indigo-500 text-gray-50': i === itemActiveIndex}">
+                <i [attr.data-eva]="item.icon" class="w-5 h-5 fill-current"></i>
+              </div>
+
+              <div class="text-left w-full mr-3">
+                <p class="text-base font-semibold mb-1"
+                   [ngClass]="{'text-indigo-500 dark:text-indigo-400': i === itemActiveIndex}">{{item.title}}</p>
+                <p class="font-normal">{{item.description}}</p>
+              </div>
+
+              <i data-eva="chevron-right" class="w-8 h-8 fill-current"></i>
+            </button>
+          </li>
+
+        </ul>
+
+      </div>
+
+      <!-- Right side -->
+      <div *ngIf="itemActiveIndex !== -1" class="hidden lg:block lg:col-span-3 bg-white rounded-lg shadow-xs
+            dark:bg-gray-800 p-6 transition-all duration-150" [style]="{'height': 'fit-content'}">
+
+        <!-- Title -->
+        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
+          {{menuItems[itemActiveIndex].title}}
+        </h3>
+        <hr class="my-8 dark:border-gray-600 border-1">
+
+        <ng-container *ngIf="itemActiveIndex === 0"><app-customization></app-customization></ng-container>
+        <ng-container *ngIf="itemActiveIndex === 1"><app-account></app-account></ng-container>
+
+        <hr class="my-8 dark:border-gray-600 border-1">
+
+        <div class="flex items-center">
+          <button class="w-full px-4 py-2.5 mr-2 font-medium leading-5 text-gray-700 dark:text-white transition-colors
+                  duration-150 bg-transparent border border-transparent rounded-lg active:bg-gray-100 dark:active:bg-gray-800
+                  hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+            Discard changes
+          </button>
+
+          <button class="w-full px-4 py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
+                  border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
+                  focus:shadow-outline-indigo">
+            Save changes
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</main>

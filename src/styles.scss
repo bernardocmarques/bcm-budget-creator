@@ -16,6 +16,10 @@ $scrollbar-width: 10px;
     box-shadow: 0 0 0 1px rgb(0 0 0 / 5%);
   }
 
+  .translate-x-120 {
+    --tw-translate-x: 120%;
+  }
+
   .scrollbar {
     &::-webkit-scrollbar {
       width:  $scrollbar-width;
@@ -55,6 +59,20 @@ $scrollbar-width: 10px;
       &:hover {
         background-color: lighten($scrollbar-color-dark, 10%);
       }
+    }
+  }
+
+  .scrollbar-thin {
+    &::-webkit-scrollbar {
+      width:  calc(#{$scrollbar-width} - 5);
+    }
+
+    &::-webkit-scrollbar-track {
+      border-radius: calc(#{$scrollbar-width} - 5);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: calc(#{$scrollbar-width} - 5);
     }
   }
 

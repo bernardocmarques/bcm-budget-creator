@@ -18,6 +18,11 @@ import {ProfileComponent} from "./navbar/profile/profile.component";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../_components/shared.module";
 import { BudgetsComponent } from './budgets/budgets.component';
+import { SettingsComponent } from './settings/settings.component';
+import { AccountComponent } from './settings/account/account.component';
+import {NgApexchartsModule} from "ng-apexcharts";
+import { CustomizationComponent } from './settings/customization/customization.component';
+import { SecurityComponent } from './settings/security/security.component';
 
 
 @NgModule({
@@ -35,13 +40,18 @@ import { BudgetsComponent } from './budgets/budgets.component';
     ThemeTogglerComponent,
     NotificationsComponent,
     ProfileComponent,
-    BudgetsComponent
+    BudgetsComponent,
+    SettingsComponent,
+    AccountComponent,
+    CustomizationComponent,
+    SecurityComponent
   ],
     imports: [
         CommonModule,
         DashboardRoutingModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        NgApexchartsModule
     ]
 })
 export class DashboardModule { }
