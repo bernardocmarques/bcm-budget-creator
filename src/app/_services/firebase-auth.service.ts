@@ -21,7 +21,6 @@ export class FirebaseAuthService {
   private subscribersUserChange = [];
 
   constructor(
-    private firebaseService: FirebaseService,
     private firestore: AngularFirestore,
     private firebaseAuth: AngularFireAuth,
     private db: AngularFireDatabase,

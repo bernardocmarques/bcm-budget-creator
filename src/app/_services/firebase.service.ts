@@ -16,9 +16,8 @@ export class FirebaseService {
     private firestore: AngularFirestore,
     private firebaseAuthService: FirebaseAuthService
   ) {
-    // console.log(this.firebaseAuthService.isUserLoggedIn)
-    // this.uid = this.firebaseAuthService.currentUser.uid;
-    // this.userDocument = this.firestore.collection("users").doc(this.uid);
+    this.uid = this.firebaseAuthService.currentUser.uid;
+    this.userDocument = this.firestore.collection("users").doc(this.uid);
   }
 
 

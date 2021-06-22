@@ -3,6 +3,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../_components/tables/table-data/table-data.component";
 import {FirebaseService} from "../../_services/firebase.service";
+import {FirebaseAuthService} from "../../_services/firebase-auth.service";
 
 @Component({
   selector: 'app-clients',
@@ -17,7 +18,12 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   clientInput: string;
   companyInput: string;
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(
+    private firebaseAuthService: FirebaseAuthService,
+    private firebaseService: FirebaseService
+  ) {
+    console.log(this.firebaseAuthService.isUserLoggedIn);
+  }
 
   ngOnInit(): void {
     this.headers = [
@@ -34,21 +40,20 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   }
 
   getClientsData(): {type: TableDataType, content: any}[][] {
-    console.log("uid: " + this.firebaseService.uid)
-    console.log(this.firebaseService.userDocument.get())
+    let table: {type: TableDataType, content: any}[][] = []
     this.firebaseService.getAllClients().then(clients => {
-      console.log(clients)
+      clients.forEach(client => {
+        console.log(client);
+        table.push([
+          {type: TableDataType.AVATAR_1LINE, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: client.name}},
+          {type: TableDataType.TEXT, content: client.id},
+          {type: TableDataType.TEXT, content: client.company},
+          {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
+        ])
+      })
     });
 
-    // FIXME: get actual data
-    return [
-      [
-        {type: TableDataType.AVATAR_1LINE, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe'}},
-        {type: TableDataType.TEXT, content: '123456'},
-        {type: TableDataType.TEXT, content: 'My company'},
-        {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
-      ]
-    ];
+    return table;
   }
 
 }
