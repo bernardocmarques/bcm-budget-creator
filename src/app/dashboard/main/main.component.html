@@ -29,21 +29,25 @@
         [loading]="cards.projects.loader">
       </app-card>
 
-      <app-card
-        [iconSVG]="moneySVG"
-        [color]="'green'"
-        [title]="'Total earnings'"
-        [subtitle]="formatNumber(cards.earnings.value) + ' €'"
-        [loading]="cards.earnings.loader">
-      </app-card>
+      <div class="cursor-pointer" [routerLink]="'/dashboard/statistics'">
+        <app-card
+          [iconSVG]="moneySVG"
+          [color]="'green'"
+          [title]="'Total earnings'"
+          [subtitle]="formatNumber(cards.earnings.value) + ' €'"
+          [loading]="cards.earnings.loader">
+        </app-card>
+      </div>
 
-      <app-card
-        [iconSVG]="peopleSVG"
-        [color]="'teal'"
-        [title]="'Total clients'"
-        [subtitle]="formatNumber(cards.clients.value)"
-        [loading]="cards.clients.loader">
-      </app-card>
+      <div class="cursor-pointer" [routerLink]="'/dashboard/clients'">
+        <app-card
+          [iconSVG]="peopleSVG"
+          [color]="'teal'"
+          [title]="'Total clients'"
+          [subtitle]="formatNumber(cards.clients.value)"
+          [loading]="cards.clients.loader">
+        </app-card>
+      </div>
 
       <app-card
         [icon]="'clock'"

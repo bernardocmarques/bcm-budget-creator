@@ -18,7 +18,7 @@ export class FirebaseService {
 
   constructor(
     private firestore: AngularFirestore,
-    private firebaseAuthService: FirebaseAuthService
+    private firebaseAuthService: FirebaseAuthService,
   ) {
     this.uid = this.firebaseAuthService.currentUser.uid;
     this.userDocument = this.firestore.collection("users").doc(this.uid);
@@ -92,6 +92,11 @@ export class FirebaseService {
 
   public deleteProjectByKey(key) {
     return this.userDocument.collection("projects").doc(key).delete();
+  }
+
+  public getAllProjects(): Promise<Project[]> {
+    return this.getDatabaseData("projects/")
+      .then(querySnapshot => querySnapshot.docs.map(doc => new Project(doc.data(), doc.id)));
   }
 
   public async getAllProjectsFromClient(clientKey?: string): Promise<Project[]> {

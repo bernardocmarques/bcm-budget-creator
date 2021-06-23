@@ -3,21 +3,22 @@ import {Client} from './client';
 export class Project {
   key?: string = null;
   id: string = null;
-  client: Client = null;
+  clientKey: string = null;
   name: string = null;
   rate: number = null;
   lastBudgetNumber: number = null;
 
-  constructor(source: Partial<Project>) {
-    for(const key in source){
-      if(this.hasOwnProperty(key)){
+  constructor(source: Partial<Project>, key?: string) {
+    for(const key in source) {
+      if (this.hasOwnProperty(key)){
         this[key] = source[key];
       }
     }
+    if (key) this.key = key;
   }
 
   toProjectDatabase(): ProjectDatabase {
-    return new ProjectDatabase(Object.assign(this, {clientKey: this.client.key}));
+    return new ProjectDatabase(Object.assign(this, {clientKey: this.clientKey}));
   }
 
   equals(other: Project): boolean {

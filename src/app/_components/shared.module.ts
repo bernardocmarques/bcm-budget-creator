@@ -9,6 +9,7 @@ import {InputTextComponent} from "./inputs/general/input-text/input-text.compone
 import {FormsModule} from "@angular/forms";
 import { InputToggleComponent } from './inputs/toggle/input-toggle/input-toggle.component';
 import { SpinnerComponent } from './spinner/spinner/spinner.component';
+import {RouterModule} from "@angular/router";
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { SpinnerComponent } from './spinner/spinner/spinner.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ]
 })
 export class SharedModule { }
