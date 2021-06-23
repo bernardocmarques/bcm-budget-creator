@@ -13,6 +13,7 @@ import {AccountComponent} from "./settings/account/account.component";
 import {CustomizationComponent} from "./settings/customization/customization.component";
 import {SecurityComponent} from "./settings/security/security.component";
 import {NotificationsComponent} from "./settings/notifications/notifications.component";
+import {AddEditComponent} from "./clients/add-edit/add-edit.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'main' },
       { path: 'main', component: MainComponent },
       { path: 'clients', component: ClientsComponent },
+      { path: 'clients/add', component: AddEditComponent },
+      { path: 'clients/edit/:id', component: AddEditComponent },
       { path: 'projects', component: ProjectsComponent },
       { path: 'budgets', component: BudgetsComponent },
       { path: 'statistics', component: StatisticsComponent },

@@ -27,7 +27,8 @@ import {RouterModule} from "@angular/router";
     CardComponent,
     TableComponent,
     InputTextComponent,
-    InputToggleComponent
+    InputToggleComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,

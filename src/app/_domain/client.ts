@@ -3,6 +3,7 @@ export class Client {
   name: string = null;
   company: string = null;
   id: string = null;
+  avatar?: string = null;
 
   constructor(source: Partial<Client>, key?: string) {
     for (const key in source){

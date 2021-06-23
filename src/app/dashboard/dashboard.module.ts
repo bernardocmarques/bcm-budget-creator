@@ -23,6 +23,7 @@ import { AccountComponent } from './settings/account/account.component';
 import {NgApexchartsModule} from "ng-apexcharts";
 import { CustomizationComponent } from './settings/customization/customization.component';
 import { SecurityComponent } from './settings/security/security.component';
+import {AddEditComponent} from "./clients/add-edit/add-edit.component";
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { SecurityComponent } from './settings/security/security.component';
     SettingsComponent,
     AccountComponent,
     CustomizationComponent,
-    SecurityComponent
+    SecurityComponent,
+    AddEditComponent
   ],
     imports: [
         CommonModule,
