@@ -23,12 +23,13 @@ export class Budget {
   pdfLink: string = null;
   status: Status = 0;
 
-  constructor(source: Partial<Budget>) {
+  constructor(source: Partial<Budget>, key?: string) {
     for (const key in source) {
       if (this.hasOwnProperty(key)) {
         this[key] = source[key];
       }
     }
+    if (key) this.key = key;
   }
 
   toBudgetDatabase(): BudgetDatabase {

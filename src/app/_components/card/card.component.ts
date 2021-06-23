@@ -12,6 +12,7 @@ export class CardComponent implements OnInit {
   @Input() color: string;
   @Input() title: string;
   @Input() subtitle: string;
+  @Input() loading: boolean;
 
   svg: SafeHtml;
 

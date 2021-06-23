@@ -1,10 +1,8 @@
-import {Injectable, NgZone} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
 import firebase from 'firebase';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFireDatabase} from '@angular/fire/database';
-import {AngularFirestore} from "@angular/fire/firestore";
 
 import {AlertService} from './alert.service';
 
@@ -21,9 +19,7 @@ export class FirebaseAuthService {
   private subscribersUserChange = [];
 
   constructor(
-    private firestore: AngularFirestore,
     private firebaseAuth: AngularFireAuth,
-    private db: AngularFireDatabase,
     private router: Router,
     private alertService: AlertService
   ) {

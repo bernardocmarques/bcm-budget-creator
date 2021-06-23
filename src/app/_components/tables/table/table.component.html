@@ -1,4 +1,4 @@
-<div class="w-full overflow-hidden rounded-lg shadow-xs {{style}}">
+<div class="w-full overflow-hidden rounded-lg shadow-xs {{classList}}">
 
   <!-- Table -->
   <div class="w-full overflow-x-auto">
@@ -38,6 +38,15 @@
           <td table-data *ngFor="let td of tr"
             [type]="td.type"
             [data]="td.content">
+          </td>
+        </tr>
+        <tr *ngIf="loading">
+          <td [colSpan]="headers.length">
+            <app-spinner
+              [size]="8"
+              [color]="'indigo'"
+              [classList]="'w-full h-12'"
+            ></app-spinner>
           </td>
         </tr>
       </tbody>

@@ -8,6 +8,7 @@ import { BtnSortComponent } from './buttons/btn-sort/btn-sort.component';
 import {InputTextComponent} from "./inputs/general/input-text/input-text.component";
 import {FormsModule} from "@angular/forms";
 import { InputToggleComponent } from './inputs/toggle/input-toggle/input-toggle.component';
+import { SpinnerComponent } from './spinner/spinner/spinner.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { InputToggleComponent } from './inputs/toggle/input-toggle/input-toggle.
     PaginationComponent,
     BtnSortComponent,
     InputTextComponent,
-    InputToggleComponent
+    InputToggleComponent,
+    SpinnerComponent
   ],
   exports: [
     CardComponent,

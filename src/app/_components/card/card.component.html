@@ -13,9 +13,12 @@
     </p>
 
     <!-- Subtitle -->
-    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+    <p *ngIf="!loading" class="text-lg font-semibold text-gray-700 dark:text-gray-200">
       {{subtitle}}
     </p>
+    <ng-container *ngIf="loading">
+      <app-spinner [size]="6" [color]="'gray'"></app-spinner>
+    </ng-container>
   </div>
 
 </div>

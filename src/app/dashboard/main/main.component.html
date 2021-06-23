@@ -25,35 +25,39 @@
         [iconSVG]="completedSVG"
         [color]="'orange'"
         [title]="'Projects completed'"
-        [subtitle]="formatNumber(23)">
+        [subtitle]="formatNumber(cards.projects.value)"
+        [loading]="cards.projects.loader">
       </app-card>
 
       <app-card
         [iconSVG]="moneySVG"
         [color]="'green'"
         [title]="'Total earnings'"
-        [subtitle]="formatNumber(46760.89) + ' €'">
+        [subtitle]="formatNumber(cards.earnings.value) + ' €'"
+        [loading]="cards.earnings.loader">
       </app-card>
 
       <app-card
         [iconSVG]="peopleSVG"
         [color]="'teal'"
         [title]="'Total clients'"
-        [subtitle]="formatNumber(5)">
+        [subtitle]="formatNumber(cards.clients.value)"
+        [loading]="cards.clients.loader">
       </app-card>
 
       <app-card
         [icon]="'clock'"
         [color]="'pink'"
         [title]="'Pending payments'"
-        [subtitle]="formatNumber(3)">
+        [subtitle]="formatNumber(cards.pending.value)"
+        [loading]="cards.pending.loader">
       </app-card>
 
     </div>
 
     <!-- Recent Activity Table -->
     <app-table
-      [style]="'mb-8'"
+      [classList]="'mb-8'"
       [headers]="headers"
       [data]="data"
       [step]="10"

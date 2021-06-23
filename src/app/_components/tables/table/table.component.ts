@@ -7,13 +7,14 @@ import {TableDataType} from "../table-data/table-data.component";
 })
 export class TableComponent implements OnInit {
 
-  @Input() style: string;
+  @Input() classList: string;
   @Input() headers: {label: string, value: any}[];
   @Input() data: {type: TableDataType, content: any}[][];
   @Input() step: number;
   @Input() hasNavigation: boolean;
   @Input() defaultSort: number;
   @Input() defaultColumnSortIndex: number;
+  @Input() loading: boolean;
 
   currentPage: number = 0;
   totalPages: number;
