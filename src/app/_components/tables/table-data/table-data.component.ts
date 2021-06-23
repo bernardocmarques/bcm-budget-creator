@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {numberWithCommas} from "../../../_util/number";
+
+import * as eva from 'eva-icons';
 
 export enum TableDataType {
   TEXT,
@@ -19,7 +21,7 @@ export enum TableDataType {
   styles: [
   ]
 })
-export class TableDataComponent implements OnInit {
+export class TableDataComponent implements OnInit, AfterViewInit {
 
   @Input() type: TableDataType;     // Type of table data to render
   @Input() data: any;               // Data to render
@@ -84,8 +86,8 @@ export class TableDataComponent implements OnInit {
       case TableDataType.BUTTON:
         this.buttonText = this.data.text;
         this.buttonIcon = this.data.icon;
-        this.buttonLink = this.data.url;
         this.buttonColor = this.data.color;
+        if (this.data.url) this.buttonLink = this.data.url;
         break;
 
       case TableDataType.ACTIONS:
@@ -94,12 +96,20 @@ export class TableDataComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    eva.replace();
+  }
+
   get tableDataType(): typeof TableDataType {
     return TableDataType;
   }
 
   formatMoney(value: number): string {
     return numberWithCommas(value);
+  }
+
+  showButton(text: string): boolean {
+    return text !== 'No status' && text !== 'No action';
   }
 
 }

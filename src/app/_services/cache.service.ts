@@ -40,25 +40,6 @@ export class CacheService {
     return this.userClients;
   }
 
-  public async getClientByKey(key: string): Promise<Client> {
-    // Inject service otherwise creates Circular Dependency error
-    this.firebaseService = this.injector.get(FirebaseService);
-
-    if (!this.userClients)
-      return this.firebaseService.getClientByKey(key);
-
-    const subscription = this.userClients.subscribe(clients => {
-      for (const client of clients) {
-        if (client.key === key) {
-          subscription.unsubscribe();
-          return client;
-        }
-      }
-      return null;
-    });
-    return null;
-  }
-
 
   /*** --------------------------------------------- ***/
   /*** ------------------ Projects ----------------- ***/

@@ -23,6 +23,7 @@ $scrollbar-width: 10px;
   .scrollbar {
     &::-webkit-scrollbar {
       width:  $scrollbar-width;
+      height:  $scrollbar-width;
       background-color: $scrollbar-track-color;
       -moz-box-shadow:    0 0 0 1px rgb(0 0 0 / 5%);
       -webkit-box-shadow: 0 0 0 1px rgb(0 0 0 / 5%);
@@ -35,11 +36,11 @@ $scrollbar-width: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $scrollbar-color;
+      background-color: darken($scrollbar-color, 10%);
       border-radius: $scrollbar-width;
 
       &:hover {
-        background-color: darken($scrollbar-color, 10%);
+        background-color: darken($scrollbar-color, 20%);
       }
     }
   }
@@ -54,25 +55,54 @@ $scrollbar-width: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $scrollbar-color-dark;
+      background-color: lighten($scrollbar-color-dark, 10%);
 
       &:hover {
-        background-color: lighten($scrollbar-color-dark, 10%);
+        background-color: $scrollbar-color-dark;
+      }
+    }
+  }
+
+  .scrollbar-table {
+    &::-webkit-scrollbar, &::-webkit-scrollbar-track {
+      background-color: white;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: lighten($scrollbar-color, 10);
+
+      &:hover {
+        background-color: $scrollbar-color;
+      }
+    }
+  }
+
+  .scrollbar-table-dark {
+    &::-webkit-scrollbar, &::-webkit-scrollbar-track {
+      background-color: #1A1C23;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: lighten($scrollbar-color-dark, 10%);
+
+      &:hover {
+        background-color: $scrollbar-color-dark;
       }
     }
   }
 
   .scrollbar-thin {
     &::-webkit-scrollbar {
-      width:  calc(#{$scrollbar-width} - 5);
+      width:  calc(#{$scrollbar-width} - 4px);
+      height:  calc(#{$scrollbar-width} - 4px);
     }
 
     &::-webkit-scrollbar-track {
-      border-radius: calc(#{$scrollbar-width} - 5);
+      border-radius: calc(#{$scrollbar-width} - 4px);
     }
 
     &::-webkit-scrollbar-thumb {
-      border-radius: calc(#{$scrollbar-width} - 5);
+      border-radius: calc(#{$scrollbar-width} - 4px);
     }
   }
 

@@ -14,11 +14,35 @@ export enum Status {
   PAID
 }
 
+export function getStatusInfo(status: Status): { text: string, color: string } {
+  switch (status) {
+    case Status.IN_PROGRESS:
+      return { text: 'In Progress', color: 'blue' };
+    case Status.FOR_PAYMENT:
+      return { text: 'For Payment', color: 'pink' };
+    case Status.PAID:
+      return { text: 'Paid', color: 'green' };
+    default:
+      return { text: 'No status', color: 'gray' }
+  }
+}
+
+export function getNextStatusActionInfo(status: Status): { text: string, icon: string } {
+  switch (status) {
+    case Status.IN_PROGRESS:
+      return { text: 'Mark for payment', icon: 'credit-card-outline' };
+    case Status.FOR_PAYMENT:
+      return { text: 'Mark as paid', icon: 'checkmark-circle-outline' };
+    default:
+      return { text: 'No action', icon: 'flash-outline' }
+  }
+}
+
 export class Budget {
   key?: string = null;
   id: string = null;
   client: Client = null;
-  project: Project = null
+  project: Project = null;
   items: BudgetItem[] = null;
   pdfLink: string = null;
   status: Status = 0;

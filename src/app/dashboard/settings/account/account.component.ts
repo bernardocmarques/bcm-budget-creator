@@ -22,7 +22,7 @@ export class AccountComponent implements OnInit, AfterViewInit {
     firstname: null,
     lastname: null,
     email: null,
-    avatar: this.getDefaultAvatar()
+    avatar: null
   }
 
   constructor(

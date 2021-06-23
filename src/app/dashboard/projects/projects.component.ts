@@ -41,13 +41,12 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
     let table: {type: TableDataType, content: any}[][] = [];
 
     this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
-      projects.forEach(async project => {
-        const client = await this.cacheService.getClientByKey(project.clientKey);
+      projects.forEach(project => {
         table.push([
           {type: TableDataType.AVATAR_2LINES, content: {
             src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-              name: client.name,
-              company: client.company
+              name: project.client.name,
+              company: project.client.company
             }
           },
           {type: TableDataType.TEXT, content: project.name},

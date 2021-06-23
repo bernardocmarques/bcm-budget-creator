@@ -18,13 +18,14 @@
 
     <!-- Budgets Table -->
     <app-table
-            [classList]="'mb-8'"
+      [classList]="'mb-8'"
       [headers]="headers"
       [data]="data"
       [step]="10"
       [hasNavigation]="true"
       [defaultSort]="1"
-      [defaultColumnSortIndex]="2">
+      [defaultColumnSortIndex]="2"
+      [loading]="loading">
     </app-table>
 
   </div>

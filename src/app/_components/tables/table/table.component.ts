@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TableDataType} from "../table-data/table-data.component";
+import {ThemeService} from "../../../_services/theme.service";
 
 @Component({
   selector: 'app-table',
@@ -22,7 +23,7 @@ export class TableComponent implements OnInit {
   sort: number;
   columnSortIndex: number;
 
-  constructor() { }
+  constructor(public themeService: ThemeService) { }
 
   ngOnInit(): void {
     this.totalPages = Math.ceil(this.data.length / this.step);

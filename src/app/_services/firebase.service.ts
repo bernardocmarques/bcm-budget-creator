@@ -95,8 +95,7 @@ export class FirebaseService {
   }
 
   public getAllProjects(): Promise<Project[]> {
-    return this.getDatabaseData("projects/")
-      .then(querySnapshot => querySnapshot.docs.map(doc => new Project(doc.data(), doc.id)));
+    return this.getAllProjectsFromClient();
   }
 
   public async getAllProjectsFromClient(clientKey?: string): Promise<Project[]> {
@@ -111,7 +110,6 @@ export class FirebaseService {
         }
         return Promise.all(promises).then(projects => projects);
       });
-
   }
 
   public getProjectByKey(key: string): Promise<Project> {
@@ -146,8 +144,7 @@ export class FirebaseService {
   }
 
   public getAllBudgets(): Promise<Budget[]> {
-    return this.getDatabaseData("budgets/")
-      .then(querySnapshot => querySnapshot.docs.map(doc => new Budget(doc.data(), doc.id)));
+    return this.getAllBudgetsFromClientAndProject();
   }
 
   public async getAllBudgetsFromClientAndProject(clientKey?: string, projectKey?: string): Promise<Budget[]> {
@@ -160,7 +157,6 @@ export class FirebaseService {
     } else if (projectKey) {
       query = ref => ref.where('projectKey', '==', projectKey);
     }
-
 
     return this.userDocument.collection("budgets", query).get().toPromise()
       .then(querySnapshot =>  {
