@@ -7,6 +7,7 @@ import {Project, ProjectDatabase} from "../_domain/project";
 import {Budget, BudgetDatabase} from "../_domain/budget";
 import firebase from "firebase";
 import FieldValue = firebase.firestore.FieldValue;
+import {User} from "../_domain/user";
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,15 @@ export class FirebaseService {
 
   uid: string;
   userDocument: AngularFirestoreDocument;
+  userStorageRef: firebase.storage.Reference;
 
   constructor(
-    private firestore: AngularFirestore,
     private firebaseAuthService: FirebaseAuthService,
+    private firestore: AngularFirestore
   ) {
     this.uid = this.firebaseAuthService.currentUser.uid;
     this.userDocument = this.firestore.collection("users").doc(this.uid);
+    this.userStorageRef = firebase.storage().ref();
   }
 
 
@@ -43,11 +46,70 @@ export class FirebaseService {
 
 
   /*** --------------------------------------------- ***/
+  /*** --------- General Storage Functions --------- ***/
+  /*** --------------------------------------------- ***/
+
+  public downloadImage(path: string): Promise<string> {
+    // Create a reference to the file we want to download
+    const ref = this.userStorageRef.child(path);
+
+    // Get the download URL
+    return ref.getDownloadURL().then(url => {
+      return url;
+
+    }).catch(function(error) {
+
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      console.error('Error: ' + error.code);
+    });
+  }
+
+
+  /*** --------------------------------------------- ***/
   /*** ------------------- User -------------------- ***/
   /*** --------------------------------------------- ***/
 
+  public setUserInfo(user: User) {
+    const obj = user.toObject();
+    obj['avatar'] = user.avatar.split('/').pop();
+    return this.userDocument.set(obj);
+  }
+
+  public getUserInfo(): Promise<User> {
+    return this.userDocument.get().toPromise().then(doc => {
+      const avatar = doc.data()['avatar'];
+
+      // Get actual url for avatar
+      if (avatar.includes('-'))
+        return new User(doc.data(), doc.id, 'assets/avatars/' + avatar);
+
+      if (avatar.includes('default'))
+        return new User(doc.data(), doc.id, 'assets/avatars/default.svg');
+
+      return this.downloadImage('users/' + this.uid + '/' + avatar).then(avatar =>
+        new User(doc.data(), doc.id, avatar)
+      );
+    });
+  }
+
   public getTemplateLink(): Promise<string> {
     return this.userDocument.get().toPromise().then(doc => doc.data()["template_url"]);
+  }
+
+  public getUserAvatar(): Promise<string>  {
+    return this.userDocument.get().toPromise().then(doc => {
+      const avatar = doc.data()["avatar"] as string;
+
+      if (avatar.includes('-'))
+        return 'assets/avatars/' + avatar;
+
+      else if (avatar.includes('default'))
+        return 'assets/avatars/default.svg';
+
+      else
+        return this.downloadImage('users/' + this.uid + '/' + avatar);
+    });
   }
 
 

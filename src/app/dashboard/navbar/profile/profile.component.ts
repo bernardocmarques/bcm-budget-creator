@@ -1,9 +1,10 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, Injector, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
-import {User} from '../../../_domain/user';
 import {FirebaseAuthService} from "../../../_services/firebase-auth.service";
 import {ThemeService} from "../../../_services/theme.service";
+import firebase from "firebase";
+import {CacheService} from "../../../_services/cache.service";
 
 @Component({
   selector: 'app-profile',
@@ -28,15 +29,15 @@ export class ProfileComponent implements OnInit {
   @ViewChild('menu') menu: ElementRef;
 
   isProfileMenuOpen = false;
-  user: User;
+  avatar: string;
 
   constructor(
     private renderer: Renderer2,
     private firebaseAuthService: FirebaseAuthService,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private cacheService: CacheService
   ) {
-
     this.renderer.listen('window', 'click', (e: Event) => {
       const toggleBtn = this.toggleBtn.nativeElement;
       const toggleBtnChildren = toggleBtn.querySelectorAll('*');
@@ -49,20 +50,20 @@ export class ProfileComponent implements OnInit {
         if (!clicked) this.isProfileMenuOpen = false;
       }
     });
+
+    this.avatar = themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
   }
 
   async ngOnInit(): Promise<void> {
-    // this.user = await this.getUser();
+    this.getAvatar();
   }
 
-  // async getUser(): Promise<User> {
-  //   return this.firebaseService.getDatabaseData('users/' + this.firebaseAuthService.currentUser.uid);
-  // }
-
-  getAvatar(): string {
-    if (this.user && this.user.avatar) return this.user.avatar;
-    else if (this.themeService.isDark()) return 'assets/avatars/default-dark.svg'
-    return 'assets/avatars/default.svg';
+  getAvatar(): void {
+    this.cacheService.getUserInfo().then(obs => obs.subscribe(user => {
+      if (user.avatar.includes('default'))
+        this.avatar = this.themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
+      else this.avatar = user.avatar;
+    }));
   }
 
   async logout(): Promise<void> {

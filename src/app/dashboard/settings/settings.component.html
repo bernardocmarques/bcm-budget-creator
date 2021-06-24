@@ -20,7 +20,7 @@
 
             <ng-container *ngIf="chartOptions">
               <apx-chart
-                [series]="[75]"
+                [series]="[percentageProfileCompleted]"
                 [chart]="chartOptions.chart"
                 [plotOptions]="chartOptions.plotOptions"
                 [colors]="['#ffffff']"
@@ -29,15 +29,15 @@
             </ng-container>
 
             <div>
-              <p class="text-base font-semibold mb-2">Profile Completed</p>
-              <p class="text-sm text-indigo-200">Complete your profile to unlock all features</p>
+              <p class="text-base font-semibold mb-2">{{percentageProfileCompleted !== 100 ? 'Profile Information' : 'Profile Completed!'}}</p>
+              <p class="text-sm text-indigo-200">{{percentageProfileCompleted !== 100 ? 'Complete your profile to unlock all features' : 'You\'ve completed your profile. Nice job!'}}</p>
             </div>
 
           </div>
 
           <button class="w-full px-4 py-2 text-sm font-semibold leading-5 text-indigo-500 transition-colors duration-150 bg-gray-50
                   border border-transparent rounded-lg active:bg-gray-100 hover:bg-gray-100 focus:outline-none
-                  focus:shadow-outline-indigo">
+                  focus:shadow-outline-indigo" *ngIf="percentageProfileCompleted !== 100" (click)="itemActiveIndex = 1">
             Complete your profile
           </button>
         </div>
@@ -80,24 +80,32 @@
         </h3>
         <hr class="my-8 dark:border-gray-600 border-1">
 
-        <ng-container *ngIf="itemActiveIndex === 0"><app-customization></app-customization></ng-container>
-        <ng-container *ngIf="itemActiveIndex === 1"><app-account></app-account></ng-container>
+        <form #f="ngForm" (submit)="saveChangesBtnClick.emit()">
+          <ng-container *ngIf="itemActiveIndex === 0"><app-customization></app-customization></ng-container>
+          <ng-container *ngIf="itemActiveIndex === 1">
+            <app-account
+              [save]="saveChangesBtnClick"
+              [form]="f">
+            </app-account>
+          </ng-container>
 
-        <hr class="my-8 dark:border-gray-600 border-1">
+          <hr class="my-8 dark:border-gray-600 border-1">
 
-        <div class="flex items-center">
-          <button class="w-full px-4 py-2.5 mr-2 font-medium leading-5 text-gray-700 dark:text-white transition-colors
-                  duration-150 bg-transparent border border-transparent rounded-lg active:bg-gray-100 dark:active:bg-gray-800
-                  hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
-            Discard changes
-          </button>
+          <div class="flex items-center">
+            <button class="w-full px-4 py-2.5 mr-2 font-medium leading-5 text-gray-700 dark:text-white transition-colors
+                    duration-150 bg-transparent border border-transparent rounded-lg active:bg-gray-100 dark:active:bg-gray-800
+                    hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray">
+              Discard changes
+            </button>
 
-          <button class="w-full px-4 py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
-                  border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
-                  focus:shadow-outline-indigo">
-            Save changes
-          </button>
-        </div>
+            <button class="w-full px-4 py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
+                    border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
+                    focus:shadow-outline-indigo" type="submit">
+              Save changes
+            </button>
+          </div>
+
+        </form>
 
       </div>
 

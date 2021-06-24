@@ -1,54 +1,57 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit} from '@angular/core';
 
-import * as eva from 'eva-icons';
 import {FirebaseAuthService} from "../../../_services/firebase-auth.service";
-import firebase from "firebase";
-import User = firebase.User;
-import {NgForm} from "@angular/forms";
 import {AlertService} from "../../../_services/alert.service";
 import {ThemeService} from "../../../_services/theme.service";
+import {CacheService} from "../../../_services/cache.service";
+import {User} from "../../../_domain/user";
+import {NgForm} from "@angular/forms";
+import {FirebaseService} from "../../../_services/firebase.service";
 
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
 })
-export class AccountComponent implements OnInit, AfterViewInit {
+export class AccountComponent implements OnInit {
+
+  @Input() save: EventEmitter<void>;
+  @Input() form: NgForm;
 
   user: User;
-
-  @ViewChild('f', { static: false }) f: NgForm;
-
-  inputs = {
-    firstname: null,
-    lastname: null,
-    email: null,
-    avatar: ''
-  }
+  loading: boolean;
 
   constructor(
     private firebaseAuthService: FirebaseAuthService,
     private alertService: AlertService,
-    public themeService: ThemeService) {
-    this.user = firebaseAuthService.currentUser;
+    public themeService: ThemeService,
+    private cacheService: CacheService,
+    private firebaseService: FirebaseService) {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    eva.replace();
+    this.loading = true;
+    this.cacheService.getUserInfo().then(obs => obs.subscribe(user => {
+      this.user = user;
+      this.updateAvatarThemeIfDefault();
+      this.loading = false;
+    }));
+    this.save.subscribe(v => this.onSubmit())
   }
 
   async onSubmit(): Promise<void> {
-    if (this.f.form.valid) {
+    if (this.form.form.valid) {
+      this.firebaseService.setUserInfo(this.user).then(res => res);
+      this.cacheService.setUserInfo(this.user);
+      this.alertService.showAlert('Changes saved', 'Changes successful saved.', 'success');
 
     } else {
       this.alertService.showAlert('Error', 'Invalid form. Please fix the errors and submit again.', 'danger');
     }
   }
 
-  getDefaultAvatar(): string {
-    return this.themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
+  updateAvatarThemeIfDefault(): void {
+    if (this.user.avatar.includes('default'))
+      this.user.avatar = this.themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
   }
 
 }

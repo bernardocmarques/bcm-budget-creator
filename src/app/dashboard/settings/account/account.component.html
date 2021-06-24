@@ -1,4 +1,8 @@
-<form #f="ngForm" (submit)="onSubmit()">
+<ng-container *ngIf="loading">
+  <app-spinner [color]="'indigo'" [size]="8" [classList]="'w-full'"></app-spinner>
+</ng-container>
+
+<ng-container *ngIf="!loading">
 
   <h4 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
     Personal Information
@@ -10,14 +14,14 @@
       [label]="'First name'"
       [placeholder]="'First name'"
       [id] = "'firstname'"
-      [(value)] = "inputs.firstname"
+      [(value)] = "user.firstname"
     ></app-input-text>
 
     <app-input-text
       [label]="'Last name'"
       [placeholder]="'Last name'"
       [id] = "'lastname'"
-      [(value)] = "inputs.lastname"
+      [(value)] = "user.lastname"
     ></app-input-text>
   </div>
 
@@ -25,7 +29,7 @@
     [label]="'E-mail address'"
     [placeholder]="'E-mail address'"
     [id] = "'email'"
-    [(value)] = "inputs.email"
+    [(value)] = "user.email"
   ></app-input-text>
 
   <h4 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6 mt-8">
@@ -36,12 +40,14 @@
   <div class="grid grid-cols-5 gap-5">
     <div class="flex flex-col items-center col-span-2">
       <img class="object-cover w-32 h-32 rounded-full border-4 border-gray-100 dark:border-gray-500"
-           src="{{getDefaultAvatar()}}"/>
+           src="{{user.avatar}}"/>
 
       <button class="flex items-center px-3 py-2 font-medium text-sm text-white transition-colors duration-150 bg-indigo-500
                   border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
                   focus:shadow-outline-indigo mt-4">
-        <i [attr.data-eva]="'cloud-upload'" class="w-6 h-6 mr-2 fill-current"></i>
+        <svg class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
         Upload photo
       </button>
     </div>
@@ -50,8 +56,8 @@
          [ngClass]="{'scrollbar-dark': themeService.isDark()}">
 
       <img *ngFor="let rep of [].constructor(50); let i = index" class="object-cover w-10 h-10 rounded-full cursor-pointer mr-2.5 mb-2.5"
-           src="assets/avatars/avatar-{{i + 1}}.svg" alt="avatar {{i + 1}}" (click)="inputs.avatar = 'assets/avatars/avatar-' + (i + 1) + '.svg'">
+           src="assets/avatars/avatar-{{i + 1}}.svg" alt="avatar {{i + 1}}" (click)="user.avatar = 'assets/avatars/avatar-' + (i + 1) + '.svg'">
     </div>
   </div>
 
-</form>
+</ng-container>

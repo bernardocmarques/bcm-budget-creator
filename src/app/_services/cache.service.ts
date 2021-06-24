@@ -5,6 +5,7 @@ import {FirebaseService} from "./firebase.service";
 import {publishReplay, refCount} from "rxjs/operators";
 import {Budget} from "../_domain/budget";
 import {Project} from "../_domain/project";
+import {User} from "../_domain/user";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,37 @@ export class CacheService {
   userProjects: Observable<Project[]>;
   userBudgets: Observable<Budget[]>;
 
+  user: Observable<User>;
+
   constructor(private injector: Injector) { }
+
+
+  /*** --------------------------------------------- ***/
+  /*** ------------------ Clients ------------------ ***/
+  /*** --------------------------------------------- ***/
+
+  async getUserInfo(): Promise<Observable<User>> {
+    // Inject service otherwise creates Circular Dependency error
+    this.firebaseService = this.injector.get(FirebaseService);
+
+    // Cache it once if clients value is false
+    if (!this.user) {
+      await this.firebaseService.getUserInfo().then(user => {
+        this.user = from([user]).pipe(
+          publishReplay(1),
+          refCount()
+        );
+      });
+    }
+    return this.user;
+  }
+
+  setUserInfo(user: User): void {
+    this.user = from([user]).pipe(
+      publishReplay(1),
+      refCount()
+    );
+  }
 
 
   /*** --------------------------------------------- ***/

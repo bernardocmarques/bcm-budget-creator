@@ -1,10 +1,12 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
 import firebase from 'firebase';
 import {AngularFireAuth} from '@angular/fire/auth';
 
 import {AlertService} from './alert.service';
+import {from, Observable} from "rxjs";
+import {publishReplay, refCount} from "rxjs/operators";
 
 
 @Injectable({
@@ -13,7 +15,7 @@ import {AlertService} from './alert.service';
 export class FirebaseAuthService {
 
   public auth: AngularFireAuth;
-  public currentUser: firebase.User = null;
+  public currentUser: firebase.User;
   public isUserLoggedIn: boolean = false;
 
   private subscribersUserChange = [];
