@@ -3,6 +3,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../_components/tables/table-data/table-data.component";
 import {CacheService} from "../../_services/cache.service";
+import {getNextStatusActionInfo, getStatusInfo, Status} from "../../_domain/project";
 
 @Component({
   selector: 'app-projects',
@@ -18,6 +19,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
   nameInput: string;
   clientInput: string;
   rateInput: number;
+  statusInput: Status;
 
   constructor(private cacheService: CacheService) { }
 
@@ -27,6 +29,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
       {label: 'project name', value: this.nameInput},
       {label: 'project id', value: this.idInput},
       {label: 'hourly rate', value: this.rateInput},
+      {label: 'status', value: this.statusInput},
+      {label: 'change status', value: 'no-sort-filter'},
       {label: 'actions', value: 'no-sort-filter'}
     ];
     this.data = this.getProjectsData();
@@ -52,10 +56,18 @@ export class ProjectsComponent implements OnInit, AfterViewInit {
           {type: TableDataType.TEXT, content: project.name},
           {type: TableDataType.TEXT, content: project.id},
           {type: TableDataType.MONEY, content: project.rate},
+          {type: TableDataType.PILL, content: getStatusInfo(project.status)},
+          {type: TableDataType.BUTTON, content: {
+              text: getNextStatusActionInfo(project.status).text,
+              icon: getNextStatusActionInfo(project.status).icon,
+              color: 'cool-gray'
+            }
+          },
           {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
         ]);
       });
       this.loading = false;
+      console.log(table)
     }));
 
     return table;

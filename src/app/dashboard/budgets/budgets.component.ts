@@ -3,7 +3,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../_components/tables/table-data/table-data.component";
 import {CacheService} from "../../_services/cache.service";
-import {getNextStatusActionInfo, getStatusInfo} from "../../_domain/budget";
+import {getNextStatusActionInfo, getStatusInfo, Status} from "../../_domain/budget";
 
 @Component({
   selector: 'app-budgets',
@@ -20,7 +20,7 @@ export class BudgetsComponent implements OnInit, AfterViewInit {
   idInput: number;
   clientInput: string;
   projectInput: string;
-  statusInput: string;
+  statusInput: Status;
 
   constructor(private cacheService: CacheService) { }
 

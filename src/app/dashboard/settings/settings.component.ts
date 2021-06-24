@@ -10,6 +10,7 @@ import {
 } from "ng-apexcharts";
 import {NgForm} from "@angular/forms";
 import {CacheService} from "../../_services/cache.service";
+import {ActivatedRoute, Route, Router} from "@angular/router";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -103,10 +104,35 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   @ViewChild('f', { static: false }) f: NgForm;
   @Output() saveChangesBtnClick: EventEmitter<void> = new EventEmitter();
 
-  constructor(private cacheService: CacheService) { }
+  constructor(
+    private cacheService: CacheService,
+    private router: Router
+  ) {
+    const activeItem = router.url.split('/').pop();
+    switch (activeItem) {
+      case 'customization':
+        this.itemActiveIndex = 0;
+        break;
+
+      case 'account':
+        this.itemActiveIndex = 1;
+        break;
+
+      case 'security':
+        this.itemActiveIndex = 2;
+        break;
+
+      case 'notifications':
+        this.itemActiveIndex = 3;
+        break;
+
+      default:
+        this.itemActiveIndex = -1;
+    }
+  }
 
   ngOnInit(): void {
-    const user = this.cacheService.getUserInfo().then(obs => obs.subscribe(user => {
+    this.cacheService.getUserInfo().then(obs => obs.subscribe(user => {
       let fields = 0;
       if (user.firstname) fields++;
       if (user.lastname) fields++;
