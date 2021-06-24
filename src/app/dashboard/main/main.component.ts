@@ -73,8 +73,16 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.cards.pending.loader = false;
     }));
 
-    // TODO: projects completed
-    this.cards.projects.loader = false;
+    this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+      let totalCompleted = 0;
+
+      projects.forEach(project => {
+        if (project.status === 1)
+          totalCompleted++;
+      })
+      this.cards.projects.value = totalCompleted;
+      this.cards.projects.loader = false;
+    }))
   }
 
   getRecentActivity(): {type: TableDataType, content: any}[][] {
