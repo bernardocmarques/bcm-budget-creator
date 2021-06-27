@@ -54,7 +54,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/eva-icons/eva.min.js",
-              "node_modules/apexcharts/dist/apexcharts.min.js"
+              "node_modules/apexcharts/dist/apexcharts.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.min.js"
             ]
           },
           "configurations": {

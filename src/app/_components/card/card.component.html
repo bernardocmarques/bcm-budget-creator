@@ -2,8 +2,8 @@
 
   <!-- Icon -->
   <div class="p-3 mr-4 text-{{color}}-500 bg-{{color}}-100 rounded-full dark:text-{{color}}-100 dark:bg-{{color}}-500">
-    <i [attr.data-eva]="icon" class="w-5 h-5 fill-current"></i>
-    <div class="svg" [innerHTML]="svg"></div>
+    <i *ngIf="icon" [attr.data-eva]="icon" class="w-5 h-5 fill-current"></i>
+    <div *ngIf="iconSVG" class="svg" [innerHTML]="svg"></div>
   </div>
 
   <div>

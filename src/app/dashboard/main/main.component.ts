@@ -5,6 +5,9 @@ import {TableDataType} from "../../_components/tables/table-data/table-data.comp
 import {numberWithCommas} from "../../_util/number";
 import {CacheService} from "../../_services/cache.service";
 import {Status} from "../../_domain/budget";
+import 'datatables.net';
+
+declare let $;
 
 @Component({
   selector: 'app-main',
@@ -31,19 +34,13 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   headers: {label: string, value: any}[];
   data: {type: TableDataType, content: any}[][];
+  datatable: DataTables.Api;
 
   constructor(private cacheService: CacheService) { }
 
   ngOnInit(): void {
     this.initCards();
-    this.data = this.getRecentActivity();
-    this.headers = [
-      {label: 'client', value: this.clientInput},
-      {label: 'project', value: this.projectInput},
-      {label: 'amount', value: this.amountInput},
-      {label: 'status', value: this.statusSelect},
-      {label: 'date', value: this.dateInput}
-    ];
+    this.initTable();
   }
 
   ngAfterViewInit(): void {
@@ -85,6 +82,39 @@ export class MainComponent implements OnInit, AfterViewInit {
     }))
   }
 
+  initTable(): void {
+    this.data = this.getRecentActivity();
+    this.headers = [
+      {label: 'client', value: this.clientInput},
+      {label: 'project', value: this.projectInput},
+      {label: 'amount', value: this.amountInput},
+      {label: 'status', value: this.statusSelect},
+      {label: 'date', value: this.dateInput}
+    ];
+    this.buildDatatable();
+  }
+
+  buildDatatable(): void {
+    // if (this.datatable) this.datatable.destroy();
+    //
+    // let noOrderColumns = [];
+    // let naturalSorting = [1, 2, 3, 4];
+    //
+    // let options = {
+    //   order: [[ 5, 'asc' ]], // default order
+    //   columnDefs: [
+    //     { orderData: 0,   targets: 5 }, // date order by timestamp
+    //     { type: 'natural', targets: naturalSorting },
+    //     { orderable: false, targets: noOrderColumns }, // not order last rows (actions)
+    //   ]
+    // };
+    //
+    // setTimeout(() => {
+    //   this.datatable = $('#recent-activity-table').DataTable(options);
+    //   //this.datatable.column(0).visible(false, false);// hide timestamp
+    // }, 0);
+  }
+
   getRecentActivity(): {type: TableDataType, content: any}[][] {
     // FIXME: get actual data
     return [
@@ -93,7 +123,7 @@ export class MainComponent implements OnInit, AfterViewInit {
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
-        {type: TableDataType.DATE, content: new Date()}
+        {type: TableDataType.DATE, content: new Date(2021, 4, 23)}
       ],
       [
         {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
