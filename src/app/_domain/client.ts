@@ -12,8 +12,8 @@ export class Client {
   public themeService: ThemeService;
 
   constructor(source: Partial<Client>, key?: string) {
-    for (const key in source){
-      if (this.hasOwnProperty(key)){
+    for (const key in source) {
+      if (this.hasOwnProperty(key)) {
         this[key] = source[key];
       }
     }

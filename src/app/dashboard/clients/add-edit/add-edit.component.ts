@@ -21,7 +21,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   loading: boolean;
 
   mode: "edit" | "add";
-  adding: boolean;
+  processing: boolean;
 
   @ViewChild('f', { static: false }) f: NgForm;
 
@@ -41,8 +41,11 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       this.route.params.subscribe(params => {
         this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
           for (const client of clients)
-            if (client.key === params.id){
-              this.client = client;
+            if (client.key === params.id) {
+              this.client = new Client(client, client.key);
+              this.client.firebaseService = this.firebaseService;
+              this.client.themeService = this.themeService;
+              this.client.avatar = this.client.getAvatar() as string;
               this.loading = false;
             }
         }));
@@ -67,34 +70,37 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     if (this.f.form.valid) {
+      this.processing = true;
+      const clientToUpdate = new Client(this.client, this.client.key);
+      clientToUpdate.avatar = clientToUpdate.avatar.split('/').pop();
 
       if (this.mode == "add") {
-        this.adding = true;
-        const clientToAdd = new Client(this.client);
-        clientToAdd.avatar = clientToAdd.avatar.split('/').pop();
-
-        this.firebaseService.addClient(clientToAdd).then(() => {
+        this.firebaseService.addClient(clientToUpdate).then(() => {
           this.cacheService.userClients = null;
-          this.alertService.showAlert('New client created!', 'New client successfully created', 'success');
+          this.alertService.showAlert('New client created!', 'New client successfully created.', 'success');
 
         }).catch((error) => {
           this.alertService.showAlert('Error', 'Error writing document: ' + error, 'danger');
 
         }).finally(() => {
-          this.adding = false;
+          this.processing = false;
           this.f.resetForm();
           this.goBack();
         });
 
       } else if (this.mode == "edit") {
-        // this.firebaseService.setClient(this.client).then(() => {
-        //   console.log("Document successfully written!");
-        // }).catch((error) => {
-        //   console.error("Error writing document: ", error);
-        // }).finally(() => {
-        //   this.f.resetForm();
-        //   this.goBack();
-        // });
+        this.firebaseService.setClient(clientToUpdate).then(() => {
+          this.cacheService.userClients = null;
+          this.alertService.showAlert('Changes saved!', 'Client ' + this.client.name + ' successfully edited.', 'success');
+
+        }).catch((error) => {
+          this.alertService.showAlert('Error', 'Error writing document: ' + error, 'danger');
+
+        }).finally(() => {
+          this.processing = false;
+          this.f.resetForm();
+          this.goBack();
+        });
 
       } else {
         console.error("Invalid mode!");

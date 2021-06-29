@@ -7,6 +7,7 @@ import {ThemeService} from "../../_services/theme.service";
 import {FirebaseService} from "../../_services/firebase.service";
 import { Client } from 'src/app/_domain/client';
 import {AlertService} from "../../_services/alert.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -33,6 +34,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     private cacheService: CacheService,
     private themeService: ThemeService,
     private alertService: AlertService,
+    private router: Router,
     private injector: Injector
   ) { }
 
@@ -90,7 +92,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   }
 
   editClient(client: Client): void {
-    console.log('edit client ' + client.name);
+    this.router.navigate(['dashboard/clients/edit/', client.key]).then(r => r);
   }
 
   deleteClient(client: Client): void {

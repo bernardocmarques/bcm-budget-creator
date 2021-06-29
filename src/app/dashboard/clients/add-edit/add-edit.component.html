@@ -103,7 +103,7 @@
             <button class="flex items-center justify-center w-full px-4 py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
                     border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
                     focus:shadow-outline-indigo" type="submit">
-              <ng-container *ngIf="adding">
+              <ng-container *ngIf="processing">
                 <app-spinner [size]="6" [color]="'white'" [classList]="'mr-2'"></app-spinner>
               </ng-container>
               {{mode === 'add' ? 'Create client' : 'Save changes'}}
