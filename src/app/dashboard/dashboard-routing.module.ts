@@ -4,16 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {MainComponent} from "./main/main.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
-import {ProjectsComponent} from "./projects/projects.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
-import {ClientsComponent} from "./clients/clients.component";
 import {BudgetsComponent} from "./budgets/budgets.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {AccountComponent} from "./settings/account/account.component";
 import {CustomizationComponent} from "./settings/customization/customization.component";
 import {SecurityComponent} from "./settings/security/security.component";
 import {NotificationsComponent} from "./settings/notifications/notifications.component";
-import {AddEditComponent} from "./clients/add-edit/add-edit.component";
 
 const routes: Routes = [
   {
@@ -22,10 +19,14 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'main' },
       { path: 'main', component: MainComponent },
-      { path: 'clients', component: ClientsComponent },
-      { path: 'clients/add', component: AddEditComponent },
-      { path: 'clients/edit/:id', component: AddEditComponent },
-      { path: 'projects', component: ProjectsComponent },
+      {
+        path: 'clients',
+        loadChildren: () => import('./clients/clients.module').then(mod => mod.ClientsModule),
+      },
+      {
+        path: 'projects',
+        loadChildren: () => import('./projects/projects.module').then(mod => mod.ProjectsModule),
+      },
       { path: 'budgets', component: BudgetsComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'settings',

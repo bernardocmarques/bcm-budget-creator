@@ -47,6 +47,7 @@ export class TableDataComponent implements OnInit, AfterViewInit {
 
   actions?: string[];               // Actions
 
+  @Output() btnClicked: EventEmitter<void> = new EventEmitter();
   @Output() viewBtnClicked: EventEmitter<void> = new EventEmitter();
   @Output() editBtnClicked: EventEmitter<void> = new EventEmitter();
   @Output() deleteBtnClicked: EventEmitter<void> = new EventEmitter();

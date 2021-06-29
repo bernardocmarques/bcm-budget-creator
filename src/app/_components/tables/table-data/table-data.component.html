@@ -80,22 +80,13 @@
 </td>
 
 <td *ngIf="type === tableDataType.BUTTON" class="flex px-4 py-3 text-sm">
-  <a *ngIf="buttonLink && showButton(buttonText)"
-     class="cursor-pointer flex items-center justify-center w-full px-4 py-2 font-medium leading-5 text-{{buttonColor}}-500
-    dark:text-{{buttonColor}}-200 transition-colors duration-150 bg-{{buttonColor}}-100
-    dark:bg-{{buttonColor}}-800 border border-{{buttonColor}}-500 rounded-lg
-    active:bg-{{buttonColor}}-200 dark:active:bg-{{buttonColor}}-700 hover:bg-{{buttonColor}}-200
-    dark:hover:bg-{{buttonColor}}-700 focus:outline-none focus:shadow-outline-{{buttonColor}}">
-    <i [attr.data-eva]="buttonIcon" class="w-5 h-5 mr-2 -ml-1 fill-current"></i>
-    <span>{{buttonText}}</span>
-  </a>
-
-  <button *ngIf="!buttonLink && showButton(buttonText)"
+  <button *ngIf="showButton(buttonText)"
     class="cursor-pointer flex items-center justify-center w-full px-4 py-2 font-medium leading-5 text-{{buttonColor}}-500
     dark:text-{{buttonColor}}-200 transition-colors duration-150 bg-{{buttonColor}}-100
     dark:bg-{{buttonColor}}-800 border border-{{buttonColor}}-500 rounded-lg
     active:bg-{{buttonColor}}-200 dark:active:bg-{{buttonColor}}-700 hover:bg-{{buttonColor}}-200
-    dark:hover:bg-{{buttonColor}}-700 focus:outline-none focus:shadow-outline-{{buttonColor}}">
+    dark:hover:bg-{{buttonColor}}-700 focus:outline-none focus:shadow-outline-{{buttonColor}}"
+          (click)="btnClicked.emit()">
     <i [attr.data-eva]="buttonIcon" class="w-5 h-5 mr-2 -ml-1 fill-current"></i>
     <span>{{buttonText}}</span>
   </button>

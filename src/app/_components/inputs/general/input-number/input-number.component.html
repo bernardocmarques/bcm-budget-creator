@@ -1,0 +1,43 @@
+<div class="text-sm" [ngClass]="classList">
+
+  <!-- Label -->
+  <label *ngIf="label" class="block font-medium text-gray-700 dark:text-gray-400 mb-1">
+    {{label}} <span *ngIf="required" class="text-red-600">*</span>
+  </label>
+
+  <div class="flex items-center relative w-full">
+    <!-- Input -->
+    <input
+      type="number"
+      id="{{id}}"
+      name="{{id}}"
+      class="block w-full dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400 focus:outline-none
+          focus:shadow-outline-indigo dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+      placeholder="{{placeholder}}"
+      [(ngModel)]="value"
+      (ngModelChange)="valueChange.emit(value)"
+      [required]="required"
+      [min]="minValue"
+      [max]="maxValue"
+      [disabled]="disabled"
+      #inputNumber="ngModel"
+      [ngClass]="{ 'border-red-600 focus:border-red-400 focus:shadow-outline-red': form && form.submitted && inputNumber.invalid,
+                'pr-36': btnText}"
+    />
+
+    <!-- Append btn -->
+    <button *ngIf="btnText" class="whitespace-nowrap py-2.5 px-4 text-sm font-medium leading-5 text-white
+      transition-colors duration-150 bg-indigo-500 border border-transparent rounded-r-md active:bg-indigo-500
+      hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo" type="button" (click)="btnClicked.emit()">
+      {{btnText}}
+    </button>
+  </div>
+
+  <!-- Error Messages -->
+  <div *ngIf="form && form.submitted && inputNumber.invalid" class="text-xs text-red-600 dark:text-red-400">
+    <span *ngIf="inputNumber.errors.required">{{requiredErrorMessage}}</span>
+    <span *ngIf="inputNumber.errors.min">{{minValueErrorMessage}}</span>
+    <span *ngIf="inputNumber.errors.max">{{maxValueErrorMessage}}</span>
+  </div>
+
+</div>

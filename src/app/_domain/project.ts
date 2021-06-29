@@ -5,23 +5,14 @@ export enum Status {
   COMPLETED
 }
 
-export function getStatusInfo(status: Status): { text: string, color: string } {
+export function getStatusString(status: Status): string {
   switch (status) {
     case Status.IN_PROGRESS:
-      return { text: 'In Progress', color: 'blue' };
+      return 'In Progress';
     case Status.COMPLETED:
-      return { text: 'Completed', color: 'green' };
+      return 'Completed';
     default:
-      return { text: 'No status', color: 'gray' }
-  }
-}
-
-export function getNextStatusActionInfo(status: Status): { text: string, icon: string } {
-  switch (status) {
-    case Status.IN_PROGRESS:
-      return { text: 'Mark as completed', icon: 'checkmark-circle-outline' };
-    default:
-      return { text: 'No action', icon: 'flash-outline' }
+      return 'No status';
   }
 }
 
@@ -53,6 +44,26 @@ export class Project {
 
   toObject(): Object {
     return Object.assign({}, this);
+  }
+
+  getStatusInfo(): { text: string, color: string } {
+    switch (this.status) {
+      case Status.IN_PROGRESS:
+        return { text: 'In Progress', color: 'blue' };
+      case Status.COMPLETED:
+        return { text: 'Completed', color: 'green' };
+      default:
+        return { text: 'No status', color: 'gray' }
+    }
+  }
+
+  getNextStatusActionInfo(): { text: string, icon: string } {
+    switch (this.status) {
+      case Status.IN_PROGRESS:
+        return { text: 'Mark as completed', icon: 'checkmark-circle-outline' };
+      default:
+        return { text: 'No action', icon: 'flash-outline' }
+    }
   }
 }
 

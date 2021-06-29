@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {Router} from '@angular/router';
 
 import firebase from 'firebase/app';
@@ -6,6 +6,7 @@ import 'firebase/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 
 import {AlertService} from './alert.service';
+import {CacheService} from "./cache.service";
 
 
 @Injectable({
@@ -22,7 +23,8 @@ export class FirebaseAuthService {
   constructor(
     private firebaseAuth: AngularFireAuth,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private injector: Injector
   ) {
 
     const that = this;
@@ -98,6 +100,7 @@ export class FirebaseAuthService {
     return this.firebaseAuth
       .signOut()
       .then(() => {
+        this.injector.get(CacheService).clearCache();
         if (!hideAlert) this.alertService.showAlert('See you soon 👋', 'Successful logout', 'success');
       })
       .catch(error => this.alertService.showAlert('Error: ' + error.code, error.message, 'danger'))

@@ -41,7 +41,7 @@
     [isModalOpen]="isModalOpen"
     [id]="'delete-client-modal'"
     [title]="'Delete client'"
-    [description]="'Are you sure you want to delete client ' + clientToDelete.name + '? You won\'t be able to undo this action.'"
+    [description]="'Are you sure you want to delete client \'' + clientToDelete.name + '\'? You won\'t be able to undo this action.'"
     [positiveBtnText]="'Delete'"
     [positiveBtnColor]="'red'"
     (positiveBtnClicked)="deleteClient(clientToDelete)"

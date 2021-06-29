@@ -1,20 +1,20 @@
 import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
 
 import * as eva from 'eva-icons';
-import {TableDataType} from "../../_components/tables/table-data/table-data.component";
-import {CacheService} from "../../_services/cache.service";
-import {ThemeService} from "../../_services/theme.service";
-import {FirebaseService} from "../../_services/firebase.service";
+import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
+import {CacheService} from "../../../_services/cache.service";
+import {ThemeService} from "../../../_services/theme.service";
+import {FirebaseService} from "../../../_services/firebase.service";
 import { Client } from 'src/app/_domain/client';
-import {AlertService} from "../../_services/alert.service";
+import {AlertService} from "../../../_services/alert.service";
 import {Router} from "@angular/router";
 
 
 @Component({
   selector: 'app-clients',
-  templateUrl: './clients.component.html',
+  templateUrl: './main.component.html',
 })
-export class ClientsComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit, AfterViewInit {
 
   headers: {label: string, value: any}[];
   data: {type: TableDataType, content: any}[][];
@@ -32,7 +32,6 @@ export class ClientsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private cacheService: CacheService,
-    private themeService: ThemeService,
     private alertService: AlertService,
     private router: Router,
     private injector: Injector
@@ -59,7 +58,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
       clients.forEach(client => {
         client.firebaseService = this.injector.get(FirebaseService);
-        client.themeService = this.themeService;
+        client.themeService = this.injector.get(ThemeService);
 
         table.push([
           {type: TableDataType.AVATAR_1LINE, content: {src: client.getAvatar(), name: client.name}},

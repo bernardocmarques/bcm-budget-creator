@@ -7,15 +7,13 @@
       Projects
     </h2>
 
-    <!-- Add client btn -->
+    <!-- Add project btn -->
     <button class="px-5 py-3 mb-8 float-right flex items-center justify-between text-sm font-medium leading-5 text-white
                   transition-colors duration-150 bg-indigo-500 border border-transparent rounded-lg
-                  active:bg-indigo-600 hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo">
+                  active:bg-indigo-600 hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo"
+            [routerLink]="'add'">
       <span>Create project</span>
 
-<!--      <svg class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">-->
-<!--        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />-->
-<!--      </svg>-->
       <svg class="h-5 w-5 ml-3" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 6.99999V6C3.75 5.20435 4.04632 4.44129 4.57376 3.87868C5.10121 3.31607 5.81658 3 6.5625 3H8.4375C9.18342 3 9.89879 3.31607 10.4262 3.87868C10.9537 4.44129 11.25 5.20435 11.25 6V6.99999H13.125C13.6223 6.99999 14.0992 7.21071 14.4508 7.58578C14.8025 7.96085 15 8.46956 15 8.99999V12C12.5996 12.9487 10.0598 13.433 7.5 13.43C4.94015 13.433 2.40034 12.9488 0 12V8.99999C0 8.46956 0.197544 7.96085 0.549175 7.58578C0.900805 7.21071 1.37772 6.99999 1.875 6.99999H3.75ZM5.625 6C5.625 5.73478 5.72377 5.48043 5.89959 5.29289C6.0754 5.10535 6.31386 5 6.5625 5H8.4375C8.68614 5 8.9246 5.10535 9.10041 5.29289C9.27623 5.48043 9.375 5.73478 9.375 6V6.99999H5.625V6ZM6.5625 10.5C6.5625 10.2348 6.66127 9.98043 6.83709 9.7929C7.0129 9.60536 7.25136 9.5 7.5 9.5H7.50938C7.75802 9.5 7.99647 9.60536 8.17229 9.7929C8.3481 9.98043 8.44688 10.2348 8.44688 10.5C8.44688 10.7652 8.3481 11.0196 8.17229 11.2071C7.99647 11.3946 7.75802 11.5 7.50938 11.5H7.5C7.25136 11.5 7.0129 11.3946 6.83709 11.2071C6.66127 11.0196 6.5625 10.7652 6.5625 10.5Z"/>
         <path d="M0 14V16.143C0 16.6355 0.197544 17.1078 0.549175 17.4561C0.900805 17.8044 1.37772 18 1.875 18H13.125C13.6223 18 14.0992 17.8044 14.4508 17.4561C14.8025 17.1078 15 16.6355 15 16.143V14C12.5835 14.8066 10.0501 15.2169 7.5 15.2145C4.87875 15.2145 2.35594 14.7874 0 14Z"/>
@@ -32,8 +30,25 @@
       [hasNavigation]="true"
       [defaultSort]="1"
       [defaultColumnSortIndex]="0"
-      [loading]="loading">
+      [loading]="loading"
+      (btnClicked)="doAction('change-status', $event.row)"
+      (editBtnClicked)="doAction('edit', $event)"
+      (deleteBtnClicked)="doAction('delete', $event)">
     </app-table>
 
   </div>
 </main>
+
+<ng-container *ngIf="isModalOpen">
+  <app-modal
+    [isModalOpen]="isModalOpen"
+    [id]="'delete-project-modal'"
+    [title]="'Delete project'"
+    [description]="'Are you sure you want to delete project \'' + projectToDelete.name + '\'? You won\'t be able to undo this action.'"
+    [positiveBtnText]="'Delete'"
+    [positiveBtnColor]="'red'"
+    (positiveBtnClicked)="deleteProject(projectToDelete)"
+    (closeBtnClicked)="isModalOpen = false"
+    [actionInProgress]="deleting">
+  </app-modal>
+</ng-container>

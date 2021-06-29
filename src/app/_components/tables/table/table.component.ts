@@ -21,6 +21,7 @@ export class TableComponent implements OnInit {
 
   @Input() loading: boolean;
 
+  @Output() btnClicked: EventEmitter<{row: number, col: number}> = new EventEmitter<{row: number, col: number}>();
   @Output() viewBtnClicked: EventEmitter<number> = new EventEmitter<number>();
   @Output() editBtnClicked: EventEmitter<number> = new EventEmitter<number>();
   @Output() deleteBtnClicked: EventEmitter<number> = new EventEmitter<number>();

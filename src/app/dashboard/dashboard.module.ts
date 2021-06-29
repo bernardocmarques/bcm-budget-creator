@@ -8,9 +8,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainComponent } from './main/main.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProjectsComponent } from './projects/projects.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { ClientsComponent } from './clients/clients.component';
 import {SearchComponent} from "./navbar/search/search.component";
 import {ThemeTogglerComponent} from "./navbar/theme-toggler/theme-toggler.component";
 import {NotificationsComponent} from "./navbar/notifications/notifications.component";
@@ -23,7 +21,6 @@ import { AccountComponent } from './settings/account/account.component';
 import {NgApexchartsModule} from "ng-apexcharts";
 import { CustomizationComponent } from './settings/customization/customization.component';
 import { SecurityComponent } from './settings/security/security.component';
-import {AddEditComponent} from "./clients/add-edit/add-edit.component";
 
 
 @NgModule({
@@ -34,9 +31,7 @@ import {AddEditComponent} from "./clients/add-edit/add-edit.component";
     NavbarComponent,
     MainComponent,
     DashboardComponent,
-    ProjectsComponent,
     StatisticsComponent,
-    ClientsComponent,
     SearchComponent,
     ThemeTogglerComponent,
     NotificationsComponent,
@@ -46,14 +41,13 @@ import {AddEditComponent} from "./clients/add-edit/add-edit.component";
     AccountComponent,
     CustomizationComponent,
     SecurityComponent,
-    AddEditComponent
   ],
     imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        FormsModule,
-        SharedModule,
-        NgApexchartsModule
+      CommonModule,
+      DashboardRoutingModule,
+      FormsModule,
+      SharedModule,
+      NgApexchartsModule
     ]
 })
 export class DashboardModule { }

@@ -36,9 +36,10 @@
       <!-- Table: body -->
       <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         <tr *ngFor="let tr of divideIntoPages(); let i = index" class="whitespace-nowrap text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
-          <td table-data *ngFor="let td of tr"
+          <td table-data *ngFor="let td of tr; let col = index"
             [type]="td.type"
             [data]="td.content"
+            (btnClicked)="btnClicked.emit({row: i, col: col})"
             (viewBtnClicked)="viewBtnClicked.emit(i)"
             (editBtnClicked)="editBtnClicked.emit(i)"
             (deleteBtnClicked)="deleteBtnClicked.emit(i)">

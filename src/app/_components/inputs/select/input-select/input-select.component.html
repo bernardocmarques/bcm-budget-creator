@@ -1,0 +1,30 @@
+<div class="text-sm" [ngClass]="classList">
+
+  <!-- Label -->
+  <label *ngIf="label" class="block font-medium text-gray-700 dark:text-gray-400 mb-1">
+    {{label}} <span *ngIf="required" class="text-red-600">*</span>
+  </label>
+
+  <!-- Select -->
+  <select
+    id="{{id}}"
+    name="{{id}}"
+    class="block w-full py-2.5 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-indigo-400
+    focus:outline-none focus:shadow-outline-indigo dark:focus:shadow-outline-gray form-input"
+    [(ngModel)]="value"
+    (ngModelChange)="valueChange.emit(value)"
+    [required]="required"
+    [disabled]="disabled"
+    #select="ngModel"
+    [ngClass]="{ 'border-red-600 focus:border-red-400 focus:shadow-outline-red': form && form.submitted && select.invalid }">
+
+    <option *ngFor="let option of options" [value]="option">{{option}}</option>
+    <option *ngFor="let option of optionsObj" [value]="option.value">{{option.text}}</option>
+  </select>
+
+  <!-- Error Messages -->
+  <div *ngIf="form && form.submitted && select.invalid" class="text-xs text-red-600 dark:text-red-400">
+    <span *ngIf="select.errors.required">{{requiredErrorMessage}}</span>
+  </div>
+
+</div>
