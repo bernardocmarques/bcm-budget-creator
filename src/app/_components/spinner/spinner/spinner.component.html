@@ -1,6 +1,6 @@
-<div class="relative h-{{size}} w-{{size}} {{classList}}">
-  <svg class="absolute h-{{size}} w-{{size}} top-1/2 left-1/2 -mt-4 -ml-4 mr-0 mb-0" viewBox="0 0 50 50">
-    <circle class="stroke-current text-{{color}}-500 dark:text-{{color}}-400"
+<div class="relative h-{{size}} w-{{size}} flex items-center justify-center {{classList}}">
+  <svg class="absolute h-{{size}} w-{{size}}" viewBox="0 0 50 50">
+    <circle class="stroke-current text-{{color}}-500 dark:text-{{color}}-400" [ngClass]="{'text-white': color === 'white'}"
             cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
   </svg>
 </div>

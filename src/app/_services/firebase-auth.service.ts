@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
 
 import {AlertService} from './alert.service';
-import {from, Observable} from "rxjs";
-import {publishReplay, refCount} from "rxjs/operators";
 
 
 @Injectable({

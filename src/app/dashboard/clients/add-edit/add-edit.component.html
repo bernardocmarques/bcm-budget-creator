@@ -48,16 +48,19 @@
           </div>
 
           <!-- ID -->
-          <app-input-text
-            [label]="'Client ID'"
-            [placeholder]="'ID'"
-            [id] = "'id'"
-            [form]="f"
-            [(value)] = "client.id"
-            [required]="true"
-            [requiredErrorMessage]="'An ID is required'"
-            [classList]="'mb-8'"
-          ></app-input-text>
+          <div class="grid grid-cols-1 mb-8">
+            <app-input-text
+              [label]="'Client ID'"
+              [placeholder]="'ID'"
+              [id] = "'id'"
+              [form]="f"
+              [btnText]="'Randomize ID'"
+              (btnClicked)="randomizeID()"
+              [(value)] = "client.id"
+              [required]="true"
+              [requiredErrorMessage]="'An ID is required'"
+            ></app-input-text>
+          </div>
 
           <!-- Client Image -->
           <div>
@@ -73,7 +76,7 @@
 
                 <button class="flex items-center px-3 py-2 font-medium text-sm text-white transition-colors duration-150 bg-indigo-500
                     border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
-                    focus:shadow-outline-indigo mt-4">
+                    focus:shadow-outline-indigo mt-4" type="button">
                   <i [attr.data-eva]="'cloud-upload'" class="w-6 h-6 mr-2 fill-current"></i>
                   Upload photo
                 </button>
@@ -93,13 +96,16 @@
           <div class="flex items-center">
             <button class="w-full px-4 py-2.5 mr-2 font-medium leading-5 text-gray-700 dark:text-white transition-colors
                     duration-150 bg-transparent border border-transparent rounded-lg active:bg-gray-100 dark:active:bg-gray-800
-                    hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray" (click)="goBack()">
+                    hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray" type="reset" (click)="goBack()">
               {{mode === 'add' ? 'Discard client' : 'Discard changes'}}
             </button>
 
-            <button class="w-full px-4 py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
+            <button class="flex items-center justify-center w-full px-4 py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
                     border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
                     focus:shadow-outline-indigo" type="submit">
+              <ng-container *ngIf="adding">
+                <app-spinner [size]="6" [color]="'white'" [classList]="'mr-2'"></app-spinner>
+              </ng-container>
               {{mode === 'add' ? 'Create client' : 'Save changes'}}
             </button>
           </div>

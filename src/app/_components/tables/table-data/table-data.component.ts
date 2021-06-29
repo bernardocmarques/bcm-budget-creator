@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {numberWithCommas} from "../../../_util/number";
 
 import * as eva from 'eva-icons';
@@ -46,6 +46,10 @@ export class TableDataComponent implements OnInit, AfterViewInit {
   buttonColor?: string;             // Button color
 
   actions?: string[];               // Actions
+
+  @Output() viewBtnClicked: EventEmitter<void> = new EventEmitter();
+  @Output() editBtnClicked: EventEmitter<void> = new EventEmitter();
+  @Output() deleteBtnClicked: EventEmitter<void> = new EventEmitter();
 
   constructor() { }
 

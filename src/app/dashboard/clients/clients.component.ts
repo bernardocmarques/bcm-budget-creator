@@ -1,8 +1,13 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
 
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../_components/tables/table-data/table-data.component";
 import {CacheService} from "../../_services/cache.service";
+import {ThemeService} from "../../_services/theme.service";
+import {FirebaseService} from "../../_services/firebase.service";
+import { Client } from 'src/app/_domain/client';
+import {AlertService} from "../../_services/alert.service";
+
 
 @Component({
   selector: 'app-clients',
@@ -14,17 +19,28 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   data: {type: TableDataType, content: any}[][];
   loading: boolean;
 
-  idInput: number;
-  clientInput: string;
-  companyInput: string;
+  inputs: {id: string, name: string, company: string} = {
+    id: null,
+    name: null,
+    company: null
+  };
 
-  constructor(private cacheService: CacheService) { }
+  isModalOpen: boolean;
+  clientToDelete: Client;
+  deleting: boolean;
+
+  constructor(
+    private cacheService: CacheService,
+    private themeService: ThemeService,
+    private alertService: AlertService,
+    private injector: Injector
+  ) { }
 
   ngOnInit(): void {
     this.headers = [
-      {label: 'client', value: this.clientInput},
-      {label: 'client id', value: this.idInput},
-      {label: 'company', value: this.companyInput},
+      {label: 'client', value: this.inputs.name},
+      {label: 'client id', value: this.inputs.id},
+      {label: 'company', value: this.inputs.company},
       {label: 'actions', value: 'no-sort-filter'}
     ];
     this.data = this.getClientsData();
@@ -40,8 +56,11 @@ export class ClientsComponent implements OnInit, AfterViewInit {
 
     this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
       clients.forEach(client => {
+        client.firebaseService = this.injector.get(FirebaseService);
+        client.themeService = this.themeService;
+
         table.push([
-          {type: TableDataType.AVATAR_1LINE, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: client.name}},
+          {type: TableDataType.AVATAR_1LINE, content: {src: client.getAvatar(), name: client.name}},
           {type: TableDataType.TEXT, content: client.id},
           {type: TableDataType.TEXT, content: client.company},
           {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
@@ -51,6 +70,42 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     }));
 
     return table;
+  }
+
+  doAction(action: string, index: number): void {
+    const clientID = this.data[index][1].content;
+    this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+      let client: Client;
+      clients.forEach(c => {
+        if (c.id === clientID)
+          client = c;
+      })
+
+      if (client && action === 'edit') this.editClient(client);
+      else if (client && action === 'delete') {
+        this.isModalOpen = true;
+        this.clientToDelete = client;
+      }
+    }));
+  }
+
+  editClient(client: Client): void {
+    console.log('edit client ' + client.name);
+  }
+
+  deleteClient(client: Client): void {
+    this.deleting = true;
+    this.injector.get(FirebaseService).deleteClientByKey(client.key).then(() => {
+      this.cacheService.userClients = null;
+      this.alertService.showAlert('Client deleted', 'Client ' + client.name + ' deleted successfully', 'success');
+      this.data = this.getClientsData();
+
+    }).catch((error) => {
+      this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
+    }).finally(() => {
+      this.deleting = false;
+      this.isModalOpen = false;
+    });
   }
 
 }

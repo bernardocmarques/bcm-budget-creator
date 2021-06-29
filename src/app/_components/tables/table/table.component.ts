@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TableDataType} from "../table-data/table-data.component";
 import {ThemeService} from "../../../_services/theme.service";
 
@@ -20,6 +20,10 @@ export class TableComponent implements OnInit {
   @Input() defaultColumnSortIndex: number;
 
   @Input() loading: boolean;
+
+  @Output() viewBtnClicked: EventEmitter<number> = new EventEmitter<number>();
+  @Output() editBtnClicked: EventEmitter<number> = new EventEmitter<number>();
+  @Output() deleteBtnClicked: EventEmitter<number> = new EventEmitter<number>();
 
   currentPage: number = 0;
   totalPages: number;

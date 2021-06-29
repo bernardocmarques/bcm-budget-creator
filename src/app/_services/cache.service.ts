@@ -1,8 +1,8 @@
 import {Injectable, Injector} from '@angular/core';
-import {from, Observable} from "rxjs";
+import {EMPTY, from, Observable} from "rxjs";
 import {Client} from "../_domain/client";
 import {FirebaseService} from "./firebase.service";
-import {publishReplay, refCount} from "rxjs/operators";
+import {catchError, publishReplay, refCount} from "rxjs/operators";
 import {Budget} from "../_domain/budget";
 import {Project} from "../_domain/project";
 import {User} from "../_domain/user";
@@ -12,19 +12,19 @@ import {User} from "../_domain/user";
 })
 export class CacheService {
 
-  firebaseService: FirebaseService;
+  private firebaseService: FirebaseService;
+
+  user: Observable<User>;
 
   userClients: Observable<Client[]>;
   userProjects: Observable<Project[]>;
   userBudgets: Observable<Budget[]>;
 
-  user: Observable<User>;
-
   constructor(private injector: Injector) { }
 
 
   /*** --------------------------------------------- ***/
-  /*** ------------------ Clients ------------------ ***/
+  /*** -------------------- User ------------------- ***/
   /*** --------------------------------------------- ***/
 
   async getUserInfo(): Promise<Observable<User>> {
@@ -36,18 +36,15 @@ export class CacheService {
       await this.firebaseService.getUserInfo().then(user => {
         this.user = from([user]).pipe(
           publishReplay(1),
-          refCount()
+          refCount(),
+          catchError(err => {
+            delete this.user;
+            return EMPTY;
+          })
         );
       });
     }
     return this.user;
-  }
-
-  setUserInfo(user: User): void {
-    this.user = from([user]).pipe(
-      publishReplay(1),
-      refCount()
-    );
   }
 
 
@@ -64,10 +61,15 @@ export class CacheService {
       await this.firebaseService.getAllClients().then(clients => {
         this.userClients = from([clients]).pipe(
           publishReplay(1),
-          refCount()
+          refCount(),
+          catchError(err => {
+            delete this.user;
+            return EMPTY;
+          })
         );
       });
     }
+
     return this.userClients;
   }
 
@@ -85,7 +87,11 @@ export class CacheService {
       await this.firebaseService.getAllProjects().then(projects => {
         this.userProjects = from([projects]).pipe(
           publishReplay(1),
-          refCount()
+          refCount(),
+          catchError(err => {
+            delete this.user;
+            return EMPTY;
+          })
         );
       });
     }
@@ -106,7 +112,11 @@ export class CacheService {
       await this.firebaseService.getAllBudgets().then(budgets => {
         this.userBudgets = from([budgets]).pipe(
           publishReplay(1),
-          refCount()
+          refCount(),
+          catchError(err => {
+            delete this.user;
+            return EMPTY;
+          })
         );
       });
     }
@@ -114,6 +124,7 @@ export class CacheService {
   }
 
   clearCache(): void {
+    this.user = null;
     this.userClients = null;
     this.userProjects = null;
     this.userBudgets = null;

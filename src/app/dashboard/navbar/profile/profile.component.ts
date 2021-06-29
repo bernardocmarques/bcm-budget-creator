@@ -3,7 +3,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {Router} from '@angular/router';
 import {FirebaseAuthService} from "../../../_services/firebase-auth.service";
 import {ThemeService} from "../../../_services/theme.service";
-import firebase from "firebase";
 import {CacheService} from "../../../_services/cache.service";
 
 @Component({

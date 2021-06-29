@@ -35,12 +35,17 @@
 
       <!-- Table: body -->
       <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        <tr *ngFor="let tr of divideIntoPages()" class="whitespace-nowrap text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+        <tr *ngFor="let tr of divideIntoPages(); let i = index" class="whitespace-nowrap text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
           <td table-data *ngFor="let td of tr"
             [type]="td.type"
-            [data]="td.content">
+            [data]="td.content"
+            (viewBtnClicked)="viewBtnClicked.emit(i)"
+            (editBtnClicked)="editBtnClicked.emit(i)"
+            (deleteBtnClicked)="deleteBtnClicked.emit(i)">
           </td>
         </tr>
+
+        <!-- Loading -->
         <tr *ngIf="loading">
           <td [colSpan]="headers.length">
             <app-spinner

@@ -1,13 +1,16 @@
 import {Injectable} from '@angular/core';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/storage';
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestore";
-import {Client} from "../_domain/client";
 import {FirebaseAuthService} from "./firebase-auth.service";
+import FieldValue = firebase.firestore.FieldValue;
+
+import {User} from "../_domain/user";
+import {Client} from "../_domain/client";
 import {Project, ProjectDatabase} from "../_domain/project";
 import {Budget, BudgetDatabase} from "../_domain/budget";
-import firebase from "firebase";
-import FieldValue = firebase.firestore.FieldValue;
-import {User} from "../_domain/user";
 
 @Injectable({
   providedIn: 'root'

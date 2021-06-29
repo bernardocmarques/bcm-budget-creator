@@ -10,6 +10,8 @@ import {FormsModule} from "@angular/forms";
 import { InputToggleComponent } from './inputs/toggle/input-toggle/input-toggle.component';
 import { SpinnerComponent } from './spinner/spinner/spinner.component';
 import {RouterModule} from "@angular/router";
+import { ModalComponent } from './modals/modal/modal.component';
+import {ClickOutsideDirective} from "../_directives/click-outside.directive";
 
 
 @NgModule({
@@ -21,15 +23,18 @@ import {RouterModule} from "@angular/router";
     BtnSortComponent,
     InputTextComponent,
     InputToggleComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ModalComponent,
+    ClickOutsideDirective
   ],
-  exports: [
-    CardComponent,
-    TableComponent,
-    InputTextComponent,
-    InputToggleComponent,
-    SpinnerComponent
-  ],
+    exports: [
+        CardComponent,
+        TableComponent,
+        InputTextComponent,
+        InputToggleComponent,
+        SpinnerComponent,
+        ModalComponent
+    ],
   imports: [
     CommonModule,
     FormsModule,

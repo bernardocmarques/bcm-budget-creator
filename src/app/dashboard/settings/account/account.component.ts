@@ -41,7 +41,7 @@ export class AccountComponent implements OnInit {
   async onSubmit(): Promise<void> {
     if (this.form.form.valid) {
       this.firebaseService.setUserInfo(this.user).then(res => res);
-      this.cacheService.setUserInfo(this.user);
+      this.cacheService.user = null;
       this.alertService.showAlert('Changes saved', 'Changes successful saved.', 'success');
 
     } else {

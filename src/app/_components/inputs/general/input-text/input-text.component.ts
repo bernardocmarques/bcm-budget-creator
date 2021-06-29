@@ -33,6 +33,7 @@ export class InputTextComponent implements OnInit, AfterViewInit {
   @Input() maxLengthErrorMessage?: string;        // Message for maxLength error
 
   @Output() valueChange = new EventEmitter<string>();
+  @Output() btnClicked = new EventEmitter<void>();
 
   @ViewChild('inputText', { static: false }) inputText: NgModel;
 

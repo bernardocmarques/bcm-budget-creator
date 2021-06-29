@@ -12,7 +12,7 @@ import {AlertService} from "../../../_services/alert.service";
 })
 export class CustomizationComponent implements OnInit {
 
-  user: User;
+  //user: User;
 
   @ViewChild('f', { static: false }) f: NgForm;
 
