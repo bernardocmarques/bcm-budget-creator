@@ -55,7 +55,7 @@ export class Budget {
       budget_nr: this.id,
       client_id: this.client.id,
       client_name_1: this.client.name,
-      client_name_2: this.client.company,
+      client_name_2: this.client.company ? this.client.company : '-',
       nr_items: this.items.length,
       items: this.items
     }

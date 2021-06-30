@@ -192,7 +192,10 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
     this.totalHours += this.items[index].hours;
     this.totalPrice += this.items[index].price;
+    this.updateFooter();
+  }
 
+  updateFooter(): void {
     if (this.data.length > 0) {
       this.footers = [
         'Total',
@@ -206,8 +209,15 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   setItem(row: number, col: number, value: any): void {
     if (col === 0) this.items[row].quantity = value;
     else if (col === 1) this.items[row].description = value;
-    else if (col === 2) this.items[row].hours = value;
-    else if (col === 3) this.items[row].price = value;
+    else if (col === 2) {
+      this.totalHours += value - this.items[row].hours;
+      this.items[row].hours = value;
+    }
+    else if (col === 3) {
+      this.totalPrice += value - this.items[row].price;
+      this.items[row].price = value;
+    }
+    this.updateFooter();
   }
 
   doAction(action: string, index: number): void {

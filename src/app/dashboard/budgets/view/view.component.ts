@@ -5,6 +5,10 @@ import {TableDataType} from "../../../_components/tables/table-data/table-data.c
 import {ActivatedRoute, Router} from "@angular/router";
 import {CacheService} from "../../../_services/cache.service";
 import {numberWithCommas} from "../../../_util/number";
+import {FirebaseService} from "../../../_services/firebase.service";
+import {GoogleScriptsService} from "../../../_services/google-scripts.service";
+import {AlertService} from "../../../_services/alert.service";
+
 
 @Component({
   selector: 'app-view',
@@ -14,6 +18,7 @@ export class ViewComponent implements OnInit, AfterViewInit {
 
   budget: Budget;
   loading: boolean;
+  generatingPDF: boolean;
 
   headers: {label: string, value: any}[];
   footers: string[];
@@ -23,9 +28,12 @@ export class ViewComponent implements OnInit, AfterViewInit {
   totalPrice: number = 0;
 
   constructor(
+    private firebaseService: FirebaseService,
     private router: Router,
     private route: ActivatedRoute,
-    private cacheService: CacheService
+    private cacheService: CacheService,
+    private googleScriptsService: GoogleScriptsService,
+    private alertService: AlertService
   ) {
 
     this.loading = true;
@@ -90,7 +98,28 @@ export class ViewComponent implements OnInit, AfterViewInit {
   }
 
   generatePDF(): void {
+    if (this.generatingPDF) return;
+    this.generatingPDF = true;
 
+    this.firebaseService.getTemplateLink().then(urlTemplate => {
+      this.googleScriptsService.generatePDF(urlTemplate, this.budget).then((res => {
+        if (res.link) {
+          this.budget.pdfLink = res.link;
+
+          this.firebaseService.setBudget(this.budget).then(() => {
+            this.cacheService.userBudgets = null;
+            this.alertService.showAlert('PDF generated!', 'PDF successfully generated.', 'success');
+            this.openPDF(this.budget.pdfLink);
+
+          }).catch((error) => {
+            console.error("Error writing document: ", error);
+
+          }).finally(() => {
+            this.generatingPDF = false;
+          });
+        }
+      }));
+    });
   }
 
 }

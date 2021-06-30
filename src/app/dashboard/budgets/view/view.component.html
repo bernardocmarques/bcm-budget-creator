@@ -85,10 +85,13 @@
         <hr class="my-8 dark:border-gray-600 border-1">
 
         <div class="flex items-center">
-          <button class="w-full px-4 py-2.5 mr-2 font-medium leading-5 text-white transition-colors duration-150 bg-yellow-600
+          <button class="flex items-center justify-center w-full px-4 py-2.5 mr-2 font-medium leading-5 text-white transition-colors duration-150 bg-yellow-600
                   border border-transparent rounded-lg active:bg-yellow-600 hover:bg-yellow-700 focus:outline-none
-                  focus:shadow-outline-yellow" type="button" [disabled]="!budget.pdfLink" (click)="generatePDF()">
-            Generate new PDF
+                  focus:shadow-outline-yellow" type="button" (click)="generatePDF()">
+            <ng-container *ngIf="generatingPDF">
+              <app-spinner [size]="6" [color]="'white'" [classList]="'mr-2'"></app-spinner>
+            </ng-container>
+            {{budget.pdfLink ? 'Generate new PDF' : 'Generate PDF'}}
           </button>
 
           <button class="w-full px-4 py-5 sm:py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
