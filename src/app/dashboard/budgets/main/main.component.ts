@@ -114,18 +114,18 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   deleteBudget(budget: Budget): void {
-    // this.deleting = true;
-    // this.injector.get(FirebaseService).deleteProjectByKey(project.key).then(() => {
-    //   this.cacheService.userProjects = null;
-    //   this.alertService.showAlert('Project deleted', 'Project ' + project.name + ' deleted successfully', 'success');
-    //   this.data = this.getProjectsData();
-    //
-    // }).catch((error) => {
-    //   this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
-    // }).finally(() => {
-    //   this.deleting = false;
-    //   this.isModalOpen = false;
-    // });
+    this.deleting = true;
+    this.injector.get(FirebaseService).deleteBudgetByKey(budget.key).then(() => {
+      this.cacheService.userBudgets = null;
+      this.alertService.showAlert('Budget deleted', 'Budget ' + budget.id + ' deleted successfully', 'success');
+      this.data = this.getBudgetsData();
+
+    }).catch((error) => {
+      this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
+    }).finally(() => {
+      this.deleting = false;
+      this.isModalOpen = false;
+    });
   }
 
   changeStatus(budget: Budget, index: number): void {
