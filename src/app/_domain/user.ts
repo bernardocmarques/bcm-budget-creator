@@ -1,9 +1,9 @@
 export class User {
   key?: string;
-  firstname: string = null;
-  lastname: string = null;
+  firstname?: string = null;
+  lastname?: string = null;
   email: string = null;
-  avatar: string = null;
+  avatar?: string = null;
 
   constructor(source: Partial<User>, key?: string, avatar?: string) {
     for (const key in source) {

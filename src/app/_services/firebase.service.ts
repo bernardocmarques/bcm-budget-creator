@@ -84,11 +84,11 @@ export class FirebaseService {
       const avatar = doc.data()['avatar'];
 
       // Get actual url for avatar
-      if (avatar.includes('-'))
-        return new User(doc.data(), doc.id, 'assets/avatars/' + avatar);
+      if (!avatar)
+        return new User(doc.data(), doc.id, null);
 
-      if (avatar.includes('default'))
-        return new User(doc.data(), doc.id, 'assets/avatars/default.svg');
+      if (avatar.includes('avatar-'))
+        return new User(doc.data(), doc.id, 'assets/avatars/' + avatar);
 
       return this.downloadImage('users/' + this.uid + '/' + avatar).then(avatar =>
         new User(doc.data(), doc.id, avatar)
@@ -98,21 +98,6 @@ export class FirebaseService {
 
   public getTemplateLink(): Promise<string> {
     return this.userDocument.get().toPromise().then(doc => doc.data()["template_url"]);
-  }
-
-  public getUserAvatar(): Promise<string>  {
-    return this.userDocument.get().toPromise().then(doc => {
-      const avatar = doc.data()["avatar"] as string;
-
-      if (avatar.includes('-'))
-        return 'assets/avatars/' + avatar;
-
-      else if (avatar.includes('default'))
-        return 'assets/avatars/default.svg';
-
-      else
-        return this.downloadImage('users/' + this.uid + '/' + avatar);
-    });
   }
 
 

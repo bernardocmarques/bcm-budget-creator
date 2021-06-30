@@ -32,7 +32,6 @@ export class AccountComponent implements OnInit {
     this.loading = true;
     this.cacheService.getUserInfo().then(obs => obs.subscribe(user => {
       this.user = user;
-      this.updateAvatarThemeIfDefault();
       this.loading = false;
     }));
     this.save.subscribe(v => this.onSubmit())
@@ -47,11 +46,6 @@ export class AccountComponent implements OnInit {
     } else {
       this.alertService.showAlert('Error', 'Invalid form. Please fix the errors and submit again.', 'danger');
     }
-  }
-
-  updateAvatarThemeIfDefault(): void {
-    if (this.user.avatar.includes('default'))
-      this.user.avatar = this.themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
   }
 
 }

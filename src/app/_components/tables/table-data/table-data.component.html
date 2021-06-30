@@ -10,14 +10,19 @@
   <div class="flex items-center text-sm">
 
     <!-- Avatar with inset shadow -->
-    <div *ngIf="avatarSrc" class="relative hidden w-8 h-8 rounded-full md:block"
+    <div class="relative hidden w-8 h-8 rounded-full md:block"
          [ngClass]="{'mr-3': avatarName || avatarText}">
-      <img
+      <img *ngIf="avatarSrc"
         class="object-cover w-full h-full rounded-full"
         src="{{avatarSrc}}"
         alt="avatar"
         loading="lazy"
       />
+      <div *ngIf="!avatarSrc" class="relative w-full h-full rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
+        <span class="text-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          {{avatarName.split(' ')[0][0].toUpperCase()}}{{avatarName.split(' ').pop()[0].toUpperCase()}}
+        </span>
+      </div>
       <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
     </div>
 

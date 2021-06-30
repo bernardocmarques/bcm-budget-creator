@@ -29,10 +29,10 @@ export class Client {
   }
 
   getAvatar(): Promise<string> | string  {
-    if (!this.avatar || this.avatar.includes('default'))
-      return this.themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
+    if (!this.avatar)
+      return null;
 
-    else if (this.avatar.includes('-'))
+    else if (this.avatar.includes('avatar-'))
       return 'assets/avatars/' + this.avatar;
 
     else

@@ -2,7 +2,12 @@
   <button class="align-middle rounded-full focus:shadow-outline-indigo focus:outline-none"
     (click)="this.isProfileMenuOpen = !this.isProfileMenuOpen" aria-label="Account" aria-haspopup="true" #toggleBtn>
 
-    <img class="object-cover w-8 h-8 rounded-full" src="{{avatar}}" aria-hidden="true"/>
+    <img *ngIf="user && user.avatar" class="object-cover w-8 h-8 rounded-full" src="{{user.avatar}}"/>
+    <div *ngIf="user && !user.avatar" class="relative w-8 h-8 rounded-full bg-white dark:bg-gray-800 border border-indigo-300">
+      <span class="text-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        {{user.firstname ? user.firstname[0].toUpperCase() : user.email[0].toUpperCase()}}{{user.lastname ? user.lastname[0].toUpperCase() : ''}}
+      </span>
+    </div>
   </button>
 
   <!-- Menu -->

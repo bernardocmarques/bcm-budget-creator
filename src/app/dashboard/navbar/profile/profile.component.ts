@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {FirebaseAuthService} from "../../../_services/firebase-auth.service";
 import {ThemeService} from "../../../_services/theme.service";
 import {CacheService} from "../../../_services/cache.service";
+import {User} from "../../../_domain/user";
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +29,7 @@ export class ProfileComponent implements OnInit {
   @ViewChild('menu') menu: ElementRef;
 
   isProfileMenuOpen = false;
-  avatar: string;
+  user: User;
 
   constructor(
     private renderer: Renderer2,
@@ -37,6 +38,8 @@ export class ProfileComponent implements OnInit {
     private themeService: ThemeService,
     private cacheService: CacheService
   ) {
+
+    // Opening/closing menu
     this.renderer.listen('window', 'click', (e: Event) => {
       const toggleBtn = this.toggleBtn.nativeElement;
       const toggleBtnChildren = toggleBtn.querySelectorAll('*');
@@ -49,19 +52,16 @@ export class ProfileComponent implements OnInit {
         if (!clicked) this.isProfileMenuOpen = false;
       }
     });
-
-    this.avatar = themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getAvatar();
   }
 
   getAvatar(): void {
     this.cacheService.getUserInfo().then(obs => obs.subscribe(user => {
-      if (user.avatar.includes('default'))
-        this.avatar = this.themeService.isDark() ? 'assets/avatars/default-dark.svg' : 'assets/avatars/default.svg';
-      else this.avatar = user.avatar;
+      this.user = user;
+      console.log(this.user)
     }));
   }
 
