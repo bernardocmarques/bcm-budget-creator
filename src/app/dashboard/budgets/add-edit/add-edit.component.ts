@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../../_services/alert.service";
 import {CacheService} from "../../../_services/cache.service";
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
+import {numberWithCommas} from "../../../_util/number";
 
 @Component({
   selector: 'app-add-edit',
@@ -30,8 +31,11 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   ];
 
   headers: {label: string, value: any}[];
+  footers: string[];
   data: {type: TableDataType, content: any}[][];
   items: BudgetItem[];
+  totalHours: number = 0;
+  totalPrice: number = 0;
 
   mode: "edit" | "add";
   processing: boolean;
@@ -87,7 +91,6 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     this.items = [];
 
     if (this.mode === "edit") {
-      this.data = [];
       this.budget.items.forEach(item => this.addItem(item));
       this.initProjects();
     }
@@ -186,6 +189,18 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       },
       {type: TableDataType.ACTIONS, content: ['delete']}
     ]);
+
+    this.totalHours += this.items[index].hours;
+    this.totalPrice += this.items[index].price;
+
+    if (this.data.length > 0) {
+      this.footers = [
+        'Total',
+        '',
+        this.totalHours + ' hours',
+        numberWithCommas(this.totalPrice) + ' €'
+      ];
+    }
   }
 
   setItem(row: number, col: number, value: any): void {

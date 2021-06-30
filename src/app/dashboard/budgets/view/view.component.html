@@ -1,1 +1,117 @@
-<p>view works!</p>
+<main>
+  <div class="container px-6 mx-auto mt-8">
+
+    <ng-container *ngIf="!loading">
+
+      <div class="bg-white rounded-lg shadow-xs dark:bg-gray-800 p-6 mb-8">
+
+        <!-- Title -->
+        <h3 class="flex items-center text-xl font-semibold text-gray-700 dark:text-gray-200">
+          <i [attr.data-eva]="'file-text-outline'" class="w-6 h-6 mr-2 fill-current"></i>
+          View budget
+        </h3>
+        <hr class="my-8 dark:border-gray-600 border-1">
+
+        <!-- Client -->
+        <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
+          Client information
+          <span class="mt-1 block text-sm font-light text-gray-400">Information about the budget's client</span>
+        </h3>
+
+        <div class="grid grid-cols-1 mb-8">
+          <app-input-text
+            [label]="'Client'"
+            [id]="'client'"
+            [(value)]="budget.client.name"
+            [disabled]="true"
+          ></app-input-text>
+        </div>
+
+        <!-- Project -->
+        <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
+          Project Information
+          <span class="mt-1 block text-sm font-light text-gray-400">Information about the budget's project</span>
+        </h3>
+
+        <div class="grid grid-cols-1 mb-8">
+          <app-input-text
+            [label]="'Project'"
+            [id]="'project'"
+            [(value)]="budget.project.name"
+            [disabled]="true"
+          ></app-input-text>
+        </div>
+
+        <!-- Budget Information -->
+        <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
+          Budget Information
+          <span class="mt-1 block text-sm font-light text-gray-400">Some basic information about this budget</span>
+        </h3>
+
+        <div class="sm:grid sm:grid-cols-2 sm:gap-3 mb-8">
+          <!-- ID -->
+          <app-input-text
+            [label]="'Budget ID'"
+            [id]="'id'"
+            [(value)]="budget.id"
+            [disabled]="true"
+          ></app-input-text>
+
+          <!-- Status -->
+          <app-input-text
+            [label]="'Budget status'"
+            [id]="'status'"
+            [(value)]="budget.getStatusInfo().text"
+            [disabled]="true"
+          ></app-input-text>
+        </div>
+
+        <div class="text-sm grid grid-cols-1">
+          <!-- Items -->
+          <label class="block font-medium text-gray-700 dark:text-gray-400 mb-1">
+            Budget items
+          </label>
+
+          <ng-container *ngIf="data.length > 0">
+            <app-table
+              [headers]="headers"
+              [footers]="footers"
+              [data]="data"
+              [itemsList]="true">
+            </app-table>
+          </ng-container>
+        </div>
+
+        <hr class="my-8 dark:border-gray-600 border-1">
+
+        <div class="flex items-center">
+          <button class="w-full px-4 py-2.5 mr-2 font-medium leading-5 text-white transition-colors duration-150 bg-yellow-600
+                  border border-transparent rounded-lg active:bg-yellow-600 hover:bg-yellow-700 focus:outline-none
+                  focus:shadow-outline-yellow" type="button" [disabled]="!budget.pdfLink" (click)="generatePDF()">
+            Generate new PDF
+          </button>
+
+          <button class="w-full px-4 py-5 sm:py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
+                  border border-transparent rounded-lg active:bg-indigo-500 hover:bg-indigo-600 focus:outline-none
+                  focus:shadow-outline-indigo" type="button"
+                  [ngClass]="{'text-cool-gray-500 darK:text-cool-gray-200 bg-cool-gray 100 dark:bg-cool-gray-800 border-cool-gray-500 active:bg-cool-gray-200 dark:active:bg-cool-gray-700 hover:bg-cool-gray-200 dark:hover:bg-cool-gray-700 focus:shadow-outline-cool-gray cursor-default': !budget.pdfLink}"
+                  [disabled]="!budget.pdfLink" (click)="budget.pdfLink ? openPDF(budget.pdfLink) : null">
+            View PDF
+          </button>
+        </div>
+
+      </div>
+
+    </ng-container>
+
+    <!-- Spinner -->
+    <ng-container *ngIf="loading">
+      <app-spinner
+        [color]="'indigo'"
+        [size]="8"
+        [classList]="'w-full'">
+      </app-spinner>
+    </ng-container>
+
+  </div>
+</main>

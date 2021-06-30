@@ -11,6 +11,7 @@ export class TableComponent implements OnInit {
   @Input() id: string;
   @Input() classList: string;
   @Input() headers: {label: string, value: any}[];
+  @Input() footers: string[];
   @Input() data: {type: TableDataType, content: any}[][];
 
   @Input() step: number;
