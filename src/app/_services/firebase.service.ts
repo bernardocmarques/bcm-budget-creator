@@ -62,7 +62,7 @@ export class FirebaseService {
 
     }).catch(function(error) {
 
-      // A full list of error codes is available at
+      // A full lists of error codes is available at
       // https://firebase.google.com/docs/storage/web/handle-errors
       console.error('Error: ' + error.code);
     });

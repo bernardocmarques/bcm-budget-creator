@@ -44,7 +44,6 @@ export class AddEditComponent implements OnInit, AfterViewInit {
             if (client.key === params.id) {
               this.client = new Client(client, client.key);
               this.client.firebaseService = this.firebaseService;
-              this.client.themeService = this.themeService;
               this.client.avatar = this.client.getAvatar() as string;
               this.loading = false;
             }
@@ -55,7 +54,6 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       this.mode = "add";
       this.client = new Client({});
       this.client.firebaseService = this.firebaseService;
-      this.client.themeService = this.themeService;
       this.client.avatar = this.client.getAvatar() as string;
       this.loading = false;
     }
@@ -71,16 +69,18 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   async onSubmit() {
     // Check if ID is unique
     let isUniqueID: boolean;
-    await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
-      if (!this.isUniqueID(clients, this.client.id)) {
-        this.f.form.controls['id'].setErrors({'incorrect': true});
-        isUniqueID = false;
-        return;
-      }
-      isUniqueID = true;
-    }));
+    if (this.mode === "add") {
+      await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+        if (!this.isUniqueID(clients, this.client.id)) {
+          this.f.form.controls['id'].setErrors({'incorrect': true});
+          isUniqueID = false;
+          return;
+        }
+        isUniqueID = true;
+      }));
+    }
 
-    if (this.f.form.valid && isUniqueID) {
+    if (this.f.form.valid && ((this.mode === "add" && isUniqueID) || this.mode === "edit")) {
       this.processing = true;
       const clientToUpdate = new Client(this.client, this.client.key);
       clientToUpdate.avatar = clientToUpdate.avatar.split('/').pop();

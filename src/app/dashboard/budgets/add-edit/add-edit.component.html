@@ -14,85 +14,102 @@
               <path d="M18 2C18 1.73478 17.8946 1.48043 17.7071 1.29289C17.5196 1.10536 17.2652 1 17 1C16.7348 1 16.4804 1.10536 16.2929 1.29289C16.1054 1.48043 16 1.73478 16 2V3H15C14.7348 3 14.4804 3.10536 14.2929 3.29289C14.1054 3.48043 14 3.73478 14 4C14 4.26522 14.1054 4.51957 14.2929 4.70711C14.4804 4.89464 14.7348 5 15 5H16V6C16 6.26522 16.1054 6.51957 16.2929 6.70711C16.4804 6.89464 16.7348 7 17 7C17.2652 7 17.5196 6.89464 17.7071 6.70711C17.8946 6.51957 18 6.26522 18 6V5H19C19.2652 5 19.5196 4.89464 19.7071 4.70711C19.8946 4.51957 20 4.26522 20 4C20 3.73478 19.8946 3.48043 19.7071 3.29289C19.5196 3.10536 19.2652 3 19 3H18V2Z"/>
             </svg>
 
-            <svg *ngIf="mode === 'edit'" class="h-6 w-6 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
-              <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-            </svg>
+            <i *ngIf="mode === 'edit'" [attr.data-eva]="'briefcase-outline'" class="w-6 h-6 mr-2 fill-current"></i>
 
-            {{mode === 'add' ? 'Create project' : 'Edit project'}}
+            {{mode === 'add' ? 'Create budget' : 'Edit budget'}}
           </h3>
           <hr class="my-8 dark:border-gray-600 border-1">
 
           <!-- Client -->
           <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
             Client information
-            <span class="mt-1 block text-sm font-light text-gray-400">Pick a client for your project</span>
+            <span class="mt-1 block text-sm font-light text-gray-400">Pick a client for your budget</span>
           </h3>
 
           <div class="grid grid-cols-1 mb-8">
             <app-input-select
               [label]="'Client'"
-              [id] = "'client'"
+              [id]="'client'"
               [form]="f"
-              [(value)] = "clientID"
-              (valueChange)="initID()"
+              [(value)]="clientID"
+              (valueChange)="initProjects(); initID()"
               [optionsObj]="clients"
               [required]="true"
               [requiredErrorMessage]="'A client is required'"
             ></app-input-select>
           </div>
 
-          <!-- Project Information -->
+          <!-- Project -->
           <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
             Project Information
-            <span class="mt-1 block text-sm font-light text-gray-400">Some basic information about your project</span>
+            <span class="mt-1 block text-sm font-light text-gray-400">Pick a project for your budget</span>
+          </h3>
+
+          <div class="grid grid-cols-1 mb-8">
+            <app-input-select
+              [label]="'Project'"
+              [id]="'project'"
+              [form]="f"
+              [(value)]="projectID"
+              (valueChange)="initID()"
+              [optionsObj]="projects"
+              [disabled]="!projects"
+              [required]="true"
+              [requiredErrorMessage]="'A project is required'"
+            ></app-input-select>
+          </div>
+
+          <!-- Budget Information -->
+          <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
+            Budget Information
+            <span class="mt-1 block text-sm font-light text-gray-400">Some basic information about your budget</span>
           </h3>
 
           <div class="sm:grid sm:grid-cols-2 sm:gap-3 mb-8">
+            <!-- ID -->
             <app-input-text
-              [label]="'Project name'"
-              [placeholder]="'Name'"
-              [id]="'name'"
-              [form]="f"
-              [(value)] = "project.name"
-              [required]="true"
-              [requiredErrorMessage]="'A name is required'"
-              [classList]="'mb-6 sm:mb-0'"
-            ></app-input-text>
-
-            <app-input-text
-              [label]="'Project ID'"
+              [label]="'Budget ID'"
               [placeholder]="'ID'"
               [id] = "'id'"
               [form]="f"
-              [(value)] = "project.id"
+              [(value)] = "budget.id"
               [required]="true"
               [requiredErrorMessage]="'An ID is required'"
-              [incorrectErrorMessage]="'The ID must be unique'"
-            ></app-input-text>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-2 sm:gap-3 mb-8">
-            <!-- Rate -->
-            <app-input-number
-              [label]="'Hourly rate'"
-              [placeholder]="'Rate'"
-              [id] = "'rate'"
-              [form]="f"
-              [(value)] = "project.rate"
-              [minValue]="0"
-              [minValueErrorMessage]="'Rate must be equal or bigger than 0'"
               [classList]="'mb-6 sm:mb-0'"
-            ></app-input-number>
+            ></app-input-text>
 
             <!-- Status -->
             <app-input-select
-              [label]="'Project status'"
+              [label]="'Budget status'"
               [id] = "'status'"
               [form]="f"
-              [(value)] = "project.status"
+              [(value)] = "budget.status"
               [optionsObj]="status"
             ></app-input-select>
+          </div>
+
+          <div class="text-sm grid grid-cols-1 mb-8">
+            <!-- Items -->
+            <label class="block font-medium text-gray-700 dark:text-gray-400 mb-1">
+              Budget items <span class="text-red-600">*</span>
+            </label>
+
+            <ng-container *ngIf="data.length > 0">
+              <app-table
+                [headers]="headers"
+                [data]="data"
+                [itemsList]="true"
+                (deleteBtnClicked)="doAction('delete', $event)"
+                (valueChanged)="setItem($event.row, $event.col, $event.value)">
+              </app-table>
+            </ng-container>
+
+            <button class="w-full sm:w-max flex items-center justify-center mt-4 px-6 py-2.5 font-medium leading-5 text-white
+                    transition-colors duration-150 bg-indigo-500 border border-transparent rounded-lg active:bg-indigo-500
+                    hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo" type="button" (click)="addItem()">
+              Add item
+              <i [attr.data-eva]="'plus'" class="w-4 h-4 ml-1 fill-current"></i>
+            </button>
           </div>
 
           <hr class="my-8 dark:border-gray-600 border-1">
@@ -101,7 +118,7 @@
             <button class="w-full px-4 py-2.5 mr-2 font-medium leading-5 text-gray-700 dark:text-white transition-colors
                     duration-150 bg-transparent border border-transparent rounded-lg active:bg-gray-100 dark:active:bg-gray-800
                     hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:shadow-outline-gray" type="reset" (click)="goBack()">
-              {{mode === 'add' ? 'Discard project' : 'Discard changes'}}
+              {{mode === 'add' ? 'Discard budget' : 'Discard changes'}}
             </button>
 
             <button class="flex items-center justify-center w-full px-4 py-2.5 ml-2 font-medium leading-5 text-white transition-colors duration-150 bg-indigo-500
@@ -110,7 +127,7 @@
               <ng-container *ngIf="processing">
                 <app-spinner [size]="6" [color]="'white'" [classList]="'mr-2'"></app-spinner>
               </ng-container>
-              {{mode === 'add' ? 'Create project' : 'Save changes'}}
+              {{mode === 'add' ? 'Create budget' : 'Save changes'}}
             </button>
           </div>
 

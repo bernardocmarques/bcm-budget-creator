@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {MainComponent} from "./main/main.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
-import {BudgetsComponent} from "./budgets/budgets.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {AccountComponent} from "./settings/account/account.component";
 import {CustomizationComponent} from "./settings/customization/customization.component";
 import {SecurityComponent} from "./settings/security/security.component";
 import {NotificationsComponent} from "./settings/notifications/notifications.component";
+import {MainComponent} from "./main/main.component";
 
 const routes: Routes = [
   {
@@ -27,7 +26,10 @@ const routes: Routes = [
         path: 'projects',
         loadChildren: () => import('./projects/projects.module').then(mod => mod.ProjectsModule),
       },
-      { path: 'budgets', component: BudgetsComponent },
+      {
+        path: 'budgets',
+        loadChildren: () => import('./budgets/budgets.module').then(mod => mod.BudgetsModule),
+      },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'settings',
         component: SettingsComponent,

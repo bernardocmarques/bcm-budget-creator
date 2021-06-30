@@ -14,27 +14,16 @@ export enum Status {
   PAID
 }
 
-export function getStatusInfo(status: Status): { text: string, color: string } {
+export function getStatusString(status: Status): string {
   switch (status) {
     case Status.IN_PROGRESS:
-      return { text: 'In Progress', color: 'blue' };
+      return 'In Progress';
     case Status.FOR_PAYMENT:
-      return { text: 'For Payment', color: 'pink' };
+      return 'For Payment';
     case Status.PAID:
-      return { text: 'Paid', color: 'green' };
+      return 'Paid';
     default:
-      return { text: 'No status', color: 'gray' }
-  }
-}
-
-export function getNextStatusActionInfo(status: Status): { text: string, icon: string } {
-  switch (status) {
-    case Status.IN_PROGRESS:
-      return { text: 'Mark for payment', icon: 'credit-card-outline' };
-    case Status.FOR_PAYMENT:
-      return { text: 'Mark as paid', icon: 'checkmark-circle-outline' };
-    default:
-      return { text: 'No action', icon: 'flash-outline' }
+      return 'No status';
   }
 }
 
@@ -74,6 +63,30 @@ export class Budget {
 
   toObject(): Object {
     return Object.assign({}, this);
+  }
+
+  getStatusInfo(): { text: string, color: string } {
+    switch (this.status) {
+      case Status.IN_PROGRESS:
+        return { text: 'In Progress', color: 'blue' };
+      case Status.FOR_PAYMENT:
+        return { text: 'For Payment', color: 'pink' };
+      case Status.PAID:
+        return { text: 'Paid', color: 'green' };
+      default:
+        return { text: 'No status', color: 'gray' }
+    }
+  }
+
+  getNextStatusActionInfo(): { text: string, icon: string } {
+    switch (this.status) {
+      case Status.IN_PROGRESS:
+        return { text: 'Mark for payment', icon: 'credit-card-outline' };
+      case Status.FOR_PAYMENT:
+        return { text: 'Mark as paid', icon: 'checkmark-circle-outline' };
+      default:
+        return { text: 'No action', icon: 'flash-outline' }
+    }
   }
 }
 

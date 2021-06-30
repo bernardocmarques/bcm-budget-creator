@@ -5,7 +5,6 @@ import {TableDataType} from "../../../_components/tables/table-data/table-data.c
 import {CacheService} from "../../../_services/cache.service";
 import {Project, Status} from "../../../_domain/project";
 import {FirebaseService} from "../../../_services/firebase.service";
-import {ThemeService} from "../../../_services/theme.service";
 import {AlertService} from "../../../_services/alert.service";
 import {Router} from "@angular/router";
 
@@ -63,7 +62,6 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
       projects.forEach(project => {
         project.client.firebaseService = this.injector.get(FirebaseService);
-        project.client.themeService = this.injector.get(ThemeService);
 
         table.push([
           {type: TableDataType.AVATAR, content: { src: project.client.getAvatar(), name: project.client.name, text: project.client.company }},

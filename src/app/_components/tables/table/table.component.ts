@@ -21,10 +21,13 @@ export class TableComponent implements OnInit {
 
   @Input() loading: boolean;
 
+  @Input() itemsList: boolean;
+
   @Output() btnClicked: EventEmitter<{row: number, col: number}> = new EventEmitter<{row: number, col: number}>();
   @Output() viewBtnClicked: EventEmitter<number> = new EventEmitter<number>();
   @Output() editBtnClicked: EventEmitter<number> = new EventEmitter<number>();
   @Output() deleteBtnClicked: EventEmitter<number> = new EventEmitter<number>();
+  @Output() valueChanged: EventEmitter<{value: any, row: number, col: number}> = new EventEmitter();
 
   currentPage: number = 0;
   totalPages: number;
@@ -35,12 +38,13 @@ export class TableComponent implements OnInit {
   constructor(public themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.totalPages = Math.ceil(this.data.length / this.step);
+    this.totalPages = this.step && this.hasNavigation ? Math.ceil(this.data.length / this.step) : this.data.length;
     this.sort = this.defaultSort;
     this.columnSortIndex = this.defaultColumnSortIndex;
   }
 
   divideIntoPages(): {type: TableDataType, content: any}[][] {
+    if (!this.step || !this.hasNavigation) return this.data;
     if (this.currentPage === this.totalPages - 1) return this.data.slice(this.currentPage * this.step);
     return this.data.slice(this.currentPage * this.step, this.currentPage * this.step + this.step);
   }

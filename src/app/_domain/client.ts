@@ -1,5 +1,4 @@
 import {FirebaseService} from "../_services/firebase.service";
-import {ThemeService} from "../_services/theme.service";
 
 export class Client {
   key?: string;
@@ -9,7 +8,6 @@ export class Client {
   avatar?: string = null;
 
   public firebaseService: FirebaseService;
-  public themeService: ThemeService;
 
   constructor(source: Partial<Client>, key?: string) {
     for (const key in source) {

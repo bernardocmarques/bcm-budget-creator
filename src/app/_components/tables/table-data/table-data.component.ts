@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@an
 import {numberWithCommas} from "../../../_util/number";
 
 import * as eva from 'eva-icons';
+import {NgForm} from "@angular/forms";
 
 export enum TableDataType {
   TEXT,
@@ -10,14 +11,14 @@ export enum TableDataType {
   PILL,
   DATE,
   BUTTON,
-  ACTIONS
+  ACTIONS,
+  INPUT_NUMBER,
+  INPUT_TEXT
 }
 
 @Component({
   selector: '[table-data]',
   templateUrl: './table-data.component.html',
-  styles: [
-  ]
 })
 export class TableDataComponent implements OnInit, AfterViewInit {
 
@@ -38,9 +39,26 @@ export class TableDataComponent implements OnInit, AfterViewInit {
 
   date?: Date;                      // Date
 
+  input?: {                         // Input
+    id: string,
+    form: NgForm,
+    value: any,
+    placeholder: string,
+    disabled?: boolean,
+    required?: boolean,
+    minLength?: number,
+    maxLength?: number,
+    minValue?: number,
+    maxValue?: number,
+    requiredErrorMessage?: string,
+    minLengthErrorMessage?: string,
+    maxLengthErrorMessage?: string,
+    minValueErrorMessage?: string,
+    maxValueErrorMessage?: string,
+  };
+
   buttonText?: string;              // Button text
   buttonIcon?: string;              // Button icon (Eva icons)
-  buttonLink?: string;              // Button link
   buttonColor?: string;             // Button color
 
   actions?: string[];               // Actions
@@ -49,6 +67,7 @@ export class TableDataComponent implements OnInit, AfterViewInit {
   @Output() viewBtnClicked: EventEmitter<void> = new EventEmitter();
   @Output() editBtnClicked: EventEmitter<void> = new EventEmitter();
   @Output() deleteBtnClicked: EventEmitter<void> = new EventEmitter();
+  @Output() valueChanged: EventEmitter<number | string> = new EventEmitter();
 
   constructor() { }
 
@@ -81,11 +100,40 @@ export class TableDataComponent implements OnInit, AfterViewInit {
         this.buttonText = this.data.text;
         this.buttonIcon = this.data.icon;
         this.buttonColor = this.data.color;
-        if (this.data.url) this.buttonLink = this.data.url;
         break;
 
       case TableDataType.ACTIONS:
         this.actions = this.data;
+        break;
+
+      case TableDataType.INPUT_NUMBER:
+      case TableDataType.INPUT_TEXT:
+        this.input = { id: null, form: null, value: null, placeholder: null };
+        this.input.id = this.data.id;
+        this.input.form = this.data.form;
+        this.input.value = this.data.value;
+        this.input.placeholder = this.data.placeholder;
+        if (this.data.disabled) this.input.disabled = this.data.disabled;
+        if (this.data.required) {
+          this.input.required = this.data.required;
+          this.input.requiredErrorMessage = this.data.requiredErrorMessage;
+        }
+        if (this.data.minLength) {
+          this.input.minLength = this.data.minLength;
+          this.input.minLengthErrorMessage = this.data.minLengthErrorMessage;
+        }
+        if (this.data.maxLength) {
+          this.input.maxLength = this.data.maxLength;
+          this.input.maxLengthErrorMessage = this.data.maxLengthErrorMessage;
+        }
+        if (this.data.minValue) {
+          this.input.minValue = this.data.minValue;
+          this.input.minValueErrorMessage = this.data.minValueErrorMessage;
+        }
+        if (this.data.maxValue) {
+          this.input.maxValue = this.data.maxValue;
+          this.input.maxValueErrorMessage = this.data.maxValueErrorMessage;
+        }
         break;
     }
   }

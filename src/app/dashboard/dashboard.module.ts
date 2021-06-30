@@ -15,7 +15,6 @@ import {NotificationsComponent} from "./navbar/notifications/notifications.compo
 import {ProfileComponent} from "./navbar/profile/profile.component";
 import {FormsModule} from "@angular/forms";
 import {SharedModule} from "../_components/shared.module";
-import { BudgetsComponent } from './budgets/budgets.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AccountComponent } from './settings/account/account.component';
 import {NgApexchartsModule} from "ng-apexcharts";
@@ -36,7 +35,6 @@ import { SecurityComponent } from './settings/security/security.component';
     ThemeTogglerComponent,
     NotificationsComponent,
     ProfileComponent,
-    BudgetsComponent,
     SettingsComponent,
     AccountComponent,
     CustomizationComponent,

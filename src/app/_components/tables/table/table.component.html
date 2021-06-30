@@ -8,7 +8,9 @@
       <!-- Table: header -->
       <thead>
         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-          <th *ngFor="let header of headers; let i = index" class="whitespace-nowrap px-4 py-3">
+          <th *ngFor="let header of headers; let i = index" class="whitespace-nowrap px-4 py-3"
+              [ngStyle]="{'min-width': itemsList ? header.label === 'description' ? '32rem' : '6.5rem' : 'auto'}">
+
             <div class="flex items-center">
               {{header.label}}
               <ng-container *ngIf="header.value !== 'no-sort-filter'">
@@ -42,7 +44,8 @@
             (btnClicked)="btnClicked.emit({row: i, col: col})"
             (viewBtnClicked)="viewBtnClicked.emit(i)"
             (editBtnClicked)="editBtnClicked.emit(i)"
-            (deleteBtnClicked)="deleteBtnClicked.emit(i)">
+            (deleteBtnClicked)="deleteBtnClicked.emit(i)"
+            (valueChanged)="valueChanged.emit({value: $event, row: i, col: col})">
           </td>
         </tr>
 

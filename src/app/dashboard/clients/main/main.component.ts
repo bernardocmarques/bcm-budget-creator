@@ -58,7 +58,6 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
       clients.forEach(client => {
         client.firebaseService = this.injector.get(FirebaseService);
-        client.themeService = this.injector.get(ThemeService);
 
         table.push([
           {type: TableDataType.AVATAR, content: {src: client.getAvatar(), name: client.name}},

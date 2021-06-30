@@ -34,7 +34,6 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     private firebaseService: FirebaseService,
     private router: Router,
     private route: ActivatedRoute,
-    public themeService: ThemeService,
     private alertService: AlertService,
     private cacheService: CacheService
   ) {
@@ -43,6 +42,9 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
     this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
       this.clients = clients.map(client => ({value: client.id, text: client.name}));
+
+      if (this.clients.length === 0)
+        this.alertService.showAlert('No clients available', 'You have no clients yet. Please create a client first.', 'warning');
     }));
 
     if (this.router.url.includes('edit')) {
@@ -75,16 +77,18 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   async onSubmit() {
     // Check if ID is unique
     let isUniqueID: boolean;
-    await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
-      if (!this.isUniqueID(projects, this.clientID, this.project.id)) {
-        this.f.form.controls['id'].setErrors({'incorrect': true});
-        isUniqueID = false;
-        return;
-      }
-      isUniqueID = true;
-    }));
+    if (this.mode === "add") {
+      await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+        if (!this.isUniqueID(projects, this.clientID, this.project.id)) {
+          this.f.form.controls['id'].setErrors({'incorrect': true});
+          isUniqueID = false;
+          return;
+        }
+        isUniqueID = true;
+      }));
+    }
 
-    if (this.f.form.valid && isUniqueID) {
+    if (this.f.form.valid && ((this.mode === "add" && isUniqueID) || this.mode === "edit")) {
       this.processing = true;
       const projectToUpdate = new Project(this.project, this.project.key);
       await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {

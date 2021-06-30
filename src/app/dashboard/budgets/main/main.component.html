@@ -1,0 +1,51 @@
+<main>
+  <div class="container px-6 mx-auto">
+
+    <!-- Title -->
+    <h2 class="my-6 flex items-center text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      <i [attr.data-eva]="'file-text-outline'" class="w-6 h-6 mr-2 fill-current"></i>
+      Budgets
+    </h2>
+
+    <!-- Add budget btn -->
+    <button class="px-5 py-3 mb-8 float-right flex items-center justify-between text-sm font-medium leading-5 text-white
+                  transition-colors duration-150 bg-indigo-500 border border-transparent rounded-lg
+                  active:bg-indigo-600 hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo"
+            [routerLink]="'add'">
+      <span>Create budget</span>
+
+      <i [attr.data-eva]="'file-add'" class="w-5 h-5 ml-2 fill-current"></i>
+    </button>
+
+    <!-- Budgets Table -->
+    <app-table
+      [classList]="'mb-8'"
+      [headers]="headers"
+      [data]="data"
+      [step]="10"
+      [hasNavigation]="true"
+      [defaultSort]="1"
+      [defaultColumnSortIndex]="2"
+      [loading]="loading"
+      (btnClicked)="doAction('change-status', $event.row)"
+      (viewBtnClicked)="doAction('view', $event)"
+      (editBtnClicked)="doAction('edit', $event)"
+      (deleteBtnClicked)="doAction('delete', $event)">
+    </app-table>
+
+  </div>
+</main>
+
+<ng-container *ngIf="isModalOpen">
+  <app-modal
+    [isModalOpen]="isModalOpen"
+    [id]="'delete-budget-modal'"
+    [title]="'Delete budget'"
+    [description]="'Are you sure you want to delete budget \'#' + budgetToDelete.id + '\'? You won\'t be able to undo this action.'"
+    [positiveBtnText]="'Delete'"
+    [positiveBtnColor]="'red'"
+    (positiveBtnClicked)="deleteBudget(budgetToDelete)"
+    (closeBtnClicked)="isModalOpen = false"
+    [actionInProgress]="deleting">
+  </app-modal>
+</ng-container>

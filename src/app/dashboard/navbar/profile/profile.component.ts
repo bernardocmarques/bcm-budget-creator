@@ -61,7 +61,6 @@ export class ProfileComponent implements OnInit {
   getAvatar(): void {
     this.cacheService.getUserInfo().then(obs => obs.subscribe(user => {
       this.user = user;
-      console.log(this.user)
     }));
   }
 
