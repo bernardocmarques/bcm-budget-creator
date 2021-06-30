@@ -23,6 +23,25 @@
           </h3>
           <hr class="my-8 dark:border-gray-600 border-1">
 
+          <!-- Client -->
+          <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
+            Client information
+            <span class="mt-1 block text-sm font-light text-gray-400">Pick a client for your project</span>
+          </h3>
+
+          <div class="grid grid-cols-1 mb-8">
+            <app-input-select
+              [label]="'Client'"
+              [id] = "'client'"
+              [form]="f"
+              [(value)] = "clientID"
+              (valueChange)="initID()"
+              [optionsObj]="clients"
+              [required]="true"
+              [requiredErrorMessage]="'A client is required'"
+            ></app-input-select>
+          </div>
+
           <!-- Project Information -->
           <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
             Project Information
@@ -49,6 +68,7 @@
               [(value)] = "project.id"
               [required]="true"
               [requiredErrorMessage]="'An ID is required'"
+              [incorrectErrorMessage]="'The ID must be unique'"
             ></app-input-text>
           </div>
 
@@ -60,9 +80,7 @@
               [id] = "'rate'"
               [form]="f"
               [(value)] = "project.rate"
-              [required]="true"
               [minValue]="0"
-              [requiredErrorMessage]="'An ID is required'"
               [minValueErrorMessage]="'Rate must be equal or bigger than 0'"
               [classList]="'mb-6 sm:mb-0'"
             ></app-input-number>
@@ -73,24 +91,6 @@
               [form]="f"
               [(value)] = "project.status"
               [optionsObj]="status"
-            ></app-input-select>
-          </div>
-
-          <!-- Client -->
-          <h3 class="tracking-wide font-semibold text-gray-700 dark:text-gray-200 mb-6">
-            Client information
-            <span class="mt-1 block text-sm font-light text-gray-400">Pick a client for your project</span>
-          </h3>
-
-          <div class="grid grid-cols-1 mb-8">
-            <app-input-select
-              [label]="'Client'"
-              [id] = "'client'"
-              [form]="f"
-              [(value)] = "clientID"
-              [optionsObj]="clients"
-              [required]="true"
-              [requiredErrorMessage]="'A client is required'"
             ></app-input-select>
           </div>
 

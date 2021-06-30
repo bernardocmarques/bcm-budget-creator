@@ -61,7 +61,7 @@ export class MainComponent implements OnInit, AfterViewInit {
         client.themeService = this.injector.get(ThemeService);
 
         table.push([
-          {type: TableDataType.AVATAR_1LINE, content: {src: client.getAvatar(), name: client.name}},
+          {type: TableDataType.AVATAR, content: {src: client.getAvatar(), name: client.name}},
           {type: TableDataType.TEXT, content: client.id},
           {type: TableDataType.TEXT, content: client.company},
           {type: TableDataType.ACTIONS, content: ['edit', 'delete']}

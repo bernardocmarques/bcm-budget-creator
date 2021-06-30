@@ -119,427 +119,427 @@ export class MainComponent implements OnInit, AfterViewInit {
     // FIXME: get actual data
     return [
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date(2021, 4, 23)}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'Wenzel Dashington', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'Wenzel Dashington', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'Wenzel Dashington', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'Wenzel Dashington', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR_2LINES, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
         {type: TableDataType.MONEY, content: 863.45},
         {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},

@@ -66,7 +66,7 @@ export class MainComponent implements OnInit, AfterViewInit {
         project.client.themeService = this.injector.get(ThemeService);
 
         table.push([
-          {type: TableDataType.AVATAR_2LINES, content: { src: project.client.getAvatar(), name: project.client.name, company: project.client.company }},
+          {type: TableDataType.AVATAR, content: { src: project.client.getAvatar(), name: project.client.name, text: project.client.company }},
           {type: TableDataType.TEXT, content: project.name},
           {type: TableDataType.TEXT, content: project.id},
           {type: TableDataType.MONEY, content: project.rate},
@@ -88,10 +88,13 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   doAction(action: string, index: number): void {
     const projectID = this.data[index][2].content;
+    const projectName = this.data[index][1].content;
+    const clientName = this.data[index][0].content.name;
+
     this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
       let project: Project;
       projects.forEach(p => {
-        if (p.id === projectID)
+        if (p.id === projectID && p.name === projectName && p.client.name === clientName)
           project = p;
       })
 

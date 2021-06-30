@@ -48,7 +48,7 @@ export class BudgetsComponent implements OnInit, AfterViewInit {
     this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
       budgets.forEach(budget => {
         table.push([
-          {type: TableDataType.AVATAR_2LINES,
+          {type: TableDataType.AVATAR,
             content: {
               src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
               name: budget.client.name,
@@ -76,7 +76,7 @@ export class BudgetsComponent implements OnInit, AfterViewInit {
     // FIXME: get actual data
     return [
       [
-        {type: TableDataType.AVATAR_2LINES,
+        {type: TableDataType.AVATAR,
           content: {
             src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
             name: 'John Doe',

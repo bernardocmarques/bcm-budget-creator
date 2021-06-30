@@ -61,7 +61,6 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     } else {
       this.mode = "add";
       this.project = new Project({});
-      this.initID();
       this.loading = false;
     }
   }
@@ -74,7 +73,18 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   }
 
   async onSubmit() {
-    if (this.f.form.valid) {
+    // Check if ID is unique
+    let isUniqueID: boolean;
+    await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+      if (!this.isUniqueID(projects, this.clientID, this.project.id)) {
+        this.f.form.controls['id'].setErrors({'incorrect': true});
+        isUniqueID = false;
+        return;
+      }
+      isUniqueID = true;
+    }));
+
+    if (this.f.form.valid && isUniqueID) {
       this.processing = true;
       const projectToUpdate = new Project(this.project, this.project.key);
       await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
@@ -128,15 +138,23 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
       let maxID: number = 0;
       for (let project of projects) {
+        if (project.client.id !== this.clientID) continue;
         const id = parseInt(project.id);
         if (id > maxID) maxID = id;
       }
 
-      if (maxID) {
-        const nextID = maxID + 1;
-        this.project.id = nextID < 10 ? '0' + nextID : nextID.toString();
-      }
+      let nextID = maxID + 1;
+      while (!this.isUniqueID(projects, this.clientID, nextID.toString())) nextID++;
+      this.project.id = nextID < 10 ? '0' + nextID : nextID.toString();
     }));
+  }
+
+  isUniqueID(projects: Project[], clientID: string, id: string): boolean {
+    const IDs: string[] = [];
+    for (let project of projects) {
+      if (project.client.id === clientID) IDs.push(project.id);
+    }
+    return !IDs.includes(id);
   }
 
   goBack() {

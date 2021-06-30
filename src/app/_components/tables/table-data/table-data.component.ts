@@ -6,9 +6,7 @@ import * as eva from 'eva-icons';
 export enum TableDataType {
   TEXT,
   MONEY,
-  AVATAR_ONLY,
-  AVATAR_1LINE,
-  AVATAR_2LINES,
+  AVATAR,
   PILL,
   DATE,
   BUTTON,
@@ -73,16 +71,7 @@ export class TableDataComponent implements OnInit, AfterViewInit {
         this.pillColor = this.data.color;
         break;
 
-      case TableDataType.AVATAR_ONLY:
-        this.avatarSrc = this.data.src;
-        break;
-
-      case TableDataType.AVATAR_1LINE:
-        this.avatarSrc = this.data.src;
-        this.avatarName = this.data.name;
-        break;
-
-      case TableDataType.AVATAR_2LINES:
+      case TableDataType.AVATAR:
         this.avatarSrc = this.data.src;
         this.avatarName = this.data.name;
         this.avatarText = this.data.text;
