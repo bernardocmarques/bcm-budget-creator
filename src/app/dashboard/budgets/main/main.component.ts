@@ -74,7 +74,7 @@ export class MainComponent implements OnInit, AfterViewInit {
             color: 'cool-gray'
             }
           },
-          {type: TableDataType.BUTTON, content: {text: 'PDF', icon: 'file-text-outline', color: 'cool-gray'}},
+          {type: TableDataType.BUTTON, content: {text: budget.pdfLink ? 'PDF' : null, icon: 'file-text-outline', color: 'cool-gray'}},
           {type: TableDataType.ACTIONS, content: ['view', 'edit', 'delete']}
         ]);
       });
@@ -84,7 +84,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     return table;
   }
 
-  doAction(action: string, index: number): void {
+  doAction(action: string, index: number, col?: number): void {
     const budgetID = this.data[index][2].content;
     const projectName = this.data[index][1].content;
     const clientName = this.data[index][0].content.name;
@@ -101,7 +101,10 @@ export class MainComponent implements OnInit, AfterViewInit {
       else if (budget && action === 'delete') {
         this.isModalOpen = true;
         this.budgetToDelete = budget;
-      } else if (budget && action === 'change-status') this.changeStatus(budget, index);
+      } else if (budget && action === 'btn-clicked') {
+        if (col === 5) this.openPDF(budget.pdfLink);
+        else if (col === 4) this.changeStatus(budget, index);
+      }
     }));
   }
 
@@ -129,17 +132,23 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   changeStatus(budget: Budget, index: number): void {
-    // project.status = Status.COMPLETED;
-    // this.injector.get(FirebaseService).setProject(project).then(() => {
-    //   this.cacheService.userProjects = null;
-    //   this.data[index][4] = {type: TableDataType.PILL, content: project.getStatusInfo()};
-    //   this.data[index][5] = {type: TableDataType.BUTTON, content: {
-    //       text: project.getNextStatusActionInfo().text,
-    //       icon: project.getNextStatusActionInfo().icon,
-    //       color: 'cool-gray'
-    //     }
-    //   };
-    // });
+    if (budget.status === Status.IN_PROGRESS) budget.status = Status.FOR_PAYMENT;
+    else if (budget.status === Status.FOR_PAYMENT) budget.status = Status.PAID;
+
+    this.injector.get(FirebaseService).setBudget(budget).then(() => {
+      this.cacheService.userBudgets = null;
+      this.data[index][3] = {type: TableDataType.PILL, content: budget.getStatusInfo()};
+      this.data[index][4] = {type: TableDataType.BUTTON, content: {
+          text: budget.getNextStatusActionInfo().text,
+          icon: budget.getNextStatusActionInfo().icon,
+          color: 'cool-gray'
+        }
+      };
+    });
+  }
+
+  openPDF(url: string): void {
+    window.open(url, "_blank");
   }
 
 }

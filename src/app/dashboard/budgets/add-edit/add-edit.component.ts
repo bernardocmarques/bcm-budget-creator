@@ -233,7 +233,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       }));
       await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
         projects.forEach(project => {
-          if (project.id === this.projectID)
+          if (project.client.id === this.clientID && project.id === this.projectID)
             budgetToUpdate.project = project;
         });
       }));

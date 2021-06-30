@@ -151,7 +151,7 @@ export class TableDataComponent implements OnInit, AfterViewInit {
   }
 
   showButton(text: string): boolean {
-    return text !== 'No status' && text !== 'No action';
+    return text && text !== 'No status' && text !== 'No action';
   }
 
 }
