@@ -14,6 +14,7 @@ import { ModalComponent } from './modals/modal/modal.component';
 import {ClickOutsideDirective} from "../_directives/click-outside.directive";
 import {InputSelectComponent} from "./inputs/select/input-select/input-select.component";
 import {InputNumberComponent} from "./inputs/general/input-number/input-number.component";
+import {InputEmailComponent} from "./inputs/personal info/input-email/input-email.component";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {InputNumberComponent} from "./inputs/general/input-number/input-number.c
     BtnSortComponent,
     InputTextComponent,
     InputNumberComponent,
+    InputEmailComponent,
     InputToggleComponent,
     InputSelectComponent,
     SpinnerComponent,

@@ -1,6 +1,9 @@
 <div class="text-sm" [ngClass]="classList">
+
   <!-- Label -->
-  <label *ngIf="label" class="block font-medium text-gray-700 dark:text-gray-400 mb-1">{{label}}</label>
+  <label *ngIf="label" class="block font-medium text-gray-700 dark:text-gray-400 mb-1">
+    {{label}} <span *ngIf="required" class="text-red-600">*</span>
+  </label>
 
   <!-- Input -->
   <input
@@ -18,15 +21,16 @@
     [maxlength]="maxLength"
     [disabled]="disabled"
     #inputEmail="ngModel"
-    [ngClass]="{ 'border-red-600 focus:border-red-400 focus:shadow-outline-red': form && form.submitted && inputEmail.invalid}"
+    [ngClass]="{'border-red-600 dark:border-red-400 focus:border-red-400 dark:focus:border-red-200 focus:shadow-outline-red dark:focus:shadow-outline-red': form && form.submitted && inputEmail.invalid}"
   />
 
   <!-- Error Messages -->
-  <div *ngIf="form && form.submitted && inputEmail.invalid" class="text-xs text-red-600 dark:text-red-400">
+  <div *ngIf="form && form.submitted && inputEmail.invalid" class="text-xs text-red-600 dark:text-red-400 mt-1">
     <span *ngIf="inputEmail.errors.pattern">{{patternErrorMessage}}</span>
     <span *ngIf="inputEmail.errors.required">{{requiredErrorMessage}}</span>
     <span *ngIf="inputEmail.errors.minlength">{{minLengthErrorMessage}}</span>
     <span *ngIf="inputEmail.errors.maxlength">{{maxLengthErrorMessage}}</span>
+    <span *ngIf="inputEmail.errors.incorrect">{{incorrectErrorMessage}}</span>
   </div>
 
 </div>

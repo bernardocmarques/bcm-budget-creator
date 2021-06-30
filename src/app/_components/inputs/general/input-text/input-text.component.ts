@@ -14,7 +14,6 @@ export class InputTextComponent implements OnInit, AfterViewInit {
   @Input() placeholder: string;                   // Message to show by default
 
   // Extras
-  @Input() icon?: {name: string, pack: string};   // Icon prepend
   @Input() label?: string;                        // Label prepend
   @Input() btnText?: string;                      // Text on appended button
   @Input() classList?: string;                    // Classes to add
@@ -31,6 +30,7 @@ export class InputTextComponent implements OnInit, AfterViewInit {
   @Input() requiredErrorMessage?: string;         // Message for required error
   @Input() minLengthErrorMessage?: string;        // Message for minLength error
   @Input() maxLengthErrorMessage?: string;        // Message for maxLength error
+  @Input() incorrectErrorMessage?: string;        // Message for incorrect error
 
   @Output() valueChange = new EventEmitter<string>();
   @Output() btnClicked = new EventEmitter<void>();

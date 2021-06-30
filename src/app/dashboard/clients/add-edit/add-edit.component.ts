@@ -68,8 +68,19 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     eva.replace();
   }
 
-  onSubmit() {
-    if (this.f.form.valid) {
+  async onSubmit() {
+    // Check if ID is unique
+    let isUnique: boolean;
+    await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+      if (!this.isUniqueID(clients, this.client.id)) {
+        this.f.form.controls['id'].setErrors({'incorrect': true});
+        isUnique = false;
+        return;
+      }
+      isUnique = true;
+    }));
+
+    if (this.f.form.valid && isUnique) {
       this.processing = true;
       const clientToUpdate = new Client(this.client, this.client.key);
       clientToUpdate.avatar = clientToUpdate.avatar.split('/').pop();
@@ -115,13 +126,9 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
   randomizeID(): void {
     this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
-      const IDs: string[] = [];
-      for (let client of clients)
-        IDs.push(client.id);
-
       let id = randomIntFromInterval(1, this.MAX_ID);
       let trials = 1;
-      while (IDs.includes(id.toString())) {
+      while (!this.isUniqueID(clients, id.toString())) {
         id = randomIntFromInterval(1, this.MAX_ID);
         trials++;
         if (trials > 10) {
@@ -133,6 +140,13 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       }
       this.client.id = id.toString();
     }));
+  }
+
+  isUniqueID(clients: Client[], id: string): boolean {
+    const IDs: string[] = [];
+    for (let client of clients)
+      IDs.push(client.id);
+    return !IDs.includes(id);
   }
 
   goBack() {

@@ -41,7 +41,7 @@
             <app-input-text
               [label]="'Company'"
               [placeholder]="'Company name'"
-              [id] = "'lastname'"
+              [id] = "'company'"
               [form]="f"
               [(value)] = "client.company"
             ></app-input-text>
@@ -59,6 +59,7 @@
               [(value)] = "client.id"
               [required]="true"
               [requiredErrorMessage]="'An ID is required'"
+              [incorrectErrorMessage]="'The ID must be unique'"
             ></app-input-text>
           </div>
 

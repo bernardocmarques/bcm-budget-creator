@@ -6,6 +6,7 @@
   </label>
 
   <div class="flex items-center relative w-full">
+
     <!-- Input -->
     <input
       type="text"
@@ -22,8 +23,8 @@
       [maxlength]="maxLength"
       [disabled]="disabled"
       #inputText="ngModel"
-      [ngClass]="{ 'border-red-600 focus:border-red-400 focus:shadow-outline-red': form && form.submitted && inputText.invalid,
-                'pr-36': btnText}"
+      [ngClass]="{'border-red-600 dark:border-red-400 focus:border-red-400 dark:focus:border-red-200 focus:shadow-outline-red dark:focus:shadow-outline-red': form && form.submitted && inputText.invalid,
+                  'rounded-r-none': btnText}"
     />
 
     <!-- Append btn -->
@@ -35,11 +36,12 @@
   </div>
 
   <!-- Error Messages -->
-  <div *ngIf="form && form.submitted && inputText.invalid" class="text-xs text-red-600 dark:text-red-400">
+  <div *ngIf="form && form.submitted && inputText.invalid" class="text-xs text-red-600 dark:text-red-400 mt-1">
     <span *ngIf="inputText.errors.pattern">{{patternErrorMessage}}</span>
     <span *ngIf="inputText.errors.required">{{requiredErrorMessage}}</span>
     <span *ngIf="inputText.errors.minlength">{{minLengthErrorMessage}}</span>
     <span *ngIf="inputText.errors.maxlength">{{maxLengthErrorMessage}}</span>
+    <span *ngIf="inputText.errors.incorrect">{{incorrectErrorMessage}}</span>
   </div>
 
 </div>

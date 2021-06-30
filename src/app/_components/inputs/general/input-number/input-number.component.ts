@@ -28,6 +28,7 @@ export class InputNumberComponent implements OnInit, AfterViewInit {
   @Input() requiredErrorMessage?: string;         // Message for required error
   @Input() minValueErrorMessage?: string;         // Message for minLength error
   @Input() maxValueErrorMessage?: string;         // Message for maxLength error
+  @Input() incorrectErrorMessage?: string;        // Message for incorrect error
 
   @Output() valueChange = new EventEmitter<number>();
   @Output() btnClicked = new EventEmitter<void>();
