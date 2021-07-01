@@ -5,9 +5,7 @@ import {TableDataType} from "../../_components/tables/table-data/table-data.comp
 import {numberWithCommas} from "../../_util/number";
 import {CacheService} from "../../_services/cache.service";
 import {Status} from "../../_domain/budget";
-import 'datatables.net';
 
-declare let $;
 
 @Component({
   selector: 'app-main',
@@ -26,15 +24,17 @@ export class MainComponent implements OnInit, AfterViewInit {
     pending: { loader: true, value: 0 }
   }
 
-  clientInput: string;
-  projectInput: string;
-  amountInput: number;
-  statusSelect: string;
-  dateInput: string;
+  inputs = {
+    client: null,
+    project: null,
+    amount: null,
+    statusSelect: null,
+    date: null
+  }
 
   headers: {label: string, value: any}[];
   data: {type: TableDataType, content: any}[][];
-  datatable: DataTables.Api;
+  loadingTable: boolean;
 
   constructor(private cacheService: CacheService) { }
 
@@ -83,36 +83,18 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   initTable(): void {
+    this.loadingTable = true;
+
     this.data = this.getRecentActivity();
     this.headers = [
-      {label: 'client', value: this.clientInput},
-      {label: 'project', value: this.projectInput},
-      {label: 'amount', value: this.amountInput},
-      {label: 'status', value: this.statusSelect},
-      {label: 'date', value: this.dateInput}
+      {label: 'client', value: this.inputs.client},
+      {label: 'project', value: this.inputs.project},
+      {label: 'amount', value: this.inputs.amount},
+      {label: 'status', value: this.inputs.statusSelect},
+      {label: 'date', value: this.inputs.date}
     ];
-    this.buildDatatable();
-  }
 
-  buildDatatable(): void {
-    // if (this.datatable) this.datatable.destroy();
-    //
-    // let noOrderColumns = [];
-    // let naturalSorting = [1, 2, 3, 4];
-    //
-    // let options = {
-    //   order: [[ 5, 'asc' ]], // default order
-    //   columnDefs: [
-    //     { orderData: 0,   targets: 5 }, // date order by timestamp
-    //     { type: 'natural', targets: naturalSorting },
-    //     { orderable: false, targets: noOrderColumns }, // not order last rows (actions)
-    //   ]
-    // };
-    //
-    // setTimeout(() => {
-    //   this.datatable = $('#recent-activity-table').DataTable(options);
-    //   //this.datatable.column(0).visible(false, false);// hide timestamp
-    // }, 0);
+    this.loadingTable = false;
   }
 
   getRecentActivity(): {type: TableDataType, content: any}[][] {
@@ -259,10 +241,10 @@ export class MainComponent implements OnInit, AfterViewInit {
         {type: TableDataType.DATE, content: new Date()}
       ],
       [
-        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'John Doe', text: 'Google Inc.'}},
+        {type: TableDataType.AVATAR, content: {src: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ', name: 'Daniel Smith', text: 'Google Inc.'}},
         {type: TableDataType.TEXT, content: 'Website update'},
-        {type: TableDataType.MONEY, content: 863.45},
-        {type: TableDataType.PILL, content: {text: 'Approved', color: 'green'}},
+        {type: TableDataType.MONEY, content: 23},
+        {type: TableDataType.PILL, content: {text: 'Denied', color: 'red'}},
         {type: TableDataType.DATE, content: new Date()}
       ],
       [

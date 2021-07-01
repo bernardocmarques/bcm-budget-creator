@@ -7,6 +7,7 @@ const plugin = require('tailwindcss/plugin')
 const Color = require('color')
 
 module.exports = {
+    important: true,
     prefix: '',
     purge: {
       content: [

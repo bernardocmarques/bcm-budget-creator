@@ -3,7 +3,6 @@ import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
 import {CacheService} from "../../../_services/cache.service";
-import {ThemeService} from "../../../_services/theme.service";
 import {FirebaseService} from "../../../_services/firebase.service";
 import { Client } from 'src/app/_domain/client';
 import {AlertService} from "../../../_services/alert.service";

@@ -1,24 +1,24 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {TableDataType} from "../table-data/table-data.component";
 import {ThemeService} from "../../../_services/theme.service";
+import 'datatables.net';
+
+declare let $;
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
   @Input() id: string;
   @Input() classList: string;
+
   @Input() headers: {label: string, value: any}[];
   @Input() footers: string[];
+
   @Input() data: {type: TableDataType, content: any}[][];
-
-  @Input() step: number;
-  @Input() hasNavigation: boolean;
-
-  @Input() defaultSort: number;
-  @Input() defaultColumnSortIndex: number;
+  @Input() options: any;
 
   @Input() loading: boolean;
 
@@ -30,34 +30,31 @@ export class TableComponent implements OnInit {
   @Output() deleteBtnClicked: EventEmitter<number> = new EventEmitter<number>();
   @Output() valueChanged: EventEmitter<{value: any, row: number, col: number}> = new EventEmitter();
 
-  currentPage: number = 0;
-  totalPages: number;
-
-  sort: number;
-  columnSortIndex: number;
+  datatable: DataTables.Api;
+  defaultOptions = {
+    language: {
+      info: 'Showing _START_-_END_ of _TOTAL_',
+      paginate: {
+        next: '<svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>',
+        previous: '<svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>'
+      }
+    },
+  };
 
   constructor(public themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.totalPages = this.step && this.hasNavigation ? Math.ceil(this.data.length / this.step) : this.data.length;
-    this.sort = this.defaultSort;
-    this.columnSortIndex = this.defaultColumnSortIndex;
+    if (!this.footers) this.footers = this.headers.map(header => header.label);
   }
 
-  divideIntoPages(): {type: TableDataType, content: any}[][] {
-    if (!this.step || !this.hasNavigation) return this.data;
-    if (this.currentPage === this.totalPages - 1) return this.data.slice(this.currentPage * this.step);
-    return this.data.slice(this.currentPage * this.step, this.currentPage * this.step + this.step);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!changes.loading.currentValue) this.buildDatatable();
   }
 
-  sortColumn(direction: number, columnIndex: number): void {
-    console.log(direction)
-    this.columnSortIndex = columnIndex;
-    if (direction < 0 ) console.log("sort down")
-    if (direction > 0 ) console.log("sort up")
-    console.log(this.headers[columnIndex].label)
-    // TODO: do sorting
-    // FIXME: bug somewhere
+  buildDatatable(): void {
+    if (this.datatable) this.datatable.destroy();
+    const opts = this.options ? Object.assign(this.options, this.defaultOptions) : this.defaultOptions;
+    setTimeout(() => this.datatable = $('#' + this.id).DataTable(opts), 0);
   }
 
 }

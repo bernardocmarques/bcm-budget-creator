@@ -1,56 +1,39 @@
 <div class="w-full overflow-hidden rounded-lg shadow-xs {{classList}}">
 
-  <!-- Table -->
   <div class="w-full overflow-x-auto scrollbar scrollbar-thin scrollbar-table"
        [ngClass]="{'scrollbar-dark scrollbar-table-dark': themeService.isDark()}">
+
+    <!-- Table -->
     <table [id]="id" class="w-full">
 
       <!-- Table: header -->
       <thead>
-        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-          <th *ngFor="let header of headers; let i = index" class="whitespace-nowrap px-4 py-3"
+        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 dark:text-gray-400
+                  dark:bg-gray-800">
+          <th *ngFor="let header of headers" class="whitespace-nowrap px-4 py-3 border-b-2 border-gray-300 dark:border-gray-700"
               [ngStyle]="{'min-width': itemsList ? header.label === 'description' ? '32rem' : '6.5rem' : 'auto'}">
-
-            <div class="flex items-center">
-              {{header.label}}
-              <ng-container *ngIf="header.value !== 'no-sort-filter'">
-                <app-btn-sort
-                  [sort]="i === columnSortIndex ? sort : null"
-                  (btnClicked)="sortColumn($event, i)">
-                </app-btn-sort>
-              </ng-container>
-            </div>
-
-            <!-- Filter -->
-            <ng-container *ngIf="header.value !== 'no-sort-filter'">
-              <app-input-text
-                [placeholder]="'Filter...'"
-                [id] = "'filter-' + header.label"
-                [(value)] = "header.value"
-                [classList]="'mt-2'"
-              ></app-input-text>
-            </ng-container>
-
+            {{header.label}}
           </th>
         </tr>
       </thead>
 
       <!-- Table: body -->
-      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-        <tr *ngFor="let tr of divideIntoPages(); let i = index" class="whitespace-nowrap text-gray-700 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
-          <td table-data *ngFor="let td of tr; let col = index"
-            [type]="td.type"
-            [data]="td.content"
-            (btnClicked)="btnClicked.emit({row: i, col: col})"
-            (viewBtnClicked)="viewBtnClicked.emit(i)"
-            (editBtnClicked)="editBtnClicked.emit(i)"
-            (deleteBtnClicked)="deleteBtnClicked.emit(i)"
-            (valueChanged)="valueChanged.emit({value: $event, row: i, col: col})">
+      <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 ">
+        <tr *ngFor="let tr of data; let i = index" class="whitespace-nowrap text-gray-700 dark:text-gray-400 bg-white
+                                                          dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <td table-data *ngFor="let td of tr; let col = index" class="border-b border-gray-300 dark:border-gray-700"
+              [type]="td.type"
+              [data]="td.content"
+              (btnClicked)="btnClicked.emit({row: i, col: col})"
+              (viewBtnClicked)="viewBtnClicked.emit(i)"
+              (editBtnClicked)="editBtnClicked.emit(i)"
+              (deleteBtnClicked)="deleteBtnClicked.emit(i)"
+              (valueChanged)="valueChanged.emit({value: $event, row: i, col: col})">
           </td>
         </tr>
 
         <!-- Loading -->
-        <tr *ngIf="loading">
+        <tr *ngIf="loading" class="bg-white dark:bg-gray-800">
           <td [colSpan]="headers.length">
             <app-spinner
               [size]="8"
@@ -64,23 +47,14 @@
       <!-- Table: footer -->
       <tfoot>
         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-          <th *ngFor="let footer of footers" class="whitespace-nowrap px-4 py-3">
+          <th *ngFor="let footer of footers" class="whitespace-nowrap px-4 py-3 border-t-2 border-gray-300 dark:border-gray-700">
             {{footer}}
           </th>
         </tr>
       </tfoot>
 
     </table>
-  </div>
 
-  <!-- Navigation -->
-  <ng-container *ngIf="hasNavigation">
-    <app-pagination
-      [dataLength]="data.length"
-      [totalPages]="totalPages"
-      [step]="step"
-      (currentPageChanged)="currentPage = $event">
-    </app-pagination>
-  </ng-container>
+  </div>
 
 </div>

@@ -1,0 +1,60 @@
+@layer base {
+
+  .dataTables_wrapper {
+    @apply bg-gray-50 dark:bg-gray-800;
+
+    .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+      @apply pt-4 pb-1.5 text-xs font-semibold tracking-wide uppercase text-gray-500 dark:text-gray-400;
+    }
+
+    .dataTables_length, .dataTables_info {
+      @apply pl-4;
+    }
+
+    .dataTables_filter, .dataTables_paginate {
+      @apply pr-4;
+    }
+
+    .dataTables_length select {
+      @apply mx-1.5 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:border-indigo-400
+      focus:outline-none focus:shadow-outline-indigo dark:focus:shadow-outline-gray;
+    }
+
+    .dataTables_filter input {
+      @apply ml-1.5 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-input;
+    }
+
+    .dataTables_filter input:focus {
+      @apply focus:border-indigo-400 dark:focus:border-transparent focus:outline-none focus:shadow-outline-indigo
+      dark:focus:shadow-outline-gray;
+    }
+
+    .dataTables_paginate {
+      @apply px-2 pt-2 pb-4 flex justify-center items-center;
+    }
+
+    .dataTables_paginate .paginate_button {
+      @apply px-3 py-1 rounded-md;
+    }
+
+    .dataTables_paginate .paginate_button,
+    .dataTables_paginate .paginate_button.previous:hover,
+    .dataTables_paginate .paginate_button.next:hover{
+      @apply text-gray-500 dark:text-gray-400 #{!important};
+    }
+
+    .dataTables_paginate .paginate_button.previous:hover,
+    .dataTables_paginate .paginate_button.next:hover {
+      @apply border-none bg-none bg-transparent focus:outline-none focus:shadow-outline-indigo #{!important};
+    }
+
+    .dataTables_paginate .paginate_button.current,
+    .dataTables_paginate .paginate_button:not(.previous):not(.next):hover,
+    .dataTables_paginate .paginate_button.current:hover {
+      @apply text-white transition-colors duration-150 border border-r-0 bg-none bg-indigo-500 border-indigo-500
+      focus:outline-none focus:shadow-outline-indigo #{!important};
+    }
+
+  }
+
+}
