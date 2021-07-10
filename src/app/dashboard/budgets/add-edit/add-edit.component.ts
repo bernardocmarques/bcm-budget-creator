@@ -52,8 +52,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private alertService: AlertService,
     private cacheService: CacheService
-  ) {
-  }
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.loading = true;

@@ -34,24 +34,11 @@ export class ViewComponent implements OnInit, AfterViewInit {
     private cacheService: CacheService,
     private googleScriptsService: GoogleScriptsService,
     private alertService: AlertService
-  ) {
-
-    this.loading = true;
-
-    this.route.params.subscribe(params => {
-      setTimeout(() => {
-        this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
-          for (const budget of budgets)
-            if (budget.key === params.id) {
-              this.budget = new Budget(budget, budget.key);
-              this.loading = false;
-            }
-        }));
-      }, 0);
-    }).unsubscribe();
-  }
+  ) { }
 
   ngOnInit(): void {
+    this.loading = true;
+
     this.headers = [
       {label: 'quantity', value: 'no-sort-filter'},
       {label: 'description', value: 'no-sort-filter'},
@@ -61,13 +48,27 @@ export class ViewComponent implements OnInit, AfterViewInit {
 
     this.data = [];
     this.items = [];
-    this.budget.items.forEach(item => this.addItem(item));
-    this.footers = [
-      'Total',
-      '',
-      this.totalHours + ' hours',
-      numberWithCommas(this.totalPrice) + ' €'
-    ];
+
+    this.route.params.subscribe(params => {
+      setTimeout(() => {
+        this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
+          for (const budget of budgets)
+            if (budget.key === params.id) {
+              this.budget = new Budget(budget, budget.key);
+              this.budget.items.forEach(item => this.addItem(item));
+
+              this.footers = [
+                'Total',
+                '',
+                this.totalHours + ' hours',
+                numberWithCommas(this.totalPrice) + ' €'
+              ];
+
+              this.loading = false;
+            }
+        }));
+      }, 0);
+    }).unsubscribe();
   }
 
   ngAfterViewInit(): void {
