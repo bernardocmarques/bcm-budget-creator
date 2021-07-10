@@ -220,7 +220,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
         this.alertService.showAlert('No rate set', 'This project has no rate set yet. Unless you set a rate, hours and price won\'t be automatically calculated.', 'warning');
         this.noRateAlertShown = true;
 
-      } else {
+      } else if (rate) {
         if (colChanged === 'hours') {
           if (this.items[index].hours === null && this.items[index].price !== null) {
             this.totalPrice = 0;
