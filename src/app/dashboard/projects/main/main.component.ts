@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Injector, OnInit, ViewChild} from '@angular/core';
 
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
@@ -7,6 +7,7 @@ import {Project, Status} from "../../../_domain/project";
 import {FirebaseService} from "../../../_services/firebase.service";
 import {AlertService} from "../../../_services/alert.service";
 import {Router} from "@angular/router";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -30,6 +31,11 @@ export class MainComponent implements OnInit, AfterViewInit {
   isModalOpen: boolean;
   projectToDelete: Project;
   deleting: boolean;
+
+  clients:  {value: string, text: string}[];
+  clientID: string;
+
+  @ViewChild('f', { static: false }) f: NgForm;
 
   constructor(
     private cacheService: CacheService,
@@ -78,6 +84,16 @@ export class MainComponent implements OnInit, AfterViewInit {
           {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
         ]);
       });
+
+      // Get clients for select
+      this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+        this.clients = clients.map(client => ({value: client.id, text: client.name}));
+        this.clients.unshift({value: 'all', text: 'All clients'});
+
+        if (this.clients.length > 0)
+          this.clientID = this.clients[0].value;
+      }));
+
       this.loading = false;
     }));
 
@@ -135,6 +151,37 @@ export class MainComponent implements OnInit, AfterViewInit {
         }
       };
     });
+  }
+
+  filterByClient(): void {
+    this.loading = true;
+    let table: {type: TableDataType, content: any}[][] = [];
+
+    this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+      projects.forEach(project => {
+        project.client.firebaseService = this.injector.get(FirebaseService);
+
+        if (this.clientID === 'all' || project.client.id === this.clientID) {
+          table.push([
+            {type: TableDataType.AVATAR, content: { src: project.client.getAvatar(), name: project.client.name, text: project.client.company }},
+            {type: TableDataType.TEXT, content: project.name},
+            {type: TableDataType.TEXT, content: project.id},
+            {type: TableDataType.MONEY, content: project.rate},
+            {type: TableDataType.PILL, content: project.getStatusInfo()},
+            {type: TableDataType.BUTTON, content: {
+                text: project.getNextStatusActionInfo().text,
+                icon: project.getNextStatusActionInfo().icon,
+                color: 'cool-gray'
+              }
+            },
+            {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
+          ]);
+        }
+      });
+
+      this.data = table;
+      this.loading = false;
+    }));
   }
 
 }

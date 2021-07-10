@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Injector, OnInit, ViewChild} from '@angular/core';
 
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
@@ -7,6 +7,7 @@ import {Budget, Status} from "../../../_domain/budget";
 import {AlertService} from "../../../_services/alert.service";
 import {Router} from "@angular/router";
 import {FirebaseService} from "../../../_services/firebase.service";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -29,6 +30,14 @@ export class MainComponent implements OnInit, AfterViewInit {
   isModalOpen: boolean;
   budgetToDelete: Budget;
   deleting: boolean;
+
+  clients:  {value: string, text: string}[];
+  clientID: string;
+
+  projects:  {value: string, text: string}[];
+  projectID: string;
+
+  @ViewChild('f', { static: false }) f: NgForm;
 
   constructor(
     private cacheService: CacheService,
@@ -78,6 +87,25 @@ export class MainComponent implements OnInit, AfterViewInit {
           {type: TableDataType.ACTIONS, content: ['view', 'edit', 'delete']}
         ]);
       });
+
+      // Get clients for select
+      this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+        this.clients = clients.map(client => ({value: client.id, text: client.name}));
+        this.clients.unshift({value: 'all', text: 'All clients'});
+
+        if (this.clients.length > 0)
+          this.clientID = this.clients[0].value;
+      }));
+
+      // Get projects for select
+      this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+        this.projects = projects.map(project => ({value: project.id, text: project.name}));
+        this.projects.unshift({value: 'all', text: 'All projects'});
+
+        if (this.projects.length > 0)
+          this.projectID = this.projects[0].value;
+      }));
+
       this.loading = false;
     }));
 
@@ -149,6 +177,62 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   openPDF(url: string): void {
     window.open(url, "_blank");
+  }
+
+  async filterByClient(): Promise<void> {
+    this.projects = [];
+
+    await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+      projects.forEach(project => {
+        if (project.client.id === this.clientID)
+          this.projects.push({value: project.id, text: project.name})
+      });
+      this.projects.unshift({value: 'all', text: 'All projects'});
+
+      if (this.projects.length > 0)
+        this.projectID = this.projects[0].value;
+    }));
+
+    this.filterByClientAndProject();
+  }
+
+  filterByClientAndProject(): void {
+    this.loading = true;
+    let table: {type: TableDataType, content: any}[][] = [];
+
+    this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
+      budgets.forEach(budget => {
+        budget.client.firebaseService = this.injector.get(FirebaseService);
+        budget.project.client.firebaseService = this.injector.get(FirebaseService);
+
+        if ((this.clientID === 'all' || budget.client.id === this.clientID) && (this.projectID === 'all' || budget.project.id === this.projectID)) {
+          table.push([
+            {
+              type: TableDataType.AVATAR,
+              content: {src: budget.client.getAvatar(), name: budget.client.name, text: budget.client.company}
+            },
+            {type: TableDataType.TEXT, content: budget.project.name},
+            {type: TableDataType.TEXT, content: budget.id},
+            {type: TableDataType.PILL, content: budget.getStatusInfo()},
+            {
+              type: TableDataType.BUTTON, content: {
+                text: budget.getNextStatusActionInfo().text,
+                icon: budget.getNextStatusActionInfo().icon,
+                color: 'cool-gray'
+              }
+            },
+            {
+              type: TableDataType.BUTTON,
+              content: {text: budget.pdfLink ? 'PDF' : null, icon: 'file-text-outline', color: 'cool-gray'}
+            },
+            {type: TableDataType.ACTIONS, content: ['view', 'edit', 'delete']}
+          ]);
+        }
+      });
+
+      this.data = table;
+      this.loading = false;
+    }));
   }
 
 }

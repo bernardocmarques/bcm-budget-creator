@@ -66,7 +66,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
   async onSubmit() {
     // Check if ID is unique
-    let isUniqueID: boolean;
+    let isUniqueID = true;
     if (this.mode === "add") {
       await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
         if (!this.isUniqueID(clients, this.client.id)) {
