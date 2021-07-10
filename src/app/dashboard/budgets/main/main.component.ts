@@ -72,6 +72,8 @@ export class MainComponent implements OnInit, AfterViewInit {
         budget.client.firebaseService = this.injector.get(FirebaseService);
         budget.project.client.firebaseService = this.injector.get(FirebaseService);
 
+        let price = budget.items.map(item => item.price).reduce((total, value) => total + value);
+
         table.push([
           {type: TableDataType.AVATAR, content: { src: budget.client.getAvatar(), name: budget.client.name, text: budget.client.company}},
           {type: TableDataType.TEXT, content: budget.project.name},
