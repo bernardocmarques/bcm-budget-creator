@@ -8,6 +8,7 @@ import {AlertService} from "../../../_services/alert.service";
 import {CacheService} from "../../../_services/cache.service";
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
 import {digitCount, numberWithCommas} from "../../../_util/number";
+import {hoursToString} from "../../../_util/time";
 
 @Component({
   selector: 'app-add-edit',
@@ -40,6 +41,8 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   mode: "edit" | "add";
   processing: boolean;
   submitted: boolean;
+
+  noRateAlertShown = false;
 
   @ViewChild('f', { static: false }) f: NgForm;
 
@@ -110,6 +113,8 @@ export class AddEditComponent implements OnInit, AfterViewInit {
         this.projectID = this.projects[0].value;
 
       else if(!this.submitted) this.alertService.showAlert('No projects available', 'This client has no projects yet. Please create a project first.', 'warning');
+
+      this.initID();
     }));
   }
 
@@ -126,7 +131,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       while (!this.isUniqueID(budgets, this.clientID, this.projectID, nextID.toString())) nextID++;
 
       if (nextID < 100) nextID = '0'.repeat(3 - digitCount(nextID)) + nextID;
-      this.budget.id = this.clientID + this.projectID + nextID;
+      this.budget.id = this.clientID.replace(/\D/g,'') + this.projectID.replace(/\D/g,'') + nextID;
     }));
   }
 
@@ -136,8 +141,8 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     this.items.push({
       quantity: item ? item.quantity : 1,
       description: item ? item.description : null,
-      hours: item ? item.hours : null,
-      price: item ? item.price : null
+      hours: item ? item.hours : 0,
+      price: item ? item.price : 0
     });
 
     this.data.push([
@@ -191,18 +196,83 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
     this.totalHours += this.items[index].hours;
     this.totalPrice += this.items[index].price;
-    this.updateFooter();
+    this.updateValues(index);
   }
 
-  updateFooter(): void {
+  async updateValues(index: number, col?: number): Promise<void> {
     if (this.data.length > 0) {
+      let colChanged: 'hours' | 'price';
+      if (col === 2) colChanged = "hours";
+      else if (col === 3) colChanged = "price";
+
+      let rate;
+      await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+        for (const project of projects) {
+          if (project.client.id === this.clientID && project.id === this.projectID) {
+            rate = project.rate;
+            break;
+          }
+        }
+      }));
+
+      // Update hours & price
+      if (!rate && !this.noRateAlertShown) {
+        this.alertService.showAlert('No rate set', 'This project has no rate set yet. Unless you set a rate, hours and price won\'t be automatically calculated.', 'warning');
+        this.noRateAlertShown = true;
+
+      } else {
+        if (colChanged === 'hours') {
+          if (this.items[index].hours === null && this.items[index].price !== null) {
+            this.totalPrice = 0;
+            this.items[index].price = null;
+            this.f.controls['price-item-' + (index + 1)].setValue(null);
+
+          } else if (this.items[index].hours !== null && !this.isCorrectPrice(this.items[index].hours, this.items[index].price, rate) && this.f.controls['price-item-' + (index + 1)]) {
+            const price = this.calculatePrice(this.items[index].hours, rate);
+            this.totalPrice += price - this.items[index].price;
+            this.items[index].price = price;
+            this.f.controls['price-item-' + (index + 1)].setValue(price);
+          }
+
+        } else if (colChanged === 'price') {
+          if (this.items[index].price === null && this.items[index].hours !== null) {
+            this.totalHours = 0;
+            this.items[index].hours = null;
+            this.f.controls['hours-item-' + (index + 1)].setValue(null);
+
+          } else if (this.items[index].price !== null && !this.isCorrectHours(this.items[index].hours, this.items[index].price, rate) && this.f.controls['hours-item-' + (index + 1)]) {
+            const hours = this.calculateHours(this.items[index].price, rate);
+            this.totalHours += hours - this.items[index].hours;
+            this.items[index].hours = hours;
+            this.f.controls['hours-item-' + (index + 1)].setValue(hours);
+          }
+        }
+      }
+
+      // Update totals
       this.footers = [
         'Total',
         '',
-        this.totalHours + ' hours',
+        hoursToString(this.totalHours),
         numberWithCommas(this.totalPrice) + ' €'
       ];
     }
+  }
+
+  calculatePrice(hours: number, rate: number): number {
+    return rate * hours;
+  }
+
+  calculateHours(price: number, rate: number): number {
+    return price / rate;
+  }
+
+  isCorrectPrice(hours: number, price: number, rate: number) {
+    return price === this.calculatePrice(hours, rate);
+  }
+
+  isCorrectHours(hours: number, price: number, rate: number) {
+    return hours === this.calculateHours(price, rate);
   }
 
   setItem(row: number, col: number, value: any): void {
@@ -216,7 +286,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       this.totalPrice += value - this.items[row].price;
       this.items[row].price = value;
     }
-    this.updateFooter();
+    this.updateValues(row, col);
   }
 
   doAction(action: string, index: number): void {
@@ -246,7 +316,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    if (this.f.form.valid && ((this.mode === "add" && isUniqueID) || this.mode === "edit") && this.items.length > 0) {
+    if (this.f.form.valid && isUniqueID && this.items.length > 0) {
       this.processing = true;
       const budgetToUpdate = new Budget(this.budget, this.budget.key);
       await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {

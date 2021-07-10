@@ -74,6 +74,7 @@
 
           <ng-container *ngIf="data.length > 0">
             <app-table
+              [id]="'budget-items-table'"
               [headers]="headers"
               [footers]="footers"
               [data]="data"

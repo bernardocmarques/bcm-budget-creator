@@ -48,7 +48,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.loading.currentValue) this.buildDatatable();
+    if (changes.loading && !changes.loading.currentValue) this.buildDatatable();
   }
 
   buildDatatable(): void {

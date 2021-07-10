@@ -78,10 +78,10 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       }));
     }
 
-    if (this.f.form.valid && ((this.mode === "add" && isUniqueID) || this.mode === "edit")) {
+    if (this.f.form.valid && isUniqueID) {
       this.processing = true;
       const clientToUpdate = new Client(this.client, this.client.key);
-      clientToUpdate.avatar = clientToUpdate.avatar.split('/').pop();
+      if (clientToUpdate.avatar) clientToUpdate.avatar = clientToUpdate.avatar.split('/').pop();
 
       if (this.mode == "add") {
         this.firebaseService.addClient(clientToUpdate).then(() => {

@@ -118,19 +118,19 @@ export class TableDataComponent implements OnInit, AfterViewInit {
           this.input.required = this.data.required;
           this.input.requiredErrorMessage = this.data.requiredErrorMessage;
         }
-        if (this.data.minLength) {
+        if (this.data.minLength !== null) {
           this.input.minLength = this.data.minLength;
           this.input.minLengthErrorMessage = this.data.minLengthErrorMessage;
         }
-        if (this.data.maxLength) {
+        if (this.data.maxLength !== null) {
           this.input.maxLength = this.data.maxLength;
           this.input.maxLengthErrorMessage = this.data.maxLengthErrorMessage;
         }
-        if (this.data.minValue) {
+        if (this.data.minValue !== null) {
           this.input.minValue = this.data.minValue;
           this.input.minValueErrorMessage = this.data.minValueErrorMessage;
         }
-        if (this.data.maxValue) {
+        if (this.data.maxValue !== null) {
           this.input.maxValue = this.data.maxValue;
           this.input.maxValueErrorMessage = this.data.maxValueErrorMessage;
         }

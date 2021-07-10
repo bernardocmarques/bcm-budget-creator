@@ -87,7 +87,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       }));
     }
 
-    if (this.f.form.valid && ((this.mode === "add" && isUniqueID) || this.mode === "edit")) {
+    if (this.f.form.valid && isUniqueID) {
       this.processing = true;
       const projectToUpdate = new Project(this.project, this.project.key);
       await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
