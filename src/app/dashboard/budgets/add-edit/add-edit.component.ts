@@ -53,35 +53,11 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     private alertService: AlertService,
     private cacheService: CacheService
   ) {
-
-    this.loading = true;
-
-    this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
-      this.clients = clients.map(client => ({value: client.id, text: client.name}));
-    }));
-
-    if (this.router.url.includes('edit')) {
-      this.mode = "edit";
-      this.route.params.subscribe(params => {
-        this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
-          for (const budget of budgets)
-            if (budget.key === params.id) {
-              this.budget = new Budget(budget, budget.key);
-              this.clientID = budget.client.id;
-              this.projectID = budget.project.id;
-              this.loading = false;
-            }
-        }));
-      }).unsubscribe();
-
-    } else {
-      this.mode = "add";
-      this.budget = new Budget({});
-      this.loading = false;
-    }
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.loading = true;
+
     this.headers = [
       {label: 'quantity', value: 'no-sort-filter'},
       {label: 'description', value: 'no-sort-filter'},
@@ -93,9 +69,33 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     this.data = [];
     this.items = [];
 
-    if (this.mode === "edit") {
-      this.budget.items.forEach(item => this.addItem(item));
-      this.initProjects();
+    await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+      this.clients = clients.map(client => ({value: client.id, text: client.name}));
+    }));
+
+    if (this.router.url.includes('edit')) {
+      this.mode = "edit";
+      this.route.params.subscribe(params => {
+        this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
+          for (const budget of budgets) {
+            if (budget.key === params.id) {
+              this.budget = new Budget(budget, budget.key);
+              this.budget.items.forEach(item => this.addItem(item));
+              this.clientID = budget.client.id;
+              this.projectID = budget.project.id;
+              break;
+            }
+          }
+
+          this.initProjects();
+          this.loading = false;
+        }));
+      }).unsubscribe();
+
+    } else if (this.router.url.includes('add')) {
+      this.mode = "add";
+      this.budget = new Budget({});
+      this.loading = false;
     }
   }
 
@@ -112,7 +112,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       if (this.projects && this.projects.length > 0)
         this.projectID = this.projects[0].value;
 
-      else if(!this.submitted) this.alertService.showAlert('No projects available', 'This client has no projects yet. Please create a project first.', 'warning');
+      else if (!this.submitted) this.alertService.showAlert('No projects available', 'This client has no projects yet. Please create a project first.', 'warning');
 
       this.initID();
     }));

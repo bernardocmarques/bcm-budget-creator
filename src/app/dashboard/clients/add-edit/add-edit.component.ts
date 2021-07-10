@@ -37,15 +37,17 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     if (this.router.url.includes('edit')) {
       this.mode = "edit";
       this.route.params.subscribe(params => {
-        this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
-          for (const client of clients)
-            if (client.key === params.id) {
-              this.client = new Client(client, client.key);
-              this.client.firebaseService = this.firebaseService;
-              this.client.avatar = this.client.getAvatar() as string;
-              this.loading = false;
-            }
-        }));
+        setTimeout(() => {
+          this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+            for (const client of clients)
+              if (client.key === params.id) {
+                this.client = new Client(client, client.key);
+                this.client.firebaseService = this.firebaseService;
+                this.client.avatar = this.client.getAvatar() as string;
+                this.loading = false;
+              }
+          }));
+        }, 0);
       }).unsubscribe();
 
     } else {

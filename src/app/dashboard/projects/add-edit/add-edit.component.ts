@@ -39,24 +39,28 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
     this.loading = true;
 
-    this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
-      this.clients = clients.map(client => ({value: client.id, text: client.name}));
+    setTimeout(() => {
+      this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+        this.clients = clients.map(client => ({value: client.id, text: client.name}));
 
-      if (this.clients.length === 0)
-        this.alertService.showAlert('No clients available', 'You have no clients yet. Please create a client first.', 'warning');
-    }));
+        if (this.clients.length === 0)
+          this.alertService.showAlert('No clients available', 'You have no clients yet. Please create a client first.', 'warning');
+      }));
+    }, 0);
 
     if (this.router.url.includes('edit')) {
       this.mode = "edit";
       this.route.params.subscribe(params => {
-        this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
-          for (const project of projects)
-            if (project.key === params.id) {
-              this.project = new Project(project, project.key);
-              this.clientID = project.client.id;
-              this.loading = false;
-            }
-        }));
+        setTimeout(() => {
+          this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+            for (const project of projects)
+              if (project.key === params.id) {
+                this.project = new Project(project, project.key);
+                this.clientID = project.client.id;
+                this.loading = false;
+              }
+          }));
+        }, 0);
       }).unsubscribe();
 
     } else {

@@ -39,13 +39,15 @@ export class ViewComponent implements OnInit, AfterViewInit {
     this.loading = true;
 
     this.route.params.subscribe(params => {
-      this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
-        for (const budget of budgets)
-          if (budget.key === params.id) {
-            this.budget = new Budget(budget, budget.key);
-            this.loading = false;
-          }
-      }));
+      setTimeout(() => {
+        this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
+          for (const budget of budgets)
+            if (budget.key === params.id) {
+              this.budget = new Budget(budget, budget.key);
+              this.loading = false;
+            }
+        }));
+      }, 0);
     }).unsubscribe();
   }
 

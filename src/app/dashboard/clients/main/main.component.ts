@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
@@ -33,7 +33,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     private cacheService: CacheService,
     private alertService: AlertService,
     private router: Router,
-    private injector: Injector
+    private firebaseService: FirebaseService
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
     this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
       clients.forEach(client => {
-        client.firebaseService = this.injector.get(FirebaseService);
+        client.firebaseService = this.firebaseService;
 
         table.push([
           {type: TableDataType.AVATAR, content: {src: client.getAvatar(), name: client.name}},
@@ -94,13 +94,12 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   async deleteClient(client: Client): Promise<void> {
     this.deleting = true;
-    const firebaseService = this.injector.get(FirebaseService);
 
     // Delete budgets
     await this.cacheService.getUserBudgets().then(obs => obs.subscribe(async budgets => {
       for (const budget of budgets) {
         if (budget.client.id === client.id)
-          await firebaseService.deleteBudgetByKey(budget.key)
+          await this.firebaseService.deleteBudgetByKey(budget.key)
             .catch((error) => {
               this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
             });
@@ -112,7 +111,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     await this.cacheService.getUserProjects().then(obs => obs.subscribe(async projects => {
       for (const project of projects) {
         if (project.client.id === client.id)
-          await firebaseService.deleteProjectByKey(project.key)
+          await this.firebaseService.deleteProjectByKey(project.key)
             .catch((error) => {
               this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
             });
@@ -121,7 +120,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.cacheService.userProjects = null;
 
     // Delete client
-    firebaseService.deleteClientByKey(client.key).then(() => {
+    this.firebaseService.deleteClientByKey(client.key).then(() => {
       this.cacheService.userClients = null;
       this.alertService.showAlert('Client deleted', 'Client ' + client.name + ' deleted successfully', 'success');
       this.data = this.getClientsData();

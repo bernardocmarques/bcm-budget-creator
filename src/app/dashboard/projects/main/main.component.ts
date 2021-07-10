@@ -38,10 +38,10 @@ export class MainComponent implements OnInit, AfterViewInit {
   @ViewChild('f', { static: false }) f: NgForm;
 
   constructor(
+    private firebaseService: FirebaseService,
     private cacheService: CacheService,
     private alertService: AlertService,
-    private router: Router,
-    private injector: Injector
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
     this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
       projects.forEach(project => {
-        project.client.firebaseService = this.injector.get(FirebaseService);
+        project.client.firebaseService = this.firebaseService;
 
         table.push([
           {type: TableDataType.AVATAR, content: { src: project.client.getAvatar(), name: project.client.name, text: project.client.company }},
@@ -126,7 +126,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   async deleteProject(project: Project): Promise<void> {
     this.deleting = true;
-    const firebaseService = this.injector.get(FirebaseService);
+    const firebaseService = this.firebaseService;
 
     // Delete budgets
     await this.cacheService.getUserBudgets().then(obs => obs.subscribe(async budgets => {
@@ -157,7 +157,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   changeStatus(project: Project, index: number): void {
     project.status = Status.COMPLETED;
-    this.injector.get(FirebaseService).setProject(project).then(() => {
+    this.firebaseService.setProject(project).then(() => {
       this.cacheService.userProjects = null;
       this.data[index][4] = {type: TableDataType.PILL, content: project.getStatusInfo()};
       this.data[index][5] = {type: TableDataType.BUTTON, content: {
@@ -175,7 +175,7 @@ export class MainComponent implements OnInit, AfterViewInit {
 
     this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
       projects.forEach(project => {
-        project.client.firebaseService = this.injector.get(FirebaseService);
+        project.client.firebaseService = this.firebaseService;
 
         if (this.clientID === 'all' || project.client.id === this.clientID) {
           table.push([
