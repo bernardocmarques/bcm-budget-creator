@@ -176,12 +176,7 @@ export class FirebaseService {
   /*** ------------------ Budgets ------------------ ***/
   /*** --------------------------------------------- ***/
 
-  private incrementLastBudgetNumber(project: Project) {
-    return this.userDocument.collection("projects").doc(project.key).update({"lastBudgetNumber": FieldValue.increment(1)})
-  }
-
   public addBudget(budget: Budget) {
-    this.incrementLastBudgetNumber(budget.project).then(r => r);
     return this.userDocument.collection("budgets").add(budget.toBudgetDatabase().toObject());
   }
 

@@ -23,7 +23,6 @@ export class Project {
   name: string = null;
   rate: number = null;
   status: Status = null;
-  lastBudgetNumber: number = null;
 
   constructor(source: Partial<Project>, key?: string) {
     for (const key in source) {
@@ -74,7 +73,6 @@ export class ProjectDatabase {
   name: string = null;
   rate: number = null;
   status: Status = 0;
-  lastBudgetNumber: number  = null;
 
   constructor(source: Partial<ProjectDatabase>, key?: string) {
     for(const key in source){
