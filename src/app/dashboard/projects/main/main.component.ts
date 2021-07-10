@@ -124,15 +124,31 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.router.navigate(['dashboard/projects/edit/', project.key]).then(r => r);
   }
 
-  deleteProject(project: Project): void {
+  async deleteProject(project: Project): Promise<void> {
     this.deleting = true;
-    this.injector.get(FirebaseService).deleteProjectByKey(project.key).then(() => {
+    const firebaseService = this.injector.get(FirebaseService);
+
+    // Delete budgets
+    await this.cacheService.getUserBudgets().then(obs => obs.subscribe(async budgets => {
+      for (const budget of budgets) {
+        if (budget.project.id === project.id)
+          await firebaseService.deleteBudgetByKey(budget.key)
+            .catch((error) => {
+              this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
+            });
+      }
+    }));
+    this.cacheService.userBudgets = null;
+
+    // Delete project
+    firebaseService.deleteProjectByKey(project.key).then(() => {
       this.cacheService.userProjects = null;
       this.alertService.showAlert('Project deleted', 'Project ' + project.name + ' deleted successfully', 'success');
       this.data = this.getProjectsData();
 
     }).catch((error) => {
       this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
+
     }).finally(() => {
       this.deleting = false;
       this.isModalOpen = false;

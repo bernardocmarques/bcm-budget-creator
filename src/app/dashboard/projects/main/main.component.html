@@ -53,7 +53,7 @@
     [isModalOpen]="isModalOpen"
     [id]="'delete-project-modal'"
     [title]="'Delete project'"
-    [description]="'Are you sure you want to delete project \'' + projectToDelete.name + '\'? You won\'t be able to undo this action.'"
+    [description]="'Are you sure you want to delete project \'' + projectToDelete.name + '\' and all its budgets? You won\'t be able to undo this action.'"
     [positiveBtnText]="'Delete'"
     [positiveBtnColor]="'red'"
     (positiveBtnClicked)="deleteProject(projectToDelete)"

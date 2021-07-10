@@ -92,15 +92,43 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.router.navigate(['dashboard/clients/edit/', client.key]).then(r => r);
   }
 
-  deleteClient(client: Client): void {
+  async deleteClient(client: Client): Promise<void> {
     this.deleting = true;
-    this.injector.get(FirebaseService).deleteClientByKey(client.key).then(() => {
+    const firebaseService = this.injector.get(FirebaseService);
+
+    // Delete budgets
+    await this.cacheService.getUserBudgets().then(obs => obs.subscribe(async budgets => {
+      for (const budget of budgets) {
+        if (budget.client.id === client.id)
+          await firebaseService.deleteBudgetByKey(budget.key)
+            .catch((error) => {
+              this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
+            });
+      }
+    }));
+    this.cacheService.userBudgets = null;
+
+    // Delete projects
+    await this.cacheService.getUserProjects().then(obs => obs.subscribe(async projects => {
+      for (const project of projects) {
+        if (project.client.id === client.id)
+          await firebaseService.deleteProjectByKey(project.key)
+            .catch((error) => {
+              this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
+            });
+      }
+    }));
+    this.cacheService.userProjects = null;
+
+    // Delete client
+    firebaseService.deleteClientByKey(client.key).then(() => {
       this.cacheService.userClients = null;
       this.alertService.showAlert('Client deleted', 'Client ' + client.name + ' deleted successfully', 'success');
       this.data = this.getClientsData();
 
     }).catch((error) => {
       this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
+
     }).finally(() => {
       this.deleting = false;
       this.isModalOpen = false;
