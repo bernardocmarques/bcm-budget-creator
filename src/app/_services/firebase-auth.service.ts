@@ -4,7 +4,9 @@ import {Router} from '@angular/router';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFirestore} from "@angular/fire/firestore";
 
+import {FirebaseService} from "./firebase.service";
 import {AlertService} from './alert.service';
 import {CacheService} from "./cache.service";
 
@@ -22,8 +24,10 @@ export class FirebaseAuthService {
 
   constructor(
     private firebaseAuth: AngularFireAuth,
+    private firebaseService: FirebaseService,
     private router: Router,
     private alertService: AlertService,
+    private firestore: AngularFirestore,
     private injector: Injector
   ) {
 
@@ -34,6 +38,12 @@ export class FirebaseAuthService {
       that.currentUser = user;
       that.isUserLoggedIn = !!that.currentUser;
       that.notifyUserChange();
+
+      if (user) {
+        firebaseService.uid = user.uid;
+        firebaseService.userDocument = this.firestore.collection("users").doc(user.uid);
+        firebaseService.userStorageRef = firebase.storage().ref();
+      }
     });
   }
 
@@ -72,7 +82,10 @@ export class FirebaseAuthService {
   async loginWithEmail(email: string, password: string): Promise<void> {
     return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then(() => this.alertService.showAlert('Welcome back 😊', 'Successful login', 'success'))
+      .then(() => {
+        this.alertService.showAlert('Welcome back 😊', 'Successful login', 'success');
+
+      })
       .catch(error => {
         if (error.code === 'auth/user-not-found')
           this.alertService.showAlert('Account not found', 'There\'s no account linked to this email address. Please create one.', 'warning');

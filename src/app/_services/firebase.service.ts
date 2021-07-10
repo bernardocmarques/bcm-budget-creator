@@ -3,8 +3,7 @@ import {Injectable} from '@angular/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
-import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/firestore";
-import {FirebaseAuthService} from "./firebase-auth.service";
+import {AngularFirestoreDocument} from "@angular/fire/firestore";
 import FieldValue = firebase.firestore.FieldValue;
 
 import {User} from "../_domain/user";
@@ -21,14 +20,7 @@ export class FirebaseService {
   userDocument: AngularFirestoreDocument;
   userStorageRef: firebase.storage.Reference;
 
-  constructor(
-    private firebaseAuthService: FirebaseAuthService,
-    private firestore: AngularFirestore
-  ) {
-    this.uid = this.firebaseAuthService.currentUser.uid;
-    this.userDocument = this.firestore.collection("users").doc(this.uid);
-    this.userStorageRef = firebase.storage().ref();
-  }
+  constructor() { }
 
 
   /*** --------------------------------------------- ***/
