@@ -20,10 +20,11 @@ export class MainComponent implements OnInit, AfterViewInit {
   data: {type: TableDataType, content: any}[][];
   loading: boolean;
 
-  inputs: {id: string, client: string, project: string, status: Status} = {
+  inputs: {id: string, client: string, project: string, price: number, status: Status} = {
     id: null,
     client: null,
     project: null,
+    price: null,
     status: null
   };
 
@@ -51,6 +52,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       {label: 'client', value: this.inputs.client},
       {label: 'project', value: this.inputs.project},
       {label: 'budget id', value: this.inputs.id},
+      {label: 'price', value: this.inputs.price},
       {label: 'status', value: this.inputs.status},
       {label: 'change status', value: 'no-sort-filter'},
       {label: 'view PDF', value: 'no-sort-filter'},
@@ -72,12 +74,11 @@ export class MainComponent implements OnInit, AfterViewInit {
         budget.client.firebaseService = this.injector.get(FirebaseService);
         budget.project.client.firebaseService = this.injector.get(FirebaseService);
 
-        let price = budget.items.map(item => item.price).reduce((total, value) => total + value);
-
         table.push([
           {type: TableDataType.AVATAR, content: { src: budget.client.getAvatar(), name: budget.client.name, text: budget.client.company}},
           {type: TableDataType.TEXT, content: budget.project.name},
           {type: TableDataType.TEXT, content: budget.id},
+          {type: TableDataType.MONEY, content: budget.items.map(item => item.price).reduce((total, value) => total + value)},
           {type: TableDataType.PILL, content: budget.getStatusInfo()},
           {type: TableDataType.BUTTON, content: {
             text: budget.getNextStatusActionInfo().text,
@@ -132,8 +133,8 @@ export class MainComponent implements OnInit, AfterViewInit {
         this.isModalOpen = true;
         this.budgetToDelete = budget;
       } else if (budget && action === 'btn-clicked') {
-        if (col === 5) this.openPDF(budget.pdfLink);
-        else if (col === 4) this.changeStatus(budget, index);
+        if (col === 6) this.openPDF(budget.pdfLink);
+        else if (col === 5) this.changeStatus(budget, index);
       }
     }));
   }
@@ -167,8 +168,8 @@ export class MainComponent implements OnInit, AfterViewInit {
 
     this.injector.get(FirebaseService).setBudget(budget).then(() => {
       this.cacheService.userBudgets = null;
-      this.data[index][3] = {type: TableDataType.PILL, content: budget.getStatusInfo()};
-      this.data[index][4] = {type: TableDataType.BUTTON, content: {
+      this.data[index][4] = {type: TableDataType.PILL, content: budget.getStatusInfo()};
+      this.data[index][5] = {type: TableDataType.BUTTON, content: {
           text: budget.getNextStatusActionInfo().text,
           icon: budget.getNextStatusActionInfo().icon,
           color: 'cool-gray'
@@ -215,6 +216,7 @@ export class MainComponent implements OnInit, AfterViewInit {
             },
             {type: TableDataType.TEXT, content: budget.project.name},
             {type: TableDataType.TEXT, content: budget.id},
+            {type: TableDataType.MONEY, content: budget.items.map(item => item.price).reduce((total, value) => total + value)},
             {type: TableDataType.PILL, content: budget.getStatusInfo()},
             {
               type: TableDataType.BUTTON, content: {

@@ -55,7 +55,12 @@ export class TableComponent implements OnInit, OnChanges {
   buildDatatable(): void {
     if (this.datatable) this.datatable.destroy();
     const opts = this.options ? Object.assign(this.options, this.defaultOptions) : this.defaultOptions;
-    setTimeout(() => this.datatable = $('#' + this.id).DataTable(opts), 0);
+    setTimeout(() => {
+      this.datatable = $('#' + this.id).DataTable(opts);
+
+      // Change scrollbar style if dark
+      if (this.themeService.isDark()) $('.dataTables_wrapper').addClass('scrollbar-dark scrollbar-table-dark');
+    }, 0);
   }
 
 }
