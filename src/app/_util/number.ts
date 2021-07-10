@@ -14,3 +14,13 @@ export function numberWithCommas(x: number): string {
 export function randomIntFromInterval(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+
+/* ------------------------------------------------------------
+*  Counts the number of digits in a number
+*  Source: https://www.codegrepper.com/code-examples/javascript/js+check+how+many+digits+in+a+number
+* ------------------------------------------------------------ */
+export function digitCount(num) {
+  if(num === 0 ) return 1
+  return Math.floor(Math.log10(Math.abs(num))) + 1
+}

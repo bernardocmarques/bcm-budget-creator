@@ -3,7 +3,6 @@ import {getStatusString, Project, Status} from "../../../_domain/project";
 import {NgForm} from "@angular/forms";
 import {FirebaseService} from "../../../_services/firebase.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ThemeService} from "../../../_services/theme.service";
 import {AlertService} from "../../../_services/alert.service";
 import {CacheService} from "../../../_services/cache.service";
 import * as eva from 'eva-icons';
@@ -143,7 +142,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       let maxID: number = 0;
       for (let project of projects) {
         if (project.client.id !== this.clientID) continue;
-        const id = parseInt(project.id);
+        const id = parseInt(project.id.replace(/\D/g,''));
         if (id > maxID) maxID = id;
       }
 
@@ -156,9 +155,9 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   isUniqueID(projects: Project[], clientID: string, id: string): boolean {
     const IDs: string[] = [];
     for (let project of projects) {
-      if (project.client.id === clientID) IDs.push(project.id);
+      if (project.client.id === clientID) IDs.push(project.id.replace(/\D/g,''));
     }
-    return !IDs.includes(id);
+    return !IDs.includes(id.replace(/\D/g,''));
   }
 
   goBack() {

@@ -7,7 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../../_services/alert.service";
 import {CacheService} from "../../../_services/cache.service";
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
-import {numberWithCommas} from "../../../_util/number";
+import {digitCount, numberWithCommas} from "../../../_util/number";
 
 @Component({
   selector: 'app-add-edit',
@@ -118,15 +118,14 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       let maxID: number = 0;
       for (let budget of budgets) {
         if (budget.client.id !== this.clientID || budget.project.id !== this.projectID) continue;
-        const id = parseInt(budget.id.substr(budget.id.length - 3));
+        const id = parseInt(budget.id.replace(/\D/g,'').substr(budget.id.length - 3));
         if (id > maxID) maxID = id;
       }
 
       let nextID: number | string = maxID + 1;
       while (!this.isUniqueID(budgets, this.clientID, this.projectID, nextID.toString())) nextID++;
 
-      if (nextID < 10) nextID = '00' + nextID;
-      else if (nextID >= 10 && nextID < 100) nextID = '0' + nextID;
+      if (nextID < 100) nextID = '0'.repeat(3 - digitCount(nextID)) + nextID;
       this.budget.id = this.clientID + this.projectID + nextID;
     }));
   }
@@ -310,9 +309,9 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     const IDs: string[] = [];
     for (let budget of budgets) {
       if (budget.client.id === clientID && budget.project.id === projectID)
-        IDs.push(budget.id);
+        IDs.push(budget.id.replace(/\D/g,''));
     }
-    return !IDs.includes(id);
+    return !IDs.includes(id.replace(/\D/g,''));
   }
 
   goBack() {

@@ -7,15 +7,13 @@ import {ThemeService} from "../../../_services/theme.service";
 import {AlertService} from "../../../_services/alert.service";
 import {CacheService} from "../../../_services/cache.service";
 import * as eva from 'eva-icons';
-import {randomIntFromInterval} from "../../../_util/number";
+import {digitCount, randomIntFromInterval} from "../../../_util/number";
 
 @Component({
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
 })
 export class AddEditComponent implements OnInit, AfterViewInit {
-
-  MAX_ID = 99;
 
   client: Client;
   loading: boolean;
@@ -126,18 +124,13 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
   randomizeID(): void {
     this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
-      let id = randomIntFromInterval(1, this.MAX_ID);
-      let trials = 1;
-      while (!this.isUniqueID(clients, id.toString())) {
-        id = randomIntFromInterval(1, this.MAX_ID);
-        trials++;
-        if (trials > 10) {
-          this.alertService.showAlert(
-            'Not enough IDs left',
-            'There are very few IDs left from ' + this.MAX_ID + ' possible IDs. Please increase the range',
-            'warning');
-        }
-      }
+      const count = digitCount(clients.length);
+      const MAX_ID = parseInt('9'.repeat(count === 1 ? count + 1 : count));
+      let id = randomIntFromInterval(1, MAX_ID);
+
+      while (!this.isUniqueID(clients, id.toString()))
+        id = randomIntFromInterval(1, MAX_ID);
+
       this.client.id = id.toString();
     }));
   }
@@ -145,8 +138,8 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   isUniqueID(clients: Client[], id: string): boolean {
     const IDs: string[] = [];
     for (let client of clients)
-      IDs.push(client.id);
-    return !IDs.includes(id);
+      IDs.push(client.id.replace(/\D/g,''));
+    return !IDs.includes(id.replace(/\D/g,''));
   }
 
   goBack() {
