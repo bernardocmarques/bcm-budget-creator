@@ -43,18 +43,18 @@ export class MainComponent implements OnInit, AfterViewInit {
       {label: 'company', value: this.inputs.company},
       {label: 'actions', value: 'no-sort-filter'}
     ];
-    this.data = this.getClientsData();
+    this.getClientsData();
   }
 
   ngAfterViewInit(): void {
     eva.replace();
   }
 
-  getClientsData(): {type: TableDataType, content: any}[][] {
+  async getClientsData(): Promise<void> {
     this.loading = true;
-    let table: {type: TableDataType, content: any}[][] = [];
+    let table: { type: TableDataType, content: any }[][] = [];
 
-    this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
+    await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
       clients.forEach(client => {
         client.firebaseService = this.firebaseService;
 
@@ -68,7 +68,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.loading = false;
     }));
 
-    return table;
+    this.data = table;
   }
 
   doAction(action: string, index: number): void {
@@ -123,7 +123,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.firebaseService.deleteClientByKey(client.key).then(() => {
       this.cacheService.userClients = null;
       this.alertService.showAlert('Client deleted', 'Client ' + client.name + ' deleted successfully', 'success');
-      this.data = this.getClientsData();
+      this.getClientsData();
 
     }).catch((error) => {
       this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');

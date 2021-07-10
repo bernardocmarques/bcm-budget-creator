@@ -54,18 +54,18 @@ export class MainComponent implements OnInit, AfterViewInit {
       {label: 'change status', value: 'no-sort-filter'},
       {label: 'actions', value: 'no-sort-filter'}
     ];
-    this.data = this.getProjectsData();
+    this.getProjectsData();
   }
 
   ngAfterViewInit(): void {
     eva.replace();
   }
 
-  getProjectsData(): {type: TableDataType, content: any}[][] {
+  async getProjectsData(): Promise<void> {
     this.loading = true;
     let table: {type: TableDataType, content: any}[][] = [];
 
-    this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+    await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
       projects.forEach(project => {
         project.client.firebaseService = this.firebaseService;
 
@@ -97,7 +97,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.loading = false;
     }));
 
-    return table;
+    this.data = table;
   }
 
   doAction(action: string, index: number): void {
@@ -144,7 +144,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     firebaseService.deleteProjectByKey(project.key).then(() => {
       this.cacheService.userProjects = null;
       this.alertService.showAlert('Project deleted', 'Project ' + project.name + ' deleted successfully', 'success');
-      this.data = this.getProjectsData();
+      this.getProjectsData();
 
     }).catch((error) => {
       this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');

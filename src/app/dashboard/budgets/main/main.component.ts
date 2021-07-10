@@ -58,35 +58,45 @@ export class MainComponent implements OnInit, AfterViewInit {
       {label: 'view PDF', value: 'no-sort-filter'},
       {label: 'actions', value: 'no-sort-filter'}
     ];
-    this.data = this.getBudgetsData();
+    this.getBudgetsData();
   }
 
   ngAfterViewInit(): void {
     eva.replace();
   }
 
-  getBudgetsData(): {type: TableDataType, content: any}[][] {
+  async getBudgetsData(): Promise<void> {
     this.loading = true;
-    let table: {type: TableDataType, content: any}[][] = [];
+    let table: { type: TableDataType, content: any }[][] = [];
 
-    this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
+    await this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
       budgets.forEach(budget => {
         budget.client.firebaseService = this.injector.get(FirebaseService);
         budget.project.client.firebaseService = this.injector.get(FirebaseService);
 
         table.push([
-          {type: TableDataType.AVATAR, content: { src: budget.client.getAvatar(), name: budget.client.name, text: budget.client.company}},
+          {
+            type: TableDataType.AVATAR,
+            content: {src: budget.client.getAvatar(), name: budget.client.name, text: budget.client.company}
+          },
           {type: TableDataType.TEXT, content: budget.project.name},
           {type: TableDataType.TEXT, content: budget.id},
-          {type: TableDataType.MONEY, content: budget.items.map(item => item.price).reduce((total, value) => total + value)},
+          {
+            type: TableDataType.MONEY,
+            content: budget.items.map(item => item.price).reduce((total, value) => total + value)
+          },
           {type: TableDataType.PILL, content: budget.getStatusInfo()},
-          {type: TableDataType.BUTTON, content: {
-            text: budget.getNextStatusActionInfo().text,
-            icon: budget.getNextStatusActionInfo().icon,
-            color: 'cool-gray'
+          {
+            type: TableDataType.BUTTON, content: {
+              text: budget.getNextStatusActionInfo().text,
+              icon: budget.getNextStatusActionInfo().icon,
+              color: 'cool-gray'
             }
           },
-          {type: TableDataType.BUTTON, content: {text: budget.pdfLink ? 'PDF' : null, icon: 'file-text-outline', color: 'cool-gray'}},
+          {
+            type: TableDataType.BUTTON,
+            content: {text: budget.pdfLink ? 'PDF' : null, icon: 'file-text-outline', color: 'cool-gray'}
+          },
           {type: TableDataType.ACTIONS, content: ['view', 'edit', 'delete']}
         ]);
       });
@@ -112,7 +122,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.loading = false;
     }));
 
-    return table;
+    this.data = table;
   }
 
   doAction(action: string, index: number, col?: number): void {
@@ -152,7 +162,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.injector.get(FirebaseService).deleteBudgetByKey(budget.key).then(() => {
       this.cacheService.userBudgets = null;
       this.alertService.showAlert('Budget deleted', 'Budget ' + budget.id + ' deleted successfully', 'success');
-      this.data = this.getBudgetsData();
+      this.getBudgetsData();
 
     }).catch((error) => {
       this.alertService.showAlert('Error', 'Error deleting document: ' + error, 'danger');
