@@ -192,6 +192,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       },
       {type: TableDataType.ACTIONS, content: ['delete']}
     ]);
+    console.log(this.data)
 
     this.totalHours += this.items[index].hours;
     this.totalPrice += this.items[index].price;
@@ -253,7 +254,8 @@ export class AddEditComponent implements OnInit, AfterViewInit {
         'Total',
         '',
         hoursToString(this.totalHours),
-        numberWithCommas(this.totalPrice) + ' €'
+        numberWithCommas(this.totalPrice) + ' €',
+        ''
       ];
     }
   }
@@ -292,6 +294,12 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     if (action === 'delete') {
       this.items.splice(index, 1);
       this.data.splice(index, 1);
+
+      // Delete form controls
+      this.f.form.removeControl('quantity-item-' + (index + 1));
+      this.f.form.removeControl('description-item-' + (index + 1));
+      this.f.form.removeControl('hours-item-' + (index + 1));
+      this.f.form.removeControl('price-item-' + (index + 1));
     }
   }
 
