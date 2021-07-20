@@ -13,7 +13,7 @@ A [budget creator](https://bcm-budget-creator.web.app/) that allows to easily an
 - [ ] Add new budget state - DENIED
 - [ ] Split payments into multiple partitions
 - [ ] Set dates for when it should be paid
-- [ ] Generate IDs automatically
+- [x] ~~Generate IDs automatically~~
 - [ ] Allow for fixed price projects (not just hourly rate)
 - [ ] Option to add notes to budgets
 - [ ] Useful stats
