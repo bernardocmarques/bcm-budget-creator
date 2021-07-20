@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import * as eva from 'eva-icons';
 import {Budget, BudgetItem, getStatusString, Status} from "../../../_domain/budget";
 import {NgForm} from "@angular/forms";
@@ -14,7 +14,7 @@ import {hoursToString} from "../../../_util/time";
   selector: 'app-add-edit',
   templateUrl: './add-edit.component.html',
 })
-export class AddEditComponent implements OnInit, AfterViewInit {
+export class AddEditComponent implements OnInit {
 
   budget: Budget;
   loading: boolean;
@@ -24,6 +24,12 @@ export class AddEditComponent implements OnInit, AfterViewInit {
 
   projects:  {value: string, text: string}[];
   projectID: string;
+
+  original = {
+    clientID: null,
+    projectID: null,
+    budgetID: null
+  }
 
   status: {value: Status, text: string}[] = [
     {value: Status.IN_PROGRESS, text: getStatusString(Status.IN_PROGRESS)},
@@ -35,8 +41,10 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   footers: string[];
   data: {type: TableDataType, content: any}[][];
   items: BudgetItem[];
+
   totalHours: number = 0;
   totalPrice: number = 0;
+  nextItemID: number = 0;
 
   mode: "edit" | "add";
   processing: boolean;
@@ -58,7 +66,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     this.loading = true;
 
     this.headers = [
-      {label: 'quantity', value: 'no-sort-filter'},
+      {label: 'quantity', value: 'no-sort-filter'}, // TODO: refactor, remove value
       {label: 'description', value: 'no-sort-filter'},
       {label: 'hours', value: 'no-sort-filter'},
       {label: 'price', value: 'no-sort-filter'},
@@ -79,15 +87,20 @@ export class AddEditComponent implements OnInit, AfterViewInit {
           for (const budget of budgets) {
             if (budget.key === params.id) {
               this.budget = new Budget(budget, budget.key);
-              this.budget.items.forEach(item => this.addItem(item));
+              setTimeout(() => this.budget.items.forEach(item => this.addItem(item)), 0);
               this.clientID = budget.client.id;
               this.projectID = budget.project.id;
+              this.original.clientID = this.clientID;
+              this.original.projectID = this.projectID;
+              this.original.budgetID = this.budget.id;
               break;
             }
           }
 
           this.initProjects();
           this.loading = false;
+
+          setTimeout(() => eva.replace(), 0);
         }));
       }).unsubscribe();
 
@@ -95,11 +108,8 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       this.mode = "add";
       this.budget = new Budget({});
       this.loading = false;
+      setTimeout(() => eva.replace(), 0);
     }
-  }
-
-  ngAfterViewInit(): void {
-    eva.replace();
   }
 
   initProjects(): void {
@@ -108,16 +118,23 @@ export class AddEditComponent implements OnInit, AfterViewInit {
         .filter(project => project.client.id === this.clientID)
         .map(project => ({value: project.id, text: project.name}));
 
-      if (this.projects && this.projects.length > 0)
+      if (this.mode === 'add' && this.projects?.length > 0)
         this.projectID = this.projects[0].value;
 
-      else if (!this.submitted) this.alertService.showAlert('No projects available', 'This client has no projects yet. Please create a project first.', 'warning');
+      else if (this.mode === 'add' && !this.submitted) this.alertService.showAlert('No projects available', 'This client has no projects yet. Please create a project first.', 'warning');
 
       this.initID();
     }));
   }
 
   initID(): void {
+    if (this.mode === 'edit') {
+      if (this.clientID === this.original.clientID && this.projectID === this.original.projectID) {
+        this.budget.id = this.original.budgetID;
+        return;
+      }
+    }
+
     this.cacheService.getUserBudgets().then(obs => obs.subscribe(budgets => {
       let maxID: number = 0;
       for (let budget of budgets) {
@@ -138,16 +155,17 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     const index = this.data.length;
 
     this.items.push({
+      id: this.nextItemID,
       quantity: item ? item.quantity : 1,
       description: item ? item.description : null,
-      hours: item ? item.hours : 0,
-      price: item ? item.price : 0
+      hours: item ? item.hours : null,
+      price: item ? item.price : null
     });
 
     this.data.push([
       {type: TableDataType.INPUT_NUMBER, content: {
           size: 6,
-          id: 'quantity-item-' + (index + 1),
+          id: 'quantity-item-' + this.nextItemID,
           form: this.f,
           value: this.items[index].quantity,
           placeholder: 'Quantity',
@@ -158,7 +176,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
         }
       },
       {type: TableDataType.INPUT_TEXT, content: {
-          id: 'description-item-' + (index + 1),
+          id: 'description-item-' + this.nextItemID,
           form: this.f,
           value: this.items[index].description,
           placeholder: 'Brief item description',
@@ -168,7 +186,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       },
       {type: TableDataType.INPUT_NUMBER, content: {
           size: 8,
-          id: 'hours-item-' + (index + 1),
+          id: 'hours-item-' + this.nextItemID,
           form: this.f,
           value: this.items[index].hours,
           placeholder: 'Hours',
@@ -180,7 +198,7 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       },
       {type: TableDataType.INPUT_NUMBER, content: {
           size: 8,
-          id: 'price-item-' + (index + 1),
+          id: 'price-item-' + this.nextItemID,
           form: this.f,
           value: this.items[index].price,
           placeholder: 'Price',
@@ -192,72 +210,80 @@ export class AddEditComponent implements OnInit, AfterViewInit {
       },
       {type: TableDataType.ACTIONS, content: ['delete']}
     ]);
-    console.log(this.data)
 
-    this.totalHours += this.items[index].hours;
-    this.totalPrice += this.items[index].price;
+    this.nextItemID++;
     this.updateValues(index);
   }
 
   async updateValues(index: number, col?: number): Promise<void> {
-    if (this.data.length > 0) {
-      let colChanged: 'hours' | 'price';
-      if (col === 2) colChanged = "hours";
-      else if (col === 3) colChanged = "price";
+    if (this.data.length <= 0) return;
 
-      let rate;
-      await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
-        for (const project of projects) {
-          if (project.client.id === this.clientID && project.id === this.projectID) {
-            rate = project.rate;
-            break;
-          }
-        }
-      }));
+    let colChanged: 'hours' | 'price';
+    if (col === 2) colChanged = "hours";
+    else if (col === 3) colChanged = "price";
 
-      // Update hours & price
-      if (!rate && !this.noRateAlertShown) {
-        this.alertService.showAlert('No rate set', 'This project has no rate set yet. Unless you set a rate, hours and price won\'t be automatically calculated.', 'warning');
-        this.noRateAlertShown = true;
-
-      } else if (rate) {
-        if (colChanged === 'hours') {
-          if (this.items[index].hours === null && this.items[index].price !== null) {
-            this.totalPrice = 0;
-            this.items[index].price = null;
-            this.f.controls['price-item-' + (index + 1)].setValue(null);
-
-          } else if (this.items[index].hours !== null && !this.isCorrectPrice(this.items[index].hours, this.items[index].price, rate) && this.f.controls['price-item-' + (index + 1)]) {
-            const price = this.calculatePrice(this.items[index].hours, rate);
-            this.totalPrice += price - this.items[index].price;
-            this.items[index].price = price;
-            this.f.controls['price-item-' + (index + 1)].setValue(price);
-          }
-
-        } else if (colChanged === 'price') {
-          if (this.items[index].price === null && this.items[index].hours !== null) {
-            this.totalHours = 0;
-            this.items[index].hours = null;
-            this.f.controls['hours-item-' + (index + 1)].setValue(null);
-
-          } else if (this.items[index].price !== null && !this.isCorrectHours(this.items[index].hours, this.items[index].price, rate) && this.f.controls['hours-item-' + (index + 1)]) {
-            const hours = this.calculateHours(this.items[index].price, rate);
-            this.totalHours += hours - this.items[index].hours;
-            this.items[index].hours = hours;
-            this.f.controls['hours-item-' + (index + 1)].setValue(hours);
-          }
+    let rate;
+    await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
+      for (const project of projects) {
+        if (project.client.id === this.clientID && project.id === this.projectID) {
+          rate = project.rate;
+          break;
         }
       }
+    }));
 
-      // Update totals
-      this.footers = [
-        'Total',
-        '',
-        hoursToString(this.totalHours),
-        numberWithCommas(this.totalPrice) + ' €',
-        ''
-      ];
+    // Update hours & price
+    if (!rate && !this.noRateAlertShown) {
+      this.alertService.showAlert('No rate set', 'This project has no rate set yet. Unless you set a rate, hours and price won\'t be automatically calculated.', 'warning');
+      this.noRateAlertShown = true;
+
+    } else if (rate) {
+      const item = this.items[index];
+      const id = item.id;
+
+      if (colChanged === 'hours') { // changed hours value
+        let price;
+        if (item.hours === null && item.price !== null) price = null;
+        else if (item.hours !== null && !this.isCorrectPrice(item.hours, item.price, rate))
+          price = this.calculatePrice(item.hours, rate);
+
+        if (price !== undefined) {
+          item.price = price;
+          this.f.controls['price-item-' + id].setValue(price);
+        }
+
+      } else if (colChanged === 'price') { // changed price value
+        let hours;
+        if (item.price === null && item.hours !== null) hours = null;
+        else if (item.price !== null && !this.isCorrectHours(item.hours, item.price, rate))
+          hours = this.calculateHours(item.price, rate);
+
+        if (hours !== undefined) {
+          item.hours = hours;
+          this.f.controls['hours-item-' + id].setValue(hours);
+        }
+      }
     }
+
+    this.updateTotals();
+  }
+
+  updateTotals(): void {
+    this.totalHours = 0;
+    this.totalPrice = 0;
+
+    this.items.forEach(item => {
+      this.totalHours += item.hours ? item.quantity * item.hours : 0;
+      this.totalPrice += item.price ? item.quantity * item.price : 0;
+    });
+
+    this.footers = [
+      'Total',
+      '',
+      hoursToString(this.totalHours),
+      numberWithCommas(this.totalPrice) + ' €',
+      ''
+    ];
   }
 
   calculatePrice(hours: number, rate: number): number {
@@ -277,29 +303,40 @@ export class AddEditComponent implements OnInit, AfterViewInit {
   }
 
   setItem(row: number, col: number, value: any): void {
-    if (col === 0) this.items[row].quantity = value;
-    else if (col === 1) this.items[row].description = value;
+    const item = this.items[row];
+
+    if (col === 0) item.quantity = value;
+    else if (col === 1) item.description = value;
     else if (col === 2) {
-      this.totalHours += value - this.items[row].hours;
-      this.items[row].hours = value;
+      this.totalHours += value - item.hours;
+      item.hours = value;
     }
     else if (col === 3) {
-      this.totalPrice += value - this.items[row].price;
-      this.items[row].price = value;
+      this.totalPrice += value - item.price;
+      item.price = value;
     }
     this.updateValues(row, col);
   }
 
   doAction(action: string, index: number): void {
     if (action === 'delete') {
+      const item = this.items[index];
+      const id = item.id;
+
+      // Delete data
       this.items.splice(index, 1);
       this.data.splice(index, 1);
 
       // Delete form controls
-      this.f.form.removeControl('quantity-item-' + (index + 1));
-      this.f.form.removeControl('description-item-' + (index + 1));
-      this.f.form.removeControl('hours-item-' + (index + 1));
-      this.f.form.removeControl('price-item-' + (index + 1));
+      this.f.form.removeControl('quantity-item-' + id);
+      this.f.form.removeControl('description-item-' + id);
+      this.f.form.removeControl('hours-item-' + id);
+      this.f.form.removeControl('price-item-' + id);
+
+      // Remove from total
+      this.totalHours -= item.hours;
+      this.totalPrice -= item.price;
+      this.updateTotals();
     }
   }
 
@@ -313,7 +350,6 @@ export class AddEditComponent implements OnInit, AfterViewInit {
           isUniqueID = false;
           return;
         }
-        isUniqueID = true;
       }));
     }
 
@@ -326,18 +362,21 @@ export class AddEditComponent implements OnInit, AfterViewInit {
     if (this.f.form.valid && isUniqueID && this.items.length > 0) {
       this.processing = true;
       const budgetToUpdate = new Budget(this.budget, this.budget.key);
+
       await this.cacheService.getUserClients().then(obs => obs.subscribe(clients => {
         clients.forEach(client => {
           if (client.id === this.clientID)
             budgetToUpdate.client = client;
         });
       }));
+
       await this.cacheService.getUserProjects().then(obs => obs.subscribe(projects => {
         projects.forEach(project => {
           if (project.client.id === this.clientID && project.id === this.projectID)
             budgetToUpdate.project = project;
         });
       }));
+
       budgetToUpdate.status = !this.budget.status ? Status.IN_PROGRESS : parseInt(this.budget.status as unknown as string);
       budgetToUpdate.items = this.items;
 
@@ -352,7 +391,6 @@ export class AddEditComponent implements OnInit, AfterViewInit {
         }).finally(() => {
           this.processing = false;
           this.submitted = true;
-          this.f.resetForm();
           this.goBack();
         });
 
@@ -367,13 +405,11 @@ export class AddEditComponent implements OnInit, AfterViewInit {
         }).finally(() => {
           this.processing = false;
           this.submitted = true;
-          this.f.resetForm();
           this.goBack();
         });
 
       } else {
         console.error("Invalid mode!");
-        this.f.resetForm();
         this.goBack();
       }
 

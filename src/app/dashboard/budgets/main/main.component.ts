@@ -83,7 +83,7 @@ export class MainComponent implements OnInit, AfterViewInit {
           {type: TableDataType.TEXT, content: budget.id},
           {
             type: TableDataType.MONEY,
-            content: budget.items.map(item => item.price).reduce((total, value) => total + value)
+            content: budget.items.map(item => item.quantity * item.price).reduce((total, value) => total + value)
           },
           {type: TableDataType.PILL, content: budget.getStatusInfo()},
           {

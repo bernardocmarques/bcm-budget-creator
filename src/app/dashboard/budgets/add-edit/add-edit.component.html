@@ -104,9 +104,11 @@
             </ng-container>
 
             <button class="w-full sm:w-max flex items-center justify-center mt-4 px-6 py-2.5 font-medium leading-5 text-white
-                    transition-colors duration-150 bg-indigo-500 disabled:bg-cool-gray-400 border border-transparent rounded-lg active:bg-indigo-500
-                    hover:bg-indigo-600 focus:outline-none focus:shadow-outline-indigo" type="button" (click)="addItem()"
-                    [disabled]="!clientID || !projectID">
+                    transition-colors duration-150 disabled:bg-cool-gray-400 border border-transparent rounded-lg
+                    focus:outline-none disabled:cursor-default"
+                    [ngClass]="{'bg-indigo-500 active:bg-indigo-500 hover:bg-indigo-600 focus:shadow-outline-indigo': !f.submitted || items.length > 0,
+                                'animate-pulse bg-red-500 active:bg-red-500 hover:bg-red-600 focus:shadow-outline-red': f.submitted && items.length === 0}"
+                    type="button" (click)="addItem()" [disabled]="!clientID || !projectID">
               Add item
               <i [attr.data-eva]="'plus'" class="w-4 h-4 ml-1 fill-current"></i>
             </button>

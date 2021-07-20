@@ -2,6 +2,7 @@ import {Client} from './client';
 import {Project} from './project';
 
 export interface BudgetItem {
+  id?: number;
   quantity: number;
   description: string;
   price: number;
