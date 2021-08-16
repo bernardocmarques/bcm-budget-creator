@@ -55,6 +55,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   buildDatatable(): void {
     if (this.datatable) this.datatable.destroy();
+
     const opts = this.options ? Object.assign(this.options, this.defaultOptions) : this.defaultOptions;
     setTimeout(() => {
       this.datatable = $('#' + this.id).DataTable(opts);

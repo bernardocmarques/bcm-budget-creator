@@ -139,6 +139,7 @@ export class AddEditComponent implements OnInit {
       let maxID: number = 0;
       for (let budget of budgets) {
         if (budget.client.id !== this.clientID || budget.project.id !== this.projectID) continue;
+        if (budget.id.length < 7) continue;
         const id = parseInt(budget.id.replace(/\D/g,'').substr(budget.id.length - 3));
         if (id > maxID) maxID = id;
       }
@@ -146,7 +147,7 @@ export class AddEditComponent implements OnInit {
       let nextID: number | string = maxID + 1;
       while (!this.isUniqueID(budgets, this.clientID, this.projectID, nextID.toString())) nextID++;
 
-      if (nextID < 100) nextID = '0'.repeat(3 - digitCount(nextID)) + nextID;
+      nextID = nextID.toString().padStart(3, '0');
       this.budget.id = this.clientID.replace(/\D/g,'') + this.projectID.replace(/\D/g,'') + nextID;
     }));
   }
@@ -420,11 +421,13 @@ export class AddEditComponent implements OnInit {
 
   isUniqueID(budgets: Budget[], clientID: string, projectID: string, id: string): boolean {
     const IDs: string[] = [];
+    const full_id = clientID.replace(/\D/g,'') + projectID.replace(/\D/g,'') + id.padStart(3, "0");
+
     for (let budget of budgets) {
       if (budget.client.id === clientID && budget.project.id === projectID)
         IDs.push(budget.id.replace(/\D/g,''));
     }
-    return !IDs.includes(id.replace(/\D/g,''));
+    return !IDs.includes(full_id);
   }
 
   goBack() {

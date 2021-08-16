@@ -40,6 +40,14 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   @ViewChild('f', { static: false }) f: NgForm;
 
+  tableOptions = {
+    order: [[ 2, 'desc' ]], // default order
+    columnDefs: [
+      { type: 'natural', targets: [0, 1, 2, 3, 4] },
+      { orderable: false, targets: [5, 6, 7] }, // not order last rows (actions)
+    ]
+  }
+
   constructor(
     private cacheService: CacheService,
     private alertService: AlertService,
