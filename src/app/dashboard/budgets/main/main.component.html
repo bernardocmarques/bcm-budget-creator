@@ -68,3 +68,31 @@
     [actionInProgress]="deleting">
   </app-modal>
 </ng-container>
+
+<ng-container *ngIf="isPayModalOpen">
+  <app-modal
+    [isModalOpen]="isPayModalOpen"
+    [id]="'pay-budget-modal'"
+    [title]="'Pay budget'"
+    [description]="'How much do you want to pay? Budget is missing ' + (budgetToPay.getTotalPrice() - budgetToPay.totalPaid) + '€'"
+    [templateRef]="payBudgetInput"
+    [positiveBtnText]="'Pay'"
+    [positiveBtnColor]="'green'"
+    (positiveBtnClicked)="payBudget(budgetToPay)"
+    (closeBtnClicked)="isPayModalOpen = false"
+    [actionInProgress]="paying">
+  </app-modal>
+</ng-container>
+
+<ng-template #payBudgetInput>
+  <app-input-number
+    [placeholder]="'Amount to pay'"
+    [id]="'amount'"
+    [(value)]="amountToPay"
+    [minValue]="0"
+    [minValueErrorMessage]="'Amount must be equal or bigger than 0'"
+    [maxValue]="budgetToPay.getTotalPrice() - budgetToPay.totalPaid"
+    [maxValueErrorMessage]="'Amount must be equal or smaller than ' + (budgetToPay.getTotalPrice() - budgetToPay.totalPaid) + '€'"
+    [classList]="'mt-3'"
+  ></app-input-number>
+</ng-template>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -34,6 +34,8 @@ export class ModalComponent implements OnInit {
   @Input() positiveBtnText: string;       // Right btn text
   @Input() positiveBtnColor: string;      // Right btn color
   @Input() actionInProgress?: boolean;    // Show loader while action in progress
+
+  @Input() templateRef?: TemplateRef<any>;   // Custom template for modal
 
   @Output() closeBtnClicked: EventEmitter<void> = new EventEmitter();
   @Output() positiveBtnClicked: EventEmitter<void> = new EventEmitter();

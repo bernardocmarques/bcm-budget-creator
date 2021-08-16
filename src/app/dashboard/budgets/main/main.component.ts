@@ -38,6 +38,11 @@ export class MainComponent implements OnInit, AfterViewInit {
   projects:  {value: string, text: string}[];
   projectID: string;
 
+  isPayModalOpen: boolean;
+  budgetToPay: Budget;
+  amountToPay: number;
+  paying: boolean;
+
   @ViewChild('f', { static: false }) f: NgForm;
 
   tableOptions = {
@@ -91,7 +96,7 @@ export class MainComponent implements OnInit, AfterViewInit {
           {type: TableDataType.TEXT, content: budget.id},
           {
             type: TableDataType.MONEY,
-            content: budget.items.map(item => item.quantity * item.price).reduce((total, value) => total + value)
+            content: budget.getTotalPrice()
           },
           {type: TableDataType.PILL, content: budget.getStatusInfo()},
           {
@@ -152,7 +157,11 @@ export class MainComponent implements OnInit, AfterViewInit {
         this.budgetToDelete = budget;
       } else if (budget && action === 'btn-clicked') {
         if (col === 6) this.openPDF(budget.pdfLink);
-        else if (col === 5) this.changeStatus(budget, index);
+        else if (col === 5 && budget.status !== Status.FOR_PAYMENT) this.changeStatus(budget, index);
+        else if (col === 5 && budget.status === Status.FOR_PAYMENT) {
+          this.isPayModalOpen = true;
+          this.budgetToPay = budget;
+        }
       }
     }));
   }
@@ -180,19 +189,55 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
   }
 
-  changeStatus(budget: Budget, index: number): void {
+  payBudget(budget: Budget): void {
+    if (!this.amountToPay) {
+      this.alertService.showAlert('No amount entered', 'Please enter an amount to pay.', 'danger');
+      return;
+    }
+
+    if (this.amountToPay <= 0) {
+      this.alertService.showAlert('Invalid amount', 'Please enter an amount that\'s bigger than 0€.', 'danger');
+      return;
+    }
+
+    if (this.amountToPay > (budget.getTotalPrice() - budget.totalPaid)) {
+      this.alertService.showAlert('Invalid amount', 'Please enter an amount that\'s smaller or equal to ' + (budget.getTotalPrice() - budget.totalPaid) + '€', 'danger');
+      return;
+    }
+
+    this.paying = true;
+    this.budgetToPay.totalPaid += this.amountToPay;
+    this.injector.get(FirebaseService).setBudget(this.budgetToPay).then(() => {
+      this.cacheService.userBudgets = null;
+      if (this.budgetToPay.getTotalPrice() === this.budgetToPay.totalPaid) {
+        this.changeStatus(this.budgetToPay);
+        this.alertService.showAlert('Budget paid', 'Budget ' + budget.id + ' is fully paid', 'success');
+      } else this.alertService.showAlert('Paid ' + this.amountToPay + '€', 'Added payment of ' + this.amountToPay + '€ to budget ' + budget.id, 'success');
+      this.getBudgetsData();
+
+    }).catch((error) => {
+      this.alertService.showAlert('Error', 'Error updating document: ' + error, 'danger');
+    }).finally(() => {
+      this.paying = false;
+      this.isPayModalOpen = false;
+    });
+  }
+
+  changeStatus(budget: Budget, index?: number): void {
     if (budget.status === Status.IN_PROGRESS) budget.status = Status.FOR_PAYMENT;
     else if (budget.status === Status.FOR_PAYMENT) budget.status = Status.PAID;
 
     this.injector.get(FirebaseService).setBudget(budget).then(() => {
       this.cacheService.userBudgets = null;
-      this.data[index][4] = {type: TableDataType.PILL, content: budget.getStatusInfo()};
-      this.data[index][5] = {type: TableDataType.BUTTON, content: {
-          text: budget.getNextStatusActionInfo().text,
-          icon: budget.getNextStatusActionInfo().icon,
-          color: 'cool-gray'
-        }
-      };
+      if (index) {
+        this.data[index][4] = {type: TableDataType.PILL, content: budget.getStatusInfo()};
+        this.data[index][5] = {type: TableDataType.BUTTON, content: {
+            text: budget.getNextStatusActionInfo().text,
+            icon: budget.getNextStatusActionInfo().icon,
+            color: 'cool-gray'
+          }
+        };
+      }
     });
   }
 

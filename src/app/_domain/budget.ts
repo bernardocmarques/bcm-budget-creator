@@ -36,6 +36,7 @@ export class Budget {
   items: BudgetItem[] = null;
   pdfLink: string = null;
   status: Status = 0;
+  totalPaid: number = 0;
 
   constructor(source: Partial<Budget>, key?: string) {
     for (const key in source) {
@@ -71,7 +72,7 @@ export class Budget {
       case Status.IN_PROGRESS:
         return { text: 'In Progress', color: 'blue' };
       case Status.FOR_PAYMENT:
-        return { text: 'For Payment', color: 'pink' };
+        return { text: 'For Payment - ' + (this.getTotalPrice() - this.totalPaid) + '€', color: 'pink' };
       case Status.PAID:
         return { text: 'Paid', color: 'green' };
       default:
@@ -82,12 +83,16 @@ export class Budget {
   getNextStatusActionInfo(): { text: string, icon: string } {
     switch (this.status) {
       case Status.IN_PROGRESS:
-        return { text: 'Mark for payment', icon: 'credit-card-outline' };
+        return { text: 'Mark for payment', icon: 'checkmark-circle-outline' };
       case Status.FOR_PAYMENT:
-        return { text: 'Mark as paid', icon: 'checkmark-circle-outline' };
+        return { text: 'Make payment', icon: 'credit-card-outline' };
       default:
         return { text: 'No action', icon: 'flash-outline' }
     }
+  }
+
+  getTotalPrice(): number {
+    return this.items.map(item => item.quantity * item.price).reduce((total, value) => total + value);
   }
 }
 
@@ -99,7 +104,7 @@ export class BudgetDatabase {
   items: BudgetItem[] = null;
   pdfLink: string = null;
   status: Status = 0;
-
+  totalPaid: number = 0;
 
   constructor(source: Partial<BudgetDatabase>, key?: string) {
     for(const key in source){
