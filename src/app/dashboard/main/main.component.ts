@@ -60,8 +60,11 @@ export class MainComponent implements OnInit, AfterViewInit {
       budgets.forEach(budget => {
         if (budget.status === Status.PAID)
           budget.items.forEach(item => totalEarnings += item.price)
-        if (budget.status === Status.FOR_PAYMENT)
+        if (budget.status === Status.FOR_PAYMENT) {
           pendingPayments++;
+          if (budget.totalPaid > 0)
+            totalEarnings += budget.totalPaid;
+        }
       });
 
       this.cards.earnings.value = totalEarnings;
