@@ -12,7 +12,8 @@ export interface BudgetItem {
 export enum Status {
   IN_PROGRESS,
   FOR_PAYMENT,
-  PAID
+  PAID,
+  DENIED
 }
 
 export function getStatusString(status: Status): string {
@@ -23,6 +24,8 @@ export function getStatusString(status: Status): string {
       return 'For Payment';
     case Status.PAID:
       return 'Paid';
+    case Status.DENIED:
+      return 'Denied';
     default:
       return 'No status';
   }
@@ -75,6 +78,8 @@ export class Budget {
         return { text: 'For Payment - ' + (this.getTotalPrice() - this.totalPaid) + '€', color: 'pink' };
       case Status.PAID:
         return { text: 'Paid', color: 'green' };
+      case Status.DENIED:
+        return { text: 'Denied', color: 'red' };
       default:
         return { text: 'No status', color: 'gray' }
     }

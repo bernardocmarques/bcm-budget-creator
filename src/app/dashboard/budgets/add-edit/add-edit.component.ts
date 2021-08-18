@@ -7,7 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../../_services/alert.service";
 import {CacheService} from "../../../_services/cache.service";
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
-import {digitCount, numberWithCommas} from "../../../_util/number";
+import {numberWithCommas} from "../../../_util/number";
 import {hoursToString} from "../../../_util/time";
 
 @Component({
@@ -31,11 +31,9 @@ export class AddEditComponent implements OnInit {
     budgetID: null
   }
 
-  status: {value: Status, text: string}[] = [
-    {value: Status.IN_PROGRESS, text: getStatusString(Status.IN_PROGRESS)},
-    {value: Status.FOR_PAYMENT, text: getStatusString(Status.FOR_PAYMENT)},
-    {value: Status.PAID, text: getStatusString(Status.PAID)},
-  ];
+  status: {value: Status, text: string}[] = Object.keys(Status)
+    .filter(key => !isNaN(Number(Status[key])))
+    .map(key => { return {value: Status[key], text: getStatusString(Status[key])} });
 
   headers: {label: string, value: any}[];
   footers: string[];

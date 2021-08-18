@@ -10,7 +10,7 @@ A [budget creator](https://bcm-budget-creator.web.app/) that allows to easily an
 
 ## Suggestions
 
-- [ ] Add new budget state - DENIED
+- [x] ~~Add new budget state - DENIED~~
 - [x] ~~Split payments into multiple partitions~~
 - [ ] Set dates for when it should be paid
 - [x] ~~Generate IDs automatically~~
