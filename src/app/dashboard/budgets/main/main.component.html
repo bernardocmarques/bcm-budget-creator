@@ -79,7 +79,7 @@
     [positiveBtnText]="'Pay'"
     [positiveBtnColor]="'green'"
     (positiveBtnClicked)="payBudget(budgetToPay)"
-    (closeBtnClicked)="isPayModalOpen = false"
+    (closeBtnClicked)="isPayModalOpen = false; this.amountToPay = null"
     [actionInProgress]="paying">
   </app-modal>
 </ng-container>

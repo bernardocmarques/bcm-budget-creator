@@ -211,7 +211,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.cacheService.userBudgets = null;
       if (this.budgetToPay.getTotalPrice() === this.budgetToPay.totalPaid) {
         this.changeStatus(this.budgetToPay);
-        this.alertService.showAlert('Budget paid', 'Budget ' + budget.id + ' is fully paid', 'success');
+        this.alertService.showAlert('Budget fully paid', 'Budget ' + budget.id + ' is fully paid', 'success');
       } else this.alertService.showAlert('Paid ' + this.amountToPay + '€', 'Added payment of ' + this.amountToPay + '€ to budget ' + budget.id, 'success');
       this.getBudgetsData();
 
@@ -220,6 +220,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     }).finally(() => {
       this.paying = false;
       this.isPayModalOpen = false;
+      this.amountToPay = null;
     });
   }
 
