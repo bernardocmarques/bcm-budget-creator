@@ -1,5 +1,6 @@
 import {Client} from './client';
 import {Project} from './project';
+import {printMoney} from "../_util/number";
 
 export interface BudgetItem {
   id?: number;
@@ -75,7 +76,7 @@ export class Budget {
       case Status.IN_PROGRESS:
         return { text: 'In Progress', color: 'blue' };
       case Status.FOR_PAYMENT:
-        return { text: 'For Payment - ' + (this.getTotalPrice() - this.totalPaid) + '€', color: 'pink' };
+        return { text: 'For Payment - ' + printMoney(this.getTotalPrice() - this.totalPaid), color: 'pink' };
       case Status.PAID:
         return { text: 'Paid', color: 'green' };
       case Status.DENIED:

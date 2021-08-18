@@ -34,7 +34,7 @@
           [iconSVG]="moneySVG"
           [color]="'green'"
           [title]="'Total earnings'"
-          [subtitle]="formatNumber(cards.earnings.value) + ' €'"
+          [subtitle]="formatMoney(cards.earnings.value)"
           [loading]="cards.earnings.loader">
         </app-card>
       </div>

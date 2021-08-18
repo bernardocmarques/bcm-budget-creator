@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 
 import * as eva from 'eva-icons';
 import {TableDataType} from "../../_components/tables/table-data/table-data.component";
-import {numberWithCommas} from "../../_util/number";
+import {numberWithCommas, printMoney} from "../../_util/number";
 import {CacheService} from "../../_services/cache.service";
 import {Status} from "../../_domain/budget";
 
@@ -532,6 +532,10 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   formatNumber(value: number): string {
     return numberWithCommas(value);
+  }
+
+  formatMoney(value: number): string {
+    return printMoney(value);
   }
 
 }

@@ -3,7 +3,7 @@
 </td>
 
 <td *ngIf="type === tableDataType.MONEY" class="px-4 py-3 text-sm">
-  {{money ? formatMoney(money) + ' €' : ''}}
+  {{money ? formatMoney(money) : ''}}
 </td>
 
 <td *ngIf="type === tableDataType.AVATAR" class="px-4 py-3">

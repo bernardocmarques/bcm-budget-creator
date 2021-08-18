@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {numberWithCommas} from "../../../_util/number";
+import {numberWithCommas, printMoney} from "../../../_util/number";
 
 import * as eva from 'eva-icons';
 import {NgForm} from "@angular/forms";
@@ -147,7 +147,7 @@ export class TableDataComponent implements OnInit, AfterViewInit {
   }
 
   formatMoney(value: number): string {
-    return numberWithCommas(value);
+    return printMoney(value);
   }
 
   showButton(text: string): boolean {

@@ -8,6 +8,7 @@ import {AlertService} from "../../../_services/alert.service";
 import {Router} from "@angular/router";
 import {FirebaseService} from "../../../_services/firebase.service";
 import {NgForm} from "@angular/forms";
+import {printMoney} from "../../../_util/number";
 
 
 @Component({
@@ -196,12 +197,12 @@ export class MainComponent implements OnInit, AfterViewInit {
     }
 
     if (this.amountToPay <= 0) {
-      this.alertService.showAlert('Invalid amount', 'Please enter an amount that\'s bigger than 0€.', 'danger');
+      this.alertService.showAlert('Invalid amount', 'Please enter an amount that\'s bigger than 0.', 'danger');
       return;
     }
 
     if (this.amountToPay > (budget.getTotalPrice() - budget.totalPaid)) {
-      this.alertService.showAlert('Invalid amount', 'Please enter an amount that\'s smaller or equal to ' + (budget.getTotalPrice() - budget.totalPaid) + '€', 'danger');
+      this.alertService.showAlert('Invalid amount', 'Please enter an amount that\'s smaller or equal to ' + printMoney(budget.getTotalPrice() - budget.totalPaid), 'danger');
       return;
     }
 
@@ -212,7 +213,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       if (this.budgetToPay.getTotalPrice() === this.budgetToPay.totalPaid) {
         this.changeStatus(this.budgetToPay);
         this.alertService.showAlert('Budget fully paid', 'Budget ' + budget.id + ' is fully paid', 'success');
-      } else this.alertService.showAlert('Paid ' + this.amountToPay + '€', 'Added payment of ' + this.amountToPay + '€ to budget ' + budget.id, 'success');
+      } else this.alertService.showAlert('Paid ' + printMoney(this.amountToPay), 'Added payment of ' + printMoney(this.amountToPay) + ' to budget ' + budget.id, 'success');
       this.getBudgetsData();
 
     }).catch((error) => {

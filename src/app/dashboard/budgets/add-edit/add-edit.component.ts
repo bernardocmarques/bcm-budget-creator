@@ -7,7 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AlertService} from "../../../_services/alert.service";
 import {CacheService} from "../../../_services/cache.service";
 import {TableDataType} from "../../../_components/tables/table-data/table-data.component";
-import {numberWithCommas} from "../../../_util/number";
+import {numberWithCommas, printMoney} from "../../../_util/number";
 import {hoursToString} from "../../../_util/time";
 
 @Component({
@@ -280,7 +280,7 @@ export class AddEditComponent implements OnInit {
       'Total',
       '',
       hoursToString(this.totalHours),
-      numberWithCommas(this.totalPrice) + ' €',
+      printMoney(this.totalPrice),
       ''
     ];
   }
