@@ -194,7 +194,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     }
 
     else if (showBy === ShowBy.WEEK)
-      return this.stats[stat].selectedTime = this.stats[stat].selectedTime.clone().subtract(7, 'days');
+      this.stats[stat].selectedTime = this.stats[stat].selectedTime.clone().subtract(7, 'days');
 
     if (stat === 'earningsOverTime') this.initChartEarningOverTime();
   }
