@@ -33,15 +33,19 @@ export class ModalComponent implements OnInit {
   @Input() closeBtnText?: string;         // Left btn text
   @Input() positiveBtnText: string;       // Right btn text
   @Input() positiveBtnColor: string;      // Right btn color
+  @Input() extraBtnText?: string;         // Middle btn text
   @Input() actionInProgress?: boolean;    // Show loader while action in progress
 
   @Input() templateRef?: TemplateRef<any>;   // Custom template for modal
 
   @Output() closeBtnClicked: EventEmitter<void> = new EventEmitter();
   @Output() positiveBtnClicked: EventEmitter<void> = new EventEmitter();
+  @Output() extraBtnClicked: EventEmitter<void> = new EventEmitter();
 
   // ignore 1st click outside (the one that triggers the modal)
   ignore = true;
+
+  btnClicked: 'extra' | 'positive';
 
   constructor() { }
 

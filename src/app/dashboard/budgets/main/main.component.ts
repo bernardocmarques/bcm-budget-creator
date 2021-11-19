@@ -196,7 +196,10 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
   }
 
-  payBudget(budget: Budget): void {
+  payBudget(budget: Budget, payFull = false): void {
+    if (payFull)
+      this.amountToPay = budget.getTotalPrice() - budget.totalPaid;
+
     if (!this.amountToPay) {
       this.alertService.showAlert('No amount entered', 'Please enter an amount to pay.', 'danger');
       return;

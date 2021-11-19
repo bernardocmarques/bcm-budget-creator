@@ -57,12 +57,24 @@
         {{closeBtnText ? closeBtnText : 'Cancel'}}
       </button>
 
+      <button *ngIf="extraBtnText" class="flex items-center justify-center w-full px-5 py-3 text-sm font-medium leading-5 text-{{positiveBtnColor}}-500
+              transition-colors duration-150 bg-transparent border border-{{positiveBtnColor}}-500 rounded-lg
+              sm:w-auto sm:px-4 sm:py-2 active:bg-transparent hover:bg-{{positiveBtnColor}}-500 hover:text-white
+              focus:outline-none focus:shadow-outline-{{positiveBtnColor}}" (click)="btnClicked = 'extra'; extraBtnClicked.emit()">
+
+        <ng-container *ngIf="actionInProgress && btnClicked === 'extra'">
+          <app-spinner [size]="5" [color]="'white'" [classList]="'mr-2'"></app-spinner>
+        </ng-container>
+
+        {{extraBtnText}}
+      </button>
+
       <button class="flex items-center justify-center w-full px-5 py-3 text-sm font-medium leading-5 text-white
               transition-colors duration-150 bg-{{positiveBtnColor}}-500 border border-transparent rounded-lg
               sm:w-auto sm:px-4 sm:py-2 active:bg-{{positiveBtnColor}}-500 hover:bg-{{positiveBtnColor}}-600
-              focus:outline-none focus:shadow-outline-{{positiveBtnColor}}" (click)="positiveBtnClicked.emit()">
+              focus:outline-none focus:shadow-outline-{{positiveBtnColor}}" (click)="btnClicked = 'positive'; positiveBtnClicked.emit()">
 
-        <ng-container *ngIf="actionInProgress">
+        <ng-container *ngIf="actionInProgress && btnClicked === 'positive'">
           <app-spinner [size]="5" [color]="'white'" [classList]="'mr-2'"></app-spinner>
         </ng-container>
 

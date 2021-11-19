@@ -79,6 +79,8 @@
     [positiveBtnText]="'Pay'"
     [positiveBtnColor]="'green'"
     (positiveBtnClicked)="payBudget(budgetToPay)"
+    [extraBtnText]="'Pay Full'"
+    (extraBtnClicked)="payBudget(budgetToPay, true)"
     (closeBtnClicked)="isPayModalOpen = false; this.amountToPay = null"
     [actionInProgress]="paying">
   </app-modal>
