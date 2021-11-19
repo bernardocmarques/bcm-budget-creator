@@ -15,6 +15,7 @@ import {ClickOutsideDirective} from "../_directives/click-outside.directive";
 import {InputSelectComponent} from "./inputs/select/input-select/input-select.component";
 import {InputNumberComponent} from "./inputs/general/input-number/input-number.component";
 import {InputEmailComponent} from "./inputs/personal info/input-email/input-email.component";
+import { InputCountryComponent } from './inputs/select/input-country/input-country.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {InputEmailComponent} from "./inputs/personal info/input-email/input-emai
     InputSelectComponent,
     SpinnerComponent,
     ModalComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    InputCountryComponent,
   ],
   exports: [
     CardComponent,
@@ -41,7 +43,8 @@ import {InputEmailComponent} from "./inputs/personal info/input-email/input-emai
     InputToggleComponent,
     SpinnerComponent,
     ModalComponent,
-    InputSelectComponent
+    InputSelectComponent,
+    InputCountryComponent
   ],
   imports: [
     CommonModule,

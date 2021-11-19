@@ -23,7 +23,7 @@
     "@angular/router": "~12.0.5",
     "@ngneat/tailwind": "^7.0.3",
     "angular-datatables": "^13.0.0",
-    "apexcharts": "^3.27.1",
+    "apexcharts": "^3.30.0",
     "datatables.net": "^1.10.25",
     "datatables.net-dt": "^1.1.0",
     "eva-icons": "^1.1.3",

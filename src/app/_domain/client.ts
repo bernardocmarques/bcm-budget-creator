@@ -6,6 +6,7 @@ export class Client {
   company?: string = null;
   id: string = null;
   avatar?: string = null;
+  country?: string = null;
 
   public firebaseService: FirebaseService;
 

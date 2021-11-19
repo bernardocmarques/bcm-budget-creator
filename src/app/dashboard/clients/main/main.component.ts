@@ -19,10 +19,11 @@ export class MainComponent implements OnInit, AfterViewInit {
   data: {type: TableDataType, content: any}[][];
   loading: boolean;
 
-  inputs: {id: string, name: string, company: string} = {
+  inputs: {id: string, name: string, company: string, country: string} = {
     id: null,
     name: null,
-    company: null
+    company: null,
+    country: null,
   };
 
   isModalOpen: boolean;
@@ -41,6 +42,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       {label: 'client', value: this.inputs.name},
       {label: 'client id', value: this.inputs.id},
       {label: 'company', value: this.inputs.company},
+      {label: 'country', value: this.inputs.country},
       {label: 'actions', value: 'no-sort-filter'}
     ];
     this.getClientsData();
@@ -62,6 +64,7 @@ export class MainComponent implements OnInit, AfterViewInit {
           {type: TableDataType.AVATAR, content: {src: client.getAvatar(), name: client.name}},
           {type: TableDataType.TEXT, content: client.id},
           {type: TableDataType.TEXT, content: client.company},
+          {type: TableDataType.TEXT, content: client.country},
           {type: TableDataType.ACTIONS, content: ['edit', 'delete']}
         ]);
       });

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class ThemeService {
 
   private darkTheme: boolean = null;
+  private themeChange: Subject<boolean> = new Subject<boolean>();
 
   constructor() { }
 
@@ -28,6 +30,11 @@ export class ThemeService {
     this.darkTheme = value;
     window.localStorage.setItem('dark', value);
     // TODO: save to database
+    this.themeChange.next(this.darkTheme);
+  }
+
+  get update(): Subject<boolean> {
+    return this.themeChange;
   }
 
   isDark(): boolean {

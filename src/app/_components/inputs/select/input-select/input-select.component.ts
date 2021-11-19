@@ -19,6 +19,9 @@ export class InputSelectComponent<T> implements OnInit, AfterViewInit {
   @Input() classList?: string;                            // Classes to add
   @Input() disabled?: boolean;                            // Make it disabled
 
+  // Variants
+  @Input() size?: 'sm' | 'md' | 'lg' = 'md';              // Height of select
+
   @Input() customCompare?: (t1: T, t2: T) => boolean = this.compareFn; //function to compare values
 
   // Validity

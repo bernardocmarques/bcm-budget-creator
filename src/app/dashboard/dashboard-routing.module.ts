@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
-import {StatisticsComponent} from "./statistics/statistics.component";
 import {SettingsComponent} from "./settings/settings.component";
 import {AccountComponent} from "./settings/account/account.component";
 import {CustomizationComponent} from "./settings/customization/customization.component";
@@ -30,7 +29,6 @@ const routes: Routes = [
         path: 'budgets',
         loadChildren: () => import('./budgets/budgets.module').then(mod => mod.BudgetsModule),
       },
-      { path: 'statistics', component: StatisticsComponent },
       { path: 'settings',
         component: SettingsComponent,
         children: [

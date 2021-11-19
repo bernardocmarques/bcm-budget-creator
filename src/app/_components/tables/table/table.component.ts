@@ -13,7 +13,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() id: string;
   @Input() classList: string;
 
-  @Input() headers: {label: string, value: any}[];
+  @Input() headers: {label: string, value?: any}[];
   @Input() footers: string[];
 
   @Input() data: {type: TableDataType, content: any}[][];
@@ -22,6 +22,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() loading: boolean;
 
   @Input() itemsList: boolean;
+
+  @Input() plain: boolean;
 
   @Output() btnClicked: EventEmitter<{row: number, col: number}> = new EventEmitter<{row: number, col: number}>();
   @Output() viewBtnClicked: EventEmitter<number> = new EventEmitter<number>();
@@ -47,7 +49,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.itemsList) return;
+    if (this.itemsList || this.plain) return;
     if (changes.loading && !changes.loading.currentValue) this.buildDatatable();
     else if (!changes.loading && changes.data) this.buildDatatable();
   }

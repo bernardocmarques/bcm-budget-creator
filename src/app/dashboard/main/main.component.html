@@ -21,23 +21,23 @@
     <!-- Cards -->
     <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
 
-      <app-card
-        [iconSVG]="completedSVG"
-        [color]="'orange'"
-        [title]="'Projects completed'"
-        [subtitle]="formatNumber(cards.projects.value)"
-        [loading]="cards.projects.loader">
-      </app-card>
-
-      <div class="cursor-pointer" [routerLink]="'/dashboard/statistics'">
+      <div class="cursor-pointer" [routerLink]="'/dashboard/projects'">
         <app-card
-          [iconSVG]="moneySVG"
-          [color]="'green'"
-          [title]="'Total earnings'"
-          [subtitle]="formatMoney(cards.earnings.value)"
-          [loading]="cards.earnings.loader">
+          [iconSVG]="completedSVG"
+          [color]="'orange'"
+          [title]="'Projects completed'"
+          [subtitle]="formatNumber(cards.projects.value)"
+          [loading]="cards.projects.loader">
         </app-card>
       </div>
+
+      <app-card
+        [iconSVG]="moneySVG"
+        [color]="'green'"
+        [title]="'Total earnings'"
+        [subtitle]="formatMoney(cards.earnings.value)"
+        [loading]="cards.earnings.loader">
+      </app-card>
 
       <div class="cursor-pointer" [routerLink]="'/dashboard/clients'">
         <app-card
@@ -49,24 +49,134 @@
         </app-card>
       </div>
 
-      <app-card
-        [icon]="'clock'"
-        [color]="'pink'"
-        [title]="'Pending payments'"
-        [subtitle]="formatNumber(cards.pending.value)"
-        [loading]="cards.pending.loader">
-      </app-card>
+      <div class="cursor-pointer" [routerLink]="'/dashboard/budgets'">
+        <app-card
+          [icon]="'clock'"
+          [color]="'pink'"
+          [title]="'Pending payments'"
+          [subtitle]="formatNumber(cards.pending.value)"
+          [loading]="cards.pending.loader">
+        </app-card>
+      </div>
 
     </div>
 
-    <!-- Recent Activity Table -->
-    <app-table
-      [id]="'recent-activity-table'"
-      [classList]="'mb-8'"
-      [headers]="headers"
-      [data]="data"
-      [loading]="loadingTable">
-    </app-table>
+    <!-- Charts -->
+    <div class="grid grid-rows-2 gap-6 mb-8">
+
+      <!-- 1st row -->
+<!--      <div class="grid gap-0 grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">-->
+<!--        <div class="col-span-full">-->
+<!--          <ng-container-->
+<!--            [ngTemplateOutlet]="cardHeader"-->
+<!--            [ngTemplateOutletContext]="{ stat: 'timeFor', title: 'Time for completion & payment', canShowBy: true, canFilter: true }">-->
+<!--          </ng-container>-->
+<!--        </div>-->
+
+<!--        <div class="col-span-full lg:col-span-2 p-4 bg-yellow-400">A</div>-->
+<!--        <div class="col-span-full sm:col-span-1 lg:col-span-1 p-4 bg-green-400">B</div>-->
+<!--        <div class="col-span-full sm:col-span-1 lg:col-span-1 p-4 bg-purple-600">C</div>-->
+<!--      </div>-->
+
+      <!-- 2nd row -->
+      <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+
+        <!-- Earnings over time -->
+        <div class="col-span-full lg:col-span-2 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+          <ng-container
+            [ngTemplateOutlet]="cardHeader"
+            [ngTemplateOutletContext]="{ stat: 'earningsOverTime', title: 'Earnings over time', canShowBy: true, canFilter: true }">
+          </ng-container>
+
+          <div class="p-4">
+            <ng-container
+              [ngTemplateOutlet]="selectedTime"
+              [ngTemplateOutletContext]="{ stat: 'earningsOverTime' }">
+            </ng-container>
+
+            <ng-container *ngIf="!stats.earningsOverTime.loader">
+              <app-earnings-over-time [data]="stats.earningsOverTime.data"></app-earnings-over-time>
+            </ng-container>
+
+            <div *ngIf="stats.earningsOverTime.loader" class="flex justify-center mt-3">
+              <app-spinner [size]="8" [color]="'indigo'"></app-spinner>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clients by country -->
+        <div class="col-span-full sm:col-span-1 lg:col-span-1 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+          <ng-container
+            [ngTemplateOutlet]="cardHeader"
+            [ngTemplateOutletContext]="{ stat: 'clientsByCountry', title: 'Clients by country', canShowBy: false, canFilter: false }">
+          </ng-container>
+
+          <app-table
+            [id]="'clients-by-country-table'"
+            [headers]="stats.clientsByCountry.headers"
+            [data]="stats.clientsByCountry.data"
+            [loading]="stats.clientsByCountry.loader"
+            [plain]="true">
+          </app-table>
+        </div>
+
+        <!-- TODO -->
+        <div class="col-span-full sm:col-span-1 lg:col-span-1 p-4 bg-indigo-500 rounded-lg shadow-xs">
+          <h4 class="font-semibold text-white">Todo: add time for completion & payment on upper row</h4>
+        </div>
+      </div>
+    </div>
 
   </div>
 </main>
+
+
+<!-- Card header template -->
+<ng-template #cardHeader let-stat="stat" let-title="title" let-canShowBy="canShowBy" let-canFilter="canFilter">
+  <div class="flex items-center justify-between w-full rounded-t-lg border-b-2 border-gray-100 dark:border-gray-700"
+    [ngClass]="{'p-4': canShowBy, 'px-4 py-5': !canShowBy}">
+
+    <!-- Left side / Title -->
+    <h4 class="font-semibold text-gray-800 dark:text-gray-300">{{title}}</h4>
+
+    <!-- Right side -->
+    <div class="flex items-center">
+      <!-- Show by -->
+      <ng-container *ngIf="canShowBy">
+        <app-input-select
+          [id]="stat"
+          [size]="'sm'"
+          [(value)]="stats[stat]['showBy']"
+          (valueChange)="onShowByChange(stat)"
+          [options]="showByOptions"
+          [classList]="'ml-3'"
+        ></app-input-select>
+      </ng-container>
+
+      <!-- Filter -->
+      <i *ngIf="canFilter" [attr.data-eva]="'options-2'" class="w-5 h-5 cursor-pointer ml-3 text-cool-gray-400 hover:text-cool-gray-500
+              dark:text-gray-500 dark:hover:text-gray-400 fill-current"></i>
+    </div>
+  </div>
+</ng-template>
+
+
+<!-- Selected time template -->
+<ng-template #selectedTime let-stat="stat">
+  <div class="flex items-center justify-center">
+    <!-- Previous -->
+    <button class="mr-3 outline-none" (click)="previous(stat)">
+      <i [attr.data-eva]="'chevron-left-outline'" class="w-6 h-6 text-cool-gray-400
+                hover:text-cool-gray-500 dark:text-gray-500 dark:hover:text-gray-400 fill-current"></i>
+    </button>
+
+    <!-- Time -->
+    <span class="font-bold text-sm text-gray-700 dark:text-gray-300">{{formatTime(stat)}}</span>
+
+    <!-- Next -->
+    <button class="ml-3 outline-none" [ngClass]="{'invisible': !hasNext(stat)}" [disabled]="!hasNext(stat)" (click)="next(stat)">
+      <i [attr.data-eva]="'chevron-right-outline'" class="w-6 h-6 text-cool-gray-400
+                hover:text-cool-gray-500 dark:text-gray-500 dark:hover:text-gray-400 fill-current"></i>
+    </button>
+  </div>
+</ng-template>

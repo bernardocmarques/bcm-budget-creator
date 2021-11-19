@@ -47,8 +47,15 @@
             ></app-input-text>
           </div>
 
-          <!-- ID -->
-          <div class="grid grid-cols-1 mb-8">
+          <div class="sm:grid sm:grid-cols-2 sm:gap-3 mb-6">
+            <app-input-country
+              [label]="'Country'"
+              [id]="'conutry'"
+              [form]="f"
+              [(value)] = "client.country"
+              [classList]="'mb-6 sm:mb-0'"
+            ></app-input-country>
+
             <app-input-text
               [label]="'Client ID'"
               [placeholder]="'ID'"

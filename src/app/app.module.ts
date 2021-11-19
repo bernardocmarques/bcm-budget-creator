@@ -11,6 +11,7 @@ import {AngularFirestoreModule} from "@angular/fire/firestore";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 
 import {DataTablesModule} from "angular-datatables";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 declare let $: any;
 
@@ -26,7 +27,8 @@ declare let $: any;
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule, // auth
-    DataTablesModule
+    DataTablesModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
