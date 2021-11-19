@@ -380,6 +380,7 @@ export class AddEditComponent implements OnInit {
       budgetToUpdate.items = this.items;
 
       if (this.mode == "add") {
+        budgetToUpdate.creationTimestamp = new Date().getTime();
         this.firebaseService.addBudget(budgetToUpdate).then(() => {
           this.cacheService.userBudgets = null;
           this.alertService.showAlert('New budget created!', 'New budget successfully created.', 'success');

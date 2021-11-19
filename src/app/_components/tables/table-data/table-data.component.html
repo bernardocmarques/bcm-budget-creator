@@ -47,7 +47,7 @@
 </td>
 
 <td *ngIf="type === tableDataType.DATE" class="px-4 py-3 text-sm">
-  {{date ? date.toLocaleDateString() : ''}}
+  {{date ? formatDate(date) : ''}}
 </td>
 
 <td *ngIf="type === tableDataType.BUTTON" class="flex px-4 py-3 text-sm">

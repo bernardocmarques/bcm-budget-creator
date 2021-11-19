@@ -21,12 +21,13 @@ export class MainComponent implements OnInit, AfterViewInit {
   data: {type: TableDataType, content: any}[][];
   loading: boolean;
 
-  inputs: {id: string, client: string, project: string, price: number, status: Status} = {
+  inputs: {id: string, client: string, project: string, price: number, status: Status, creationTimestamp: number} = {
     id: null,
     client: null,
     project: null,
     price: null,
-    status: null
+    status: null,
+    creationTimestamp: null
   };
 
   isModalOpen: boolean;
@@ -47,10 +48,11 @@ export class MainComponent implements OnInit, AfterViewInit {
   @ViewChild('f', { static: false }) f: NgForm;
 
   tableOptions = {
-    order: [[ 2, 'desc' ]], // default order
+    order: [[ 4, 'desc' ]], // default order
     columnDefs: [
-      { type: 'natural', targets: [0, 1, 2, 3, 4] },
-      { orderable: false, targets: [5, 6, 7] }, // not order last rows (actions)
+      { orderData: 3,   targets: 4 }, // date order by timestamp
+      { type: 'natural', targets: [0, 1, 2, 3, 4, 5, 6] },
+      { orderable: false, targets: [7, 8, 9] }, // not order last rows (actions)
     ]
   }
 
@@ -66,6 +68,8 @@ export class MainComponent implements OnInit, AfterViewInit {
       {label: 'client', value: this.inputs.client},
       {label: 'project', value: this.inputs.project},
       {label: 'budget id', value: this.inputs.id},
+      {label: 'date TS (sorting)', value: 'no-sort-filter'},
+      {label: 'date', value: this.inputs.creationTimestamp},
       {label: 'price', value: this.inputs.price},
       {label: 'status', value: this.inputs.status},
       {label: 'change status', value: 'no-sort-filter'},
@@ -95,6 +99,8 @@ export class MainComponent implements OnInit, AfterViewInit {
           },
           {type: TableDataType.TEXT, content: budget.project.name},
           {type: TableDataType.TEXT, content: budget.id},
+          {type: TableDataType.TEXT, content: budget.creationTimestamp},
+          {type: TableDataType.DATE, content: budget.creationTimestamp},
           {
             type: TableDataType.MONEY,
             content: budget.getTotalPrice()
@@ -157,9 +163,9 @@ export class MainComponent implements OnInit, AfterViewInit {
         this.isModalOpen = true;
         this.budgetToDelete = budget;
       } else if (budget && action === 'btn-clicked') {
-        if (col === 6) this.openPDF(budget.pdfLink);
-        else if (col === 5 && budget.status !== Status.FOR_PAYMENT) this.changeStatus(budget, index);
-        else if (col === 5 && budget.status === Status.FOR_PAYMENT) {
+        if (col === 8) this.openPDF(budget.pdfLink);
+        else if (col === 7 && budget.status !== Status.FOR_PAYMENT) this.changeStatus(budget, index);
+        else if (col === 7 && budget.status === Status.FOR_PAYMENT) {
           this.isPayModalOpen = true;
           this.budgetToPay = budget;
         }
@@ -226,14 +232,20 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   changeStatus(budget: Budget, index?: number): void {
-    if (budget.status === Status.IN_PROGRESS) budget.status = Status.FOR_PAYMENT;
-    else if (budget.status === Status.FOR_PAYMENT) budget.status = Status.PAID;
+    if (budget.status === Status.IN_PROGRESS) {
+      budget.status = Status.FOR_PAYMENT;
+      budget.completeTimestamp = new Date().getTime();
+
+    } else if (budget.status === Status.FOR_PAYMENT) {
+      budget.status = Status.PAID;
+      budget.paidTimestamp = new Date().getTime();
+    }
 
     this.injector.get(FirebaseService).setBudget(budget).then(() => {
       this.cacheService.userBudgets = null;
       if (index) {
-        this.data[index][4] = {type: TableDataType.PILL, content: budget.getStatusInfo()};
-        this.data[index][5] = {type: TableDataType.BUTTON, content: {
+        this.data[index][6] = {type: TableDataType.PILL, content: budget.getStatusInfo()};
+        this.data[index][7] = {type: TableDataType.BUTTON, content: {
             text: budget.getNextStatusActionInfo().text,
             icon: budget.getNextStatusActionInfo().icon,
             color: 'cool-gray'

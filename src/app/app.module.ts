@@ -8,7 +8,9 @@ import { AppComponent } from './app.component';
 import { environment } from "src/environments/environment";
 import {AngularFireModule} from "@angular/fire";
 import {AngularFirestoreModule} from "@angular/fire/firestore";
-import {AngularFireAuthModule} from "@angular/fire/auth"
+import {AngularFireAuthModule} from "@angular/fire/auth";
+
+import {DataTablesModule} from "angular-datatables";
 
 declare let $: any;
 
@@ -24,6 +26,7 @@ declare let $: any;
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule, // auth
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

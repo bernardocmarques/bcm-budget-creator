@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {TableDataType} from "../table-data/table-data.component";
 import {ThemeService} from "../../../_services/theme.service";
-import 'datatables.net';
 
 declare let $;
 
@@ -59,6 +58,14 @@ export class TableComponent implements OnInit, OnChanges {
     const opts = this.options ? Object.assign(this.options, this.defaultOptions) : this.defaultOptions;
     setTimeout(() => {
       this.datatable = $('#' + this.id).DataTable(opts);
+
+      // Hide sorting columns
+      if (opts.hasOwnProperty('columnDefs')) {
+        opts['columnDefs'].forEach(option => {
+          if (option.hasOwnProperty('orderData') && option.hasOwnProperty('targets'))
+            this.datatable.column(option['orderData']).visible(false, false);
+        });
+      }
 
       // Change scrollbar style if dark
       if (this.themeService.isDark()) $('.dataTables_wrapper').addClass('scrollbar-dark scrollbar-table-dark');

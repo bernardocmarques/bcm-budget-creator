@@ -1,8 +1,11 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {numberWithCommas, printMoney} from "../../../_util/number";
+import {printMoney} from "../../../_util/number";
 
 import * as eva from 'eva-icons';
 import {NgForm} from "@angular/forms";
+
+import {Moment} from "moment";
+import * as moment from "moment";
 
 export enum TableDataType {
   TEXT,
@@ -37,7 +40,7 @@ export class TableDataComponent implements OnInit, AfterViewInit {
   pillText?: string;                // Pill text
   pillColor?: string;               // Pill color
 
-  date?: Date;                      // Date
+  date?: Moment;                    // Date
 
   input?: {                         // Input
     id: string,
@@ -82,7 +85,7 @@ export class TableDataComponent implements OnInit, AfterViewInit {
         break;
 
       case TableDataType.DATE:
-        this.date = this.data;
+        this.date = moment(this.data);
         break;
 
       case TableDataType.PILL:
@@ -144,6 +147,10 @@ export class TableDataComponent implements OnInit, AfterViewInit {
 
   get tableDataType(): typeof TableDataType {
     return TableDataType;
+  }
+
+  formatDate(value: Moment): string {
+    return value.format('DD/MM/YYYY');
   }
 
   formatMoney(value: number): string {

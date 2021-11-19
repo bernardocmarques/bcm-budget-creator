@@ -41,6 +41,9 @@ export class Budget {
   pdfLink: string = null;
   status: Status = 0;
   totalPaid: number = 0;
+  creationTimestamp: number = null;
+  completeTimestamp?: number = null;
+  paidTimestamp?: number = null;
 
   constructor(source: Partial<Budget>, key?: string) {
     for (const key in source) {
@@ -111,6 +114,9 @@ export class BudgetDatabase {
   pdfLink: string = null;
   status: Status = 0;
   totalPaid: number = 0;
+  creationTimestamp: number = null;
+  completeTimestamp?: number = null;
+  paidTimestamp?: number = null;
 
   constructor(source: Partial<BudgetDatabase>, key?: string) {
     for(const key in source){
